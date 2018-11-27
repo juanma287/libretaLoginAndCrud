@@ -1,0 +1,22 @@
+<ion-header>
+ 
+  <ion-navbar>
+    <ion-title>Agregar comercio</ion-title>
+  </ion-navbar>
+ 
+</ion-header>
+ 
+<ion-content padding>
+ 
+  <ion-item>
+    <ion-label>Title</ion-label>
+    <ion-input [(ngModel)]="comercio.title" placeholder="Java Sample Approach"></ion-input>
+  </ion-item>
+ 
+  <ion-item>
+    <ion-label>Content</ion-label>
+    <ion-textarea [(ngModel)]="comercio.content" placeholder="Java Technology - Spring Framework"></ion-textarea>
+  </ion-item>
+ 
+  <button ion-button block clear (click)="agregarComercio(comercio)">Add</button>
+</ion-content>

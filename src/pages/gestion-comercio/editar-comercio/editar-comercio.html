@@ -1,0 +1,23 @@
+<ion-header>
+ 
+  <ion-navbar>
+    <ion-title>{{comercio?.title}}</ion-title>
+  </ion-navbar>
+ 
+</ion-header>
+ 
+<ion-content padding>
+ 
+  <ion-item>
+    <ion-label>Title</ion-label>
+    <ion-input [(ngModel)]="comercio.title">{{comercio?.title}}</ion-input>
+  </ion-item>
+ 
+  <ion-item>
+    <ion-label>Content</ion-label>
+    <ion-textarea [(ngModel)]="comercio.content" >{{comercio?.content}}</ion-textarea>
+  </ion-item>
+ 
+  <button ion-button block clear (click)="actualizarComercio(comercio)">Actualizar</button>
+  <button ion-button block clear (click)="eliminarComercio(comercio)">Eliminar</button>
+</ion-content>
