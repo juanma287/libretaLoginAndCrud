@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import {Storage} from '@ionic/storage';
 import * as firebase from 'firebase/app';
 import AuthProvider = firebase.auth.AuthProvider;
@@ -7,28 +8,22 @@ import AuthProvider = firebase.auth.AuthProvider;
 
 @Injectable()
 export class AuthService {
+
 	private user: firebase.User;
 
-
-	constructor(public afAuth: AngularFireAuth, private storage: Storage) {
-		afAuth.authState.subscribe(user => {
+	constructor(
+		public afAuth: AngularFireAuth,
+	    private storage: Storage,
+	    private db: AngularFireDatabase
+	    ) 
+	    {
+		 afAuth.authState.subscribe(user => {
 			this.user = user;
 		});
 
 	}
 
-    // autenticamos al usuario con e-mail y pass
-	signInWithEmail(credentials) {
-		console.log('Sign in with email');
-		return this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password);
-	}
-
-
-    // crear un nuevo usuaruio con e-mail y pass
-	signUp(credentials) {
-		return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email,credentials.password);
-	}
-
+    // retorna true si el usuario esta autenticado
 	get authenticated(): boolean {
 		return this.user !== null;
 	}
@@ -37,32 +32,32 @@ export class AuthService {
 		return this.user && this.user.email;
 	}
 
-   
-	signOut(): Promise<void> {
-		return this.afAuth.auth.signOut();
-	}
+	  // Retorna cuenta de usuario
+	get currentUser(): any {
+	    return this.authenticated ? this.user : null;
+	  }
 
-     // Ingresar con Google
+	  // Retorna user UID
+    get currentUserId(): string {
+	    return this.authenticated ? this.user.uid : '';
+	  }
+
+
+    // REDES SOCIALES
+
+    // Ingresar con Google
 	signInWithGoogle(): Promise<any> {
-		console.log('Sign in with google');
-		return this.socialSignIn(new firebase.auth.GoogleAuthProvider());
-
+		return this.socialSignIn(new firebase.auth.GoogleAuthProvider())
+		.then(() => this.updateUserData());
 	}
 
 	// Ingresar con Facebook
 	signInWithFacebook(): Promise<any> {
-	console.log('Sign in with Facebook');
-		return this.socialSignIn(new firebase.auth.FacebookAuthProvider());
+		return this.socialSignIn(new firebase.auth.FacebookAuthProvider())
+		.then(() => this.updateUserData());
+      
 	}
-  
-    // Resetear pass
-    resetPassword(email: string) {
-    return this.afAuth.auth.sendPasswordResetEmail(email)
-      .then(() => this.storage.set('emailEnviado', true))
-      .catch((error) => this.storage.set('emailEnviado', false))
-  }
 
-    // Ver este modulo, COMENTE LO DEL TOKEN 
 	private socialSignIn(provider: AuthProvider) {
 		if (!(<any>window).cordova) {
 			return this.afAuth.auth.signInWithPopup(provider);
@@ -78,5 +73,49 @@ export class AuthService {
 			});
 		}
 	}
+
+
+    // autenticamos al usuario con e-mail y pass
+	signInWithEmail(credentials) {
+		return this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
+	    .then(() => this.updateUserData());
+      
+	}
+
+    // crear un nuevo usuaruio con e-mail y pass
+	signUp(credentials) {
+		return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email,credentials.password)
+		.then(() => this.updateUserData());
+	}
+
+   
+   // Actualizamos la info del usuario en la BD 
+   public updateUserData(): void {
+    
+    console.log(this.afAuth.auth.currentUser.uid);
+    let path = `usuarios/${this.afAuth.auth.currentUser.uid}`; 
+    let data = {
+                 email: this.afAuth.auth.currentUser.email
+               }
+
+    this.db.object(path).update(data)
+    .catch(error => console.log(error));
+   }
+
+
+    // Resetear pass
+    resetPassword(email: string) {
+    return this.afAuth.auth.sendPasswordResetEmail(email)
+      .then(() => this.storage.set('emailEnviado', true))
+      .catch((error) => this.storage.set('emailEnviado', false))
+    }
+
+
+	  // Cerrar sesion 
+	signOut(): Promise<void> {
+		return this.afAuth.auth.signOut();
+	}
+
+
 
 }

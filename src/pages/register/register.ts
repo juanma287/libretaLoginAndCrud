@@ -44,12 +44,11 @@ export class RegisterPage {
     let loader = this.loading.create({  content: 'Pocesando, espere por favor…',  });
       loader.present().then(() => {
          
-         // REGISTRO
-          this.auth.signUp(credentials).then(
-            () => this.navCtrl.setRoot(HomePage),
-            error => this.erroresRegistro = "Datos incorrectos"
+           // REGISTRO
+          this.auth.signUp(credentials)  
+           .then(() => this.navCtrl.setRoot(HomePage))
+           .catch(error => this.erroresRegistro = "Datos de ingreso incorrectos");
             
-          );
           // finalizo loader
           loader.dismiss()             
         });
@@ -60,17 +59,16 @@ export class RegisterPage {
   // Ingresar con Google
  registerWithGoogle() {
   this.auth.signInWithGoogle()
-    .then(() => this.navCtrl.setRoot(HomePage),
-      error => console.log(error.message)
-    );
+    .then(() => this.navCtrl.setRoot(HomePage))
+    .catch(error => console.log(error.message));  
+    
   }
 
   // Ingresar con Facebook
  registerWithFacebook() {
   this.auth.signInWithFacebook()
-    .then(() => this.navCtrl.setRoot(HomePage),
-      error => console.log(error.message)
-    );
+    .then(() => this.navCtrl.setRoot(HomePage))
+    .catch(error => console.log(error.message));  
   }
 
   // Ingresar con Twitter

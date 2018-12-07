@@ -49,6 +49,11 @@ export class LoginPage {
 
   // Si presiona crear nuevo usuario, lo re-dirigimos a dicha pagina
   register() {
+    this.nav.setRoot(RegisterPage);
+  }
+
+ // luego lo borramos, lo tengo solo para probar  
+  crud() {
     this.nav.setRoot(ComercioPage);
   }
 
@@ -66,10 +71,10 @@ export class LoginPage {
          
        // AUTENTICACION
        this.auth.signInWithEmail(credentials)
-      .then(() => this.nav.setRoot(HomePage),
-        error => this.loginError = "Datos de ingreso incorrectos"
-      );
-      // finalizo loader
+      .then(() => this.nav.setRoot(HomePage))
+      .catch(error => this.loginError = "Datos de ingreso incorrectos");
+      
+     // finalizo loader
       loader.dismiss()                     
         });
     } 
@@ -78,17 +83,16 @@ export class LoginPage {
   // Ingresar con Google
   loginWithGoogle() {
   this.auth.signInWithGoogle()
-    .then(() => this.nav.setRoot(HomePage),
-      error => console.log(error.message)
-    );
+    .then(() => this.nav.setRoot(HomePage))
+    .catch(error => console.log(error.message));      
   }
 
   // Ingresar con Facebook
   loginWithFacebook() {
   this.auth.signInWithFacebook()
-    .then(() => this.nav.setRoot(HomePage),
-      error => console.log(error.message)
-    );
+    .then(() => this.nav.setRoot(HomePage))
+    .catch(error => console.log(error.message));
+    
   }
 
   // Ingresar con Twitter
