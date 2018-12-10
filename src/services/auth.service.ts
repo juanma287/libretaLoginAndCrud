@@ -32,23 +32,13 @@ export class AuthService {
 		return this.user && this.user.email;
 	}
 
-	  // Retorna cuenta de usuario
-	get currentUser(): any {
-	    return this.authenticated ? this.user : null;
-	  }
-
-	  // Retorna user UID
-    get currentUserId(): string {
-	    return this.authenticated ? this.user.uid : '';
-	  }
-
 
     // REDES SOCIALES
 
     // Ingresar con Google
 	signInWithGoogle(): Promise<any> {
 		return this.socialSignIn(new firebase.auth.GoogleAuthProvider())
-		.then(() => this.updateUserData());
+		.then(() => this.updateUserData()) ;
 	}
 
 	// Ingresar con Facebook
@@ -91,9 +81,8 @@ export class AuthService {
    
    // Actualizamos la info del usuario en la BD 
    public updateUserData(): void {
-    
-    console.log(this.afAuth.auth.currentUser.uid);
-    let path = `usuarios/${this.afAuth.auth.currentUser.uid}`; 
+
+    let path = `lista-usuario/${this.afAuth.auth.currentUser.uid}`; 
     let data = {
                  email: this.afAuth.auth.currentUser.email
                }
@@ -101,6 +90,13 @@ export class AuthService {
     this.db.object(path).update(data)
     .catch(error => console.log(error));
    }
+
+   	  
+   	// Retorna los datos del usuario almacenado en la base
+     infoUsuarioBD(){
+        let path = `lista-usuario/${this.afAuth.auth.currentUser.uid}`; 
+	    return  this.db.object(path).valueChanges();
+	  }
 
 
     // Resetear pass

@@ -10,6 +10,7 @@ import { LoginPage } from "../pages/login/login";
 import { LocalWeatherPage } from "../pages/local-weather/local-weather";
 import { AuthService } from '../services/auth.service';
 
+
 export interface MenuItem {
     title: string;
     component: any;
@@ -21,10 +22,9 @@ export interface MenuItem {
 })
 
 export class MyApp {
+
   @ViewChild(Nav) nav: Nav;
-
   rootPage: any = LoginPage;
-
   appMenuItems: Array<MenuItem>;
 
   constructor(
@@ -58,20 +58,36 @@ export class MyApp {
       this.keyboard.disableScroll(true);
     });
 
+  
+
     this.auth.afAuth.authState
         .subscribe(
           user => {
-            if (user) {
+            if (user)
+             {
+               // Traemos el usuario almacenado en al base de datos 
+              this.auth.infoUsuarioBD()
+              .subscribe(usuarioBD => 
+                        {
+                         console.log(usuarioBD)
+                         console.log("juanma")
+                        }
+               );
+             
               this.rootPage = HomePage;
-            } else {
+             }
+             else
+             {
               this.rootPage = LoginPage;
-            }
+             }
           },
-          () => {
-
+          () =>
+           {
             this.rootPage = LoginPage;
-          }
+           }
         );
+
+
   }
 
   openPage(page) {

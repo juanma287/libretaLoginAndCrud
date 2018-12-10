@@ -9,13 +9,13 @@
 <ion-content padding>
  
   <ion-item>
-    <ion-label>Title</ion-label>
-    <ion-input [(ngModel)]="comercio.title">{{comercio?.title}}</ion-input>
+    <ion-label>Nombre</ion-label>
+    <ion-input [(ngModel)]="comercio.nombre">{{comercio?.nombre}}</ion-input>
   </ion-item>
  
   <ion-item>
-    <ion-label>Content</ion-label>
-    <ion-textarea [(ngModel)]="comercio.content" >{{comercio?.content}}</ion-textarea>
+    <ion-label>Ciudad</ion-label>
+    <ion-textarea [(ngModel)]="comercio.ciudad" >{{comercio?.ciudad}}</ion-textarea>
   </ion-item>
  
   <button ion-button block clear (click)="actualizarComercio(comercio)">Actualizar</button>

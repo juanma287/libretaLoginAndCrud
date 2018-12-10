@@ -5,7 +5,7 @@ import { Comercio } from '../model/comercio/comercio.model';
 @Injectable()
 export class ComercioService {
  
-    private listaComercios = this.db.list<Comercio>('comercio-list');
+    private listaComercios = this.db.list<Comercio>('lista-comercio');
  
     constructor(private db: AngularFireDatabase) { }
  

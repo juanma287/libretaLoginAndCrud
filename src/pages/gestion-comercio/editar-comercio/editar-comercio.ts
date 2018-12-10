@@ -13,8 +13,8 @@ import {ComercioPage} from "../comercio/comercio";
 export class EditarComercioPage {
  
   comercio: Comercio = {
-    title: '',
-    content: ''
+    nombre: '',
+    ciudad: ''
   };
 
   constructor(

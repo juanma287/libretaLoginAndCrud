@@ -21,7 +21,7 @@
  
     <ion-item *ngFor="let comercio of listaComercios$ | async" 
     (click)="editarComercio(comercio)">
-      {{comercio.title}}
+      {{comercio.nombre}}
     </ion-item>
   </ion-list>
      <button (click)="agregarComercio()" ion-button>

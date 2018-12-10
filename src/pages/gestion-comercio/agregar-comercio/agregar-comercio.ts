@@ -11,8 +11,8 @@ import {ComercioPage} from "../comercio/comercio";
 export class AgregarComercioPage {
 
   comercio: Comercio = {
-    title: '',
-    content: ''
+    nombre: '',
+    ciudad: ''
    };
 
 

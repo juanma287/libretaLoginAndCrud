@@ -1,5 +1,7 @@
 export interface Comercio {
     key?: string;
-    title: string;
-    content: string;
+    id_duenio?: string;
+    nombre: string;
+    ciudad: string;
+
 }
