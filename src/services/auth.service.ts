@@ -65,7 +65,7 @@ export class AuthService {
 	}
 
 
-    // autenticamos al usuario con e-mail y pass
+    // Ingreso con e-mail y pass
 	signInWithEmail(credentials) {
 		return this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
 	    .then(() => this.updateUserData());
@@ -93,7 +93,7 @@ export class AuthService {
 
    	  
    	// Retorna los datos del usuario almacenado en la base
-     infoUsuarioBD(){
+   infoUsuarioBD(){
         let path = `lista-usuario/${this.afAuth.auth.currentUser.uid}`; 
 	    return  this.db.object(path).valueChanges();
 	  }

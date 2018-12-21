@@ -60,6 +60,7 @@ export class MyApp {
 
   
 
+
     this.auth.afAuth.authState
         .subscribe(
           user => {
