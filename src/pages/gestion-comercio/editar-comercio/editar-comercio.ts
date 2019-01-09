@@ -11,11 +11,16 @@ import {ComercioPage} from "../comercio/comercio";
   templateUrl: 'editar-comercio.html',
 })
 export class EditarComercioPage {
- 
-  comercio: Comercio = {
+
+ comercio: Comercio = {
+    key:'',
+    id_duenio:'',
+    calle:'',
     nombre: '',
-    ciudad: ''
-  };
+    ciudad: '',
+    clientes: '',
+    productos: ''
+   };
 
   constructor(
     public navCtrl: NavController,

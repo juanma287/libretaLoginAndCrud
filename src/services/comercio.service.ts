@@ -19,22 +19,24 @@ export class ComercioService {
                                     this.estadoConex = estadoConexion;                    
                                 });
     }
-
-  
  
     getListaComercios() {
         return this.listaComercios;
     }
  
     agregarComercio(comercio: Comercio) {   
+
             return this.listaComercios.push(comercio);     
+
     }
  
     actualizarComercio(comercio: Comercio) {
+     
         return this.listaComercios.update(comercio.key, comercio).then(error => console.log(error));
     }
  
     eliminarComercio(comercio: Comercio) {
+      
         return this.listaComercios.remove(comercio.key);
     }
 

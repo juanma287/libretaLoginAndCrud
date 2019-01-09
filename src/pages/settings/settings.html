@@ -16,7 +16,7 @@
     <ion-item-divider color="secondary" class="bold">User Settings</ion-item-divider>
     <ion-item>
       <ion-label>Language</ion-label>
-      <ion-select [(ngModel)]="language" cancelText="Cancel" okText="OK">
+      <ion-select [(ngModel)]="language"  #MySelect (ionChange)="onChange(MySelect.value)" cancelText="Cancel" okText="OK">
         <ion-option value="en-US" selected="true">English (US)</ion-option>
         <ion-option value="en-GB">English (UK)</ion-option>
         <ion-option value="en-CA">English (CA)</ion-option>

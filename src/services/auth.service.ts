@@ -38,7 +38,7 @@ export class AuthService {
     // Ingresar con Google
 	signInWithGoogle(): Promise<any> {
 		return this.socialSignIn(new firebase.auth.GoogleAuthProvider())
-		.then(() => this.updateUserData()) ;
+		.then(() => this.updateUserData());
 	}
 
 	// Ingresar con Facebook
@@ -98,6 +98,11 @@ export class AuthService {
 	    return  this.db.object(path).valueChanges();
 	  }
 
+ 	// Retorna los datos del usuario almacenado en la base
+   infoComercioBD(id_comercio){
+        let path = `lista-comercio/${id_comercio}`;
+	    return  this.db.object(path).valueChanges();
+	  }
 
     // Resetear pass
     resetPassword(email: string) {

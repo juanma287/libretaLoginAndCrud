@@ -11,8 +11,12 @@ import {ComercioPage} from "../comercio/comercio";
 export class AgregarComercioPage {
 
   comercio: Comercio = {
+    id_duenio:'',
+    calle:'',
     nombre: '',
-    ciudad: ''
+    ciudad: '',
+    clientes: '',
+    productos: ''
    };
 
 
@@ -29,9 +33,10 @@ export class AgregarComercioPage {
      var estadoConexion = this.comercioService.estadoConex;
      if(estadoConexion)
      {
-          this.comercioService.agregarComercio(comercio).then(ref => {
+          this.comercioService.agregarComercio(comercio).then(ref => { 
                   this.navCtrl.setRoot(ComercioPage);
-                })
+                })           
+
      }
      else
      {

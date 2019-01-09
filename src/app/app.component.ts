@@ -11,6 +11,11 @@ import { LocalWeatherPage } from "../pages/local-weather/local-weather";
 import { AuthService } from '../services/auth.service';
 
 
+export interface Usuario {
+    cuentas?: any;
+    email?: string;
+    id_comercio?: string;
+}
 export interface MenuItem {
     title: string;
     component: any;
@@ -26,6 +31,12 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = LoginPage;
   appMenuItems: Array<MenuItem>;
+
+  usuario: Usuario = {
+    id_comercio: '',
+    email: '',
+    cuentas: '',
+  };
 
   constructor(
     public platform: Platform,
@@ -67,19 +78,31 @@ export class MyApp {
             if (user)
              {
                // Traemos el usuario almacenado en al base de datos 
-              this.auth.infoUsuarioBD()
-              .subscribe(usuarioBD => 
-                        {
-                         console.log(usuarioBD)
-                         console.log("juanma")
-                        }
-               );
-             
-              this.rootPage = HomePage;
+                this.auth.infoUsuarioBD()
+                .subscribe(usuarioBD => 
+                          {
+                          this.usuario =  usuarioBD;
+                          // verificamos si es cliente o trabaja en un comercio
+                          if(this.usuario.id_comercio != "") 
+                            {
+                              this.auth.infoComercioBD(this.usuario.id_comercio)
+                              .subscribe(comercioBD => console.log(comercioBD))
+                            }
+                          else
+                           {
+                              alert("cliente");
+                           }
+                          
+
+                          
+                          }
+                 );
+               
+                this.rootPage = HomePage;
              }
              else
              {
-              this.rootPage = LoginPage;
+               this.rootPage = LoginPage;
              }
           },
           () =>

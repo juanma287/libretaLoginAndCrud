@@ -33,8 +33,6 @@ export class HomePage {
       } else {
         this.search.name = val;
       }
-    }).catch((err) => {
-      console.log(err)
     });
   }
 

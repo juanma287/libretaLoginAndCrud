@@ -16,4 +16,11 @@ export class SettingsPage {
   logout() {
     this.nav.setRoot(LoginPage);
   }
+
+  onChange(value) {
+  console.log(value);
+    if (value === 'es-AR') {
+    	alert("sad");
+    }
+  }
 }
