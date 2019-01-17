@@ -13,7 +13,17 @@
 
 .common-bg {
   background-color: #FAFBFC;
+   background: url("../assets/img/bg.jpg") no-repeat;
+     background-size: cover;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: 0;
 }
+
+
 
 .button-md {
     border-radius: 50px !important;

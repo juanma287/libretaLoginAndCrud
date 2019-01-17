@@ -18,9 +18,22 @@ import {SettingsPage} from "../pages/settings/settings";
 import {CheckoutTripPage} from "../pages/checkout-trip/checkout-trip";
 import {HomePage} from "../pages/home/home";
 import {LoginPage} from "../pages/login/login";
+
+// gestion de comercios
 import {ComercioPage} from "../pages/gestion-comercio/comercio/comercio";
 import {AgregarComercioPage} from "../pages/gestion-comercio/agregar-comercio/agregar-comercio";
 import {EditarComercioPage} from "../pages/gestion-comercio/editar-comercio/editar-comercio";
+
+// gestion de productos
+import {ProductoPage} from "../pages/gestion-productos/producto/producto";
+import {AgregarProductoPage} from "../pages/gestion-productos/agregar-producto/agregar-producto";
+import {EditarProductoPage} from "../pages/gestion-productos/editar-producto/editar-producto";
+
+import {HomeComercioPage} from "../pages/home-comercio/home-comercio";
+import {AnotadorPage} from "../pages/anotador/anotador";
+import {CuentasPage} from "../pages/cuentas/cuentas";
+import {ClientesPage} from "../pages/clientes/clientes";
+
 
 import {NotificationsPage} from "../pages/notifications/notifications";
 import {RegisterPage} from "../pages/register/register";
@@ -52,10 +65,19 @@ export const firebaseConfig = {
     SettingsPage,
     CheckoutTripPage,
     HomePage,
+    HomeComercioPage,
+    AnotadorPage,
+    CuentasPage,
+    ClientesPage,
     LoginPage,
     ComercioPage,
     AgregarComercioPage,
     EditarComercioPage,
+
+    ProductoPage,
+    AgregarProductoPage,
+    EditarProductoPage,
+
     LocalWeatherPage,
     NotificationsPage,
     RegisterPage,
@@ -84,6 +106,10 @@ export const firebaseConfig = {
     SettingsPage,
     CheckoutTripPage,
     HomePage,
+    HomeComercioPage,
+    AnotadorPage,
+    CuentasPage,
+    ClientesPage,
     LoginPage,
     LocalWeatherPage,
     NotificationsPage,
@@ -93,7 +119,11 @@ export const firebaseConfig = {
     TripsPage,
     ComercioPage,
     AgregarComercioPage,
-    EditarComercioPage
+    EditarComercioPage,
+
+    ProductoPage,
+    AgregarProductoPage,
+    EditarProductoPage
   ],
   providers: [
     StatusBar,

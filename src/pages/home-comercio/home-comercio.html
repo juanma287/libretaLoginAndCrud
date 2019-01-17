@@ -1,0 +1,52 @@
+<!-- -->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Libreta electrónica - comercio
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button tappable (click)="presentNotifications($event)">
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+      <button ion-button tappable (click)="goToAccount()">
+        <ion-icon name="cog"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="animated fadeIn common-bg	">
+
+<ion-card no-margin margin-bottom class="full-width">
+  <ion-card-header style="font-size: 1.9rem;">
+    Panadería horacio
+  </ion-card-header> 
+  <hr>
+  <ion-list  class="border-bottom">
+	    <ion-item  tappable (click)="choosePlace('from')" class="border-bottom">
+		     <ion-icon name="create" item-start></ion-icon>
+		      Anotador
+	    </ion-item>
+	    <ion-item tappable (click)="choosePlace('from')" class="border-bottom">
+	        <ion-icon name="logo-buffer" item-start></ion-icon>
+	        Cuentas
+	    </ion-item>
+	    <ion-item tappable (click)="choosePlace('from')" class="border-bottom">
+	      <ion-icon name="contacts" item-start></ion-icon>
+	       Clientes
+	    </ion-item>
+	    <ion-item tappable (click)="gestionProductos()" class="border-bottom">
+	      <ion-icon name="cart" item-start></ion-icon>
+	      Productos	      
+	    </ion-item>
+
+
+	   
+  </ion-list>
+</ion-card>
+
+
+</ion-content>

@@ -4,11 +4,14 @@ import { Platform, Nav } from "ionic-angular";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
+import {Storage} from '@ionic/storage';
 
 import { HomePage } from "../pages/home/home";
+import { HomeComercioPage } from "../pages/home-comercio/home-comercio";
 import { LoginPage } from "../pages/login/login";
 import { LocalWeatherPage } from "../pages/local-weather/local-weather";
 import { AuthService } from '../services/auth.service';
+
 
 
 export interface Usuario {
@@ -44,6 +47,7 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public keyboard: Keyboard,
     private auth: AuthService,
+    private storage: Storage, 
   ) {
     this.initializeApp();
 
@@ -82,15 +86,20 @@ export class MyApp {
                 .subscribe(usuarioBD => 
                           {
                           this.usuario =  usuarioBD;
+                          this.storage.set('usuario',this.usuario); // alamecenamos info del usuario en localstorage
+
                           // verificamos si es cliente o trabaja en un comercio
                           if(this.usuario.id_comercio != "") 
                             {
-                              this.auth.infoComercioBD(this.usuario.id_comercio)
-                              .subscribe(comercioBD => console.log(comercioBD))
+                              this.rootPage = HomeComercioPage;
+                             // this.auth.infoComercioBD(this.usuario.id_comercio)
+                             // .subscribe(comercioBD => console.log(comercioBD))
                             }
                           else
                            {
                               alert("cliente");
+                              this.rootPage = HomePage;
+
                            }
                           
 
@@ -98,7 +107,6 @@ export class MyApp {
                           }
                  );
                
-                this.rootPage = HomePage;
              }
              else
              {
