@@ -1,13 +1,19 @@
 
+<!-- -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
-      JSA Note
+      Cuentas
     </ion-title>
- 
     <ion-buttons end>
-      <button navPush="AgregarComercioPage" ion-button>
-        <ion-icon name="add"></ion-icon>
+      <button ion-button tappable (click)="presentNotifications($event)">
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+      <button ion-button tappable (click)="goToAccount()">
+        <ion-icon name="cog"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -16,7 +22,7 @@
 <ion-content padding>
   <ion-list>
     <ion-list-header>
-      Productos
+     info sobre cuentas Comercios
     </ion-list-header>
  
     <ion-item *ngFor="let comercio of listaComercios$ | async" 

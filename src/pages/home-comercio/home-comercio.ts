@@ -9,6 +9,8 @@ import {TripsPage} from "../trips/trips";
 import {SearchLocationPage} from "../search-location/search-location";
 
 import {ProductoPage} from "../gestion-productos/producto/producto";
+import {CuentaPage} from "../gestion-cuentas/cuenta/cuenta";
+import {ClientePage} from "../gestion-clientes/cliente/cliente";
 
 
 @Component({
@@ -39,12 +41,29 @@ export class HomeComercioPage {
     });
   }
 
-  // mostramos el home de productos
-  gestionProductos()
+  gestionMenuComercio(home)
   {
-    this.nav.push(ProductoPage);
+      switch(home) { 
+       case 'cuenta': { 
+          // mostramos el home de cuenta
+          this.nav.push(CuentaPage); 
+          break; 
+          
+       } 
+       case 'cliente': { 
+          // mostramos el home de clientes
+          this.nav.push(ClientePage); 
+          break; 
+       } 
+       case 'producto': {
+          // mostramos el home de productos
+          this.nav.push(ProductoPage);
+          break;    
+       } 
+      }
   }
 
+  
   // go to result page
   doSearch() {
     this.nav.push(TripsPage);

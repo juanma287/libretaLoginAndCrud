@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Comercio } from '../../../model/comercio/comercio.model';
 import { ComercioService } from '../../../services/comercio.service';
-import {ComercioPage} from "../comercio/comercio";
+import { ClientePage } from "../cliente/cliente";
 
 
 
 @Component({
-  selector: 'page-editar-comercio',
-  templateUrl: 'editar-comercio.html',
+  selector: 'page-editar-cliente',
+  templateUrl: 'editar-cliente.html',
 })
-export class EditarComercioPage {
+export class EditarClientePage {
 
  comercio: Comercio = {
     key:'',
@@ -36,13 +36,13 @@ export class EditarComercioPage {
  
   actualizarComercio(comercio: Comercio) {
     this.comercioService.actualizarComercio(comercio).then(() => {
-      this.navCtrl.push(ComercioPage);
+      this.navCtrl.setRoot(ClientePage);
     })
   }
  
   eliminarComercio(comercio: Comercio) {
     this.comercioService.eliminarComercio(comercio).then(() => {
-      this.navCtrl.push(ComercioPage);
+      this.navCtrl.setRoot(ClientePage);
     })
   }
 }

@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { NavController, NavParams,AlertController} from 'ionic-angular';
 import { Comercio } from '../../../model/comercio/comercio.model';
 import { ComercioService } from '../../../services/comercio.service';
-import {ComercioPage} from "../comercio/comercio";
+import { CuentaPage} from "../cuenta/cuenta";
 
 @Component({
-  selector: 'page-agregar-comercio',
-  templateUrl: 'agregar-comercio.html',
+  selector: 'page-agregar-cuenta',
+  templateUrl: 'agregar-cuenta.html',
 })
-export class AgregarComercioPage {
+export class AgregarCuentaPage {
 
   comercio: Comercio = {
     id_duenio:'',
@@ -34,7 +34,7 @@ export class AgregarComercioPage {
      if(estadoConexion)
      {
           this.comercioService.agregarComercio(comercio).then(ref => { 
-                  this.navCtrl.push(ComercioPage);
+                  this.navCtrl.setRoot(CuentaPage);
                 })           
 
      }

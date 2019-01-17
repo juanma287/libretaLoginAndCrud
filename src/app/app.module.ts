@@ -29,10 +29,20 @@ import {ProductoPage} from "../pages/gestion-productos/producto/producto";
 import {AgregarProductoPage} from "../pages/gestion-productos/agregar-producto/agregar-producto";
 import {EditarProductoPage} from "../pages/gestion-productos/editar-producto/editar-producto";
 
+
+// gestion de cuentas
+import {CuentaPage} from "../pages/gestion-cuentas/cuenta/cuenta";
+import {AgregarCuentaPage} from "../pages/gestion-cuentas/agregar-cuenta/agregar-cuenta";
+import {EditarCuentaPage} from "../pages/gestion-cuentas/editar-cuenta/editar-cuenta";
+
+// gestion de clientes
+import {ClientePage} from "../pages/gestion-clientes/cliente/cliente";
+import {AgregarClientePage} from "../pages/gestion-clientes/agregar-cliente/agregar-cliente";
+import {EditarClientePage} from "../pages/gestion-clientes/editar-cliente/editar-cliente";
+
 import {HomeComercioPage} from "../pages/home-comercio/home-comercio";
 import {AnotadorPage} from "../pages/anotador/anotador";
-import {CuentasPage} from "../pages/cuentas/cuentas";
-import {ClientesPage} from "../pages/clientes/clientes";
+
 
 
 import {NotificationsPage} from "../pages/notifications/notifications";
@@ -67,8 +77,6 @@ export const firebaseConfig = {
     HomePage,
     HomeComercioPage,
     AnotadorPage,
-    CuentasPage,
-    ClientesPage,
     LoginPage,
     ComercioPage,
     AgregarComercioPage,
@@ -77,6 +85,14 @@ export const firebaseConfig = {
     ProductoPage,
     AgregarProductoPage,
     EditarProductoPage,
+
+    CuentaPage, 
+    AgregarCuentaPage,
+    EditarCuentaPage,
+
+    ClientePage,
+    AgregarClientePage,
+    EditarClientePage,
 
     LocalWeatherPage,
     NotificationsPage,
@@ -108,8 +124,6 @@ export const firebaseConfig = {
     HomePage,
     HomeComercioPage,
     AnotadorPage,
-    CuentasPage,
-    ClientesPage,
     LoginPage,
     LocalWeatherPage,
     NotificationsPage,
@@ -121,6 +135,14 @@ export const firebaseConfig = {
     AgregarComercioPage,
     EditarComercioPage,
 
+    CuentaPage, 
+    AgregarCuentaPage,
+    EditarCuentaPage,
+
+    ClientePage,
+    AgregarClientePage,
+    EditarClientePage,
+    
     ProductoPage,
     AgregarProductoPage,
     EditarProductoPage
