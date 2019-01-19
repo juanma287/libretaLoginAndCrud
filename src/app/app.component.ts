@@ -9,8 +9,13 @@ import {Storage} from '@ionic/storage';
 import { HomePage } from "../pages/home/home";
 import { HomeComercioPage } from "../pages/home-comercio/home-comercio";
 import { LoginPage } from "../pages/login/login";
-import { LocalWeatherPage } from "../pages/local-weather/local-weather";
+
+import { CuentaPage } from "../pages/gestion-cuentas/cuenta/cuenta";
+import { ClientePage } from "../pages/gestion-clientes/cliente/cliente";
+import { ProductoPage } from "../pages/gestion-productos/producto/producto";
+
 import { AuthService } from '../services/auth.service';
+
 
 
 
@@ -53,7 +58,10 @@ export class MyApp {
 
     this.appMenuItems = [
       {title: 'Home', component: HomePage, icon: 'home'},
-      {title: 'Local Weather', component: LocalWeatherPage, icon: 'partly-sunny'}
+      {title: 'Home-comercio', component: HomeComercioPage, icon: 'home'},
+      {title: 'Cuentas', component: CuentaPage, icon: 'logo-buffer'},
+      {title: 'Clientes', component: ClientePage, icon: 'contacts'},
+      {title: 'Productos', component: ProductoPage, icon: 'cart'}  
     ];
   }
 

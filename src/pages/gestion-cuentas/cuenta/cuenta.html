@@ -9,11 +9,8 @@
       Cuentas
     </ion-title>
     <ion-buttons end>
-      <button ion-button tappable (click)="presentNotifications($event)">
-        <ion-icon name="notifications"></ion-icon>
-      </button>
-      <button ion-button tappable (click)="goToAccount()">
-        <ion-icon name="cog"></ion-icon>
+      <button style="font-size: 2rem;" ion-button tappable (click)="agregarComercio()">
+        <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -22,7 +19,9 @@
 <ion-content padding>
   <ion-list>
     <ion-list-header>
-     info sobre cuentas Comercios
+     
+     {{cantidadDeCuentas}}
+  
     </ion-list-header>
  
     <ion-item *ngFor="let comercio of listaComercios$ | async" 
@@ -30,8 +29,5 @@
       {{comercio.nombre}}
     </ion-item>
   </ion-list>
-     <button (click)="agregarComercio()" ion-button>
-        <ion-icon name="add"></ion-icon>
-      </button>
 
 </ion-content>

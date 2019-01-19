@@ -10,7 +10,6 @@ import {Keyboard} from '@ionic-native/keyboard';
 
 import {ActivityService} from "../services/activity-service";
 import {TripService} from "../services/trip-service";
-import {WeatherProvider} from "../services/weather";
 
 import {MyApp} from "./app.component";
 
@@ -50,7 +49,6 @@ import {RegisterPage} from "../pages/register/register";
 import {SearchLocationPage} from "../pages/search-location/search-location";
 import {TripDetailPage} from "../pages/trip-detail/trip-detail";
 import {TripsPage} from "../pages/trips/trips";
-import {LocalWeatherPage} from "../pages/local-weather/local-weather";
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -94,7 +92,6 @@ export const firebaseConfig = {
     AgregarClientePage,
     EditarClientePage,
 
-    LocalWeatherPage,
     NotificationsPage,
     RegisterPage,
     SearchLocationPage,
@@ -125,7 +122,6 @@ export const firebaseConfig = {
     HomeComercioPage,
     AnotadorPage,
     LoginPage,
-    LocalWeatherPage,
     NotificationsPage,
     RegisterPage,
     SearchLocationPage,
@@ -153,7 +149,6 @@ export const firebaseConfig = {
     Keyboard,
     ActivityService,
     TripService,
-    WeatherProvider,
     AngularFireAuth,
     AuthService,
     ComercioService

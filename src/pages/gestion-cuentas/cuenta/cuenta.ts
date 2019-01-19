@@ -4,8 +4,9 @@ import { Comercio } from '../../../model/comercio/comercio.model';
 import { ComercioService } from '../../../services/comercio.service';
 import { AgregarCuentaPage } from "../agregar-cuenta/agregar-cuenta";
 import { EditarCuentaPage } from "../editar-cuenta/editar-cuenta";
-import {Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { HomeComercioPage } from "../../home-comercio/home-comercio";
+
 
 @Component({
   selector: 'page-cuenta',
@@ -14,6 +15,7 @@ import { HomeComercioPage } from "../../home-comercio/home-comercio";
 export class CuentaPage {
 
   listaComercios$: Observable<Comercio[]>
+  cantidadDeCuentas: string 
 
   constructor(
    	 public navCtrl: NavController,
@@ -34,6 +36,24 @@ export class CuentaPage {
       }));
     });
 	
+    // calculamos la cantidad de cuentas
+    this.listaComercios$.subscribe(result => {
+         switch(result.length) { 
+         case 0: { 
+            this.cantidadDeCuentas = "Aún no se registraron cuentas";
+            break;     
+         } 
+         case 1: { 
+            this.cantidadDeCuentas = "Se ha registrado 1 cuenta"; 
+            break; 
+         } 
+          default: {
+            this.cantidadDeCuentas = "Se encuentran registradas "+ result.length +" cuentas";
+            break;    
+         } 
+        }  
+      });
+
 	   // finalizo loader
     loader.dismiss()                     
     });
