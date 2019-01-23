@@ -44,7 +44,7 @@ import {AnotadorPage} from "../pages/anotador/anotador";
 
 
 
-import {NotificationsPage} from "../pages/notifications/notifications";
+import {ConfiguaracionesPage} from "../pages/configuaraciones/configuaraciones";
 import {RegisterPage} from "../pages/register/register";
 import {SearchLocationPage} from "../pages/search-location/search-location";
 import {TripDetailPage} from "../pages/trip-detail/trip-detail";
@@ -92,7 +92,7 @@ export const firebaseConfig = {
     AgregarClientePage,
     EditarClientePage,
 
-    NotificationsPage,
+    ConfiguaracionesPage,
     RegisterPage,
     SearchLocationPage,
     TripDetailPage,
@@ -122,7 +122,7 @@ export const firebaseConfig = {
     HomeComercioPage,
     AnotadorPage,
     LoginPage,
-    NotificationsPage,
+    ConfiguaracionesPage,
     RegisterPage,
     SearchLocationPage,
     TripDetailPage,

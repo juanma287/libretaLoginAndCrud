@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
-import { NavController, LoadingController} from 'ionic-angular';;
+import { Component} from '@angular/core';
+import { NavController, LoadingController, PopoverController} from 'ionic-angular';;
 import { Comercio } from '../../../model/comercio/comercio.model';
 import { ComercioService } from '../../../services/comercio.service';
 import { AgregarCuentaPage } from "../agregar-cuenta/agregar-cuenta";
 import { EditarCuentaPage } from "../editar-cuenta/editar-cuenta";
 import { Observable } from 'rxjs/Observable';
 import { HomeComercioPage } from "../../home-comercio/home-comercio";
+import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
+
 
 
 @Component({
@@ -15,12 +17,13 @@ import { HomeComercioPage } from "../../home-comercio/home-comercio";
 export class CuentaPage {
 
   listaComercios$: Observable<Comercio[]>
-  cantidadDeCuentas: string 
+  cantidad: string 
 
   constructor(
    	 public navCtrl: NavController,
   	 private comercioService: ComercioService,
   	 public loading: LoadingController,
+     public popoverCtrl: PopoverController
   	 ) 
 	  {
 	  }
@@ -37,21 +40,8 @@ export class CuentaPage {
     });
 	
     // calculamos la cantidad de cuentas
-    this.listaComercios$.subscribe(result => {
-         switch(result.length) { 
-         case 0: { 
-            this.cantidadDeCuentas = "Aún no se registraron cuentas";
-            break;     
-         } 
-         case 1: { 
-            this.cantidadDeCuentas = "Se ha registrado 1 cuenta"; 
-            break; 
-         } 
-          default: {
-            this.cantidadDeCuentas = "Se encuentran registradas "+ result.length +" cuentas";
-            break;    
-         } 
-        }  
+    this.listaComercios$.subscribe(result => {     
+            this.cantidad = "Cantidad de cuentas registradas: "+ result.length +"";      
       });
 
 	   // finalizo loader
@@ -74,4 +64,12 @@ export class CuentaPage {
 
   	 this.navCtrl.push(EditarCuentaPage, {comercio: comercio});
   }
+
+    configuaraciones(myEvent) {
+    let popover = this.popoverCtrl.create(ConfiguaracionesPage);
+    popover.present({
+      ev: myEvent
+    });
+  }
+
 }
