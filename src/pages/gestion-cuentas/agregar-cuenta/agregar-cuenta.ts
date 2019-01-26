@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,AlertController} from 'ionic-angular';
+import { NavController, NavParams,AlertController, PopoverController} from 'ionic-angular';
 import { Comercio } from '../../../model/comercio/comercio.model';
 import { ComercioService } from '../../../services/comercio.service';
 import { CuentaPage} from "../cuenta/cuenta";
+import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 
 @Component({
   selector: 'page-agregar-cuenta',
@@ -24,7 +25,8 @@ export class AgregarCuentaPage {
   	public navCtrl: NavController,
   	public navParams: NavParams,
   	private comercioService: ComercioService,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public popoverCtrl: PopoverController
   	) {
   }
 
@@ -47,6 +49,13 @@ export class AgregarCuentaPage {
         });
         alert.present();
      }  
+  }
+
+   configuaraciones(myEvent) {
+    let popover = this.popoverCtrl.create(ConfiguaracionesPage);
+    popover.present({
+      ev: myEvent
+    });
   }
 
 

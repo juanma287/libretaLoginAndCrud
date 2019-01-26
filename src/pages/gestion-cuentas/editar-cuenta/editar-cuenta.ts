@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Comercio } from '../../../model/comercio/comercio.model';
 import { ComercioService } from '../../../services/comercio.service';
 import { CuentaPage} from "../cuenta/cuenta";
-
+import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 
 
 @Component({
@@ -25,7 +25,9 @@ export class EditarCuentaPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private comercioService: ComercioService) 
+    private comercioService: ComercioService,
+    public popoverCtrl: PopoverController
+    ) 
   {   
   }
 
@@ -44,5 +46,12 @@ export class EditarCuentaPage {
     this.comercioService.eliminarComercio(comercio).then(() => {
       this.navCtrl.setRoot(CuentaPage);
     })
+  }
+
+  configuaraciones(myEvent) {
+    let popover = this.popoverCtrl.create(ConfiguaracionesPage);
+    popover.present({
+      ev: myEvent
+    });
   }
 }

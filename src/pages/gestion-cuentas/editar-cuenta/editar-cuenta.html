@@ -1,23 +1,50 @@
+
+<!-- -->
 <ion-header>
- 
-  <ion-navbar>
-    <ion-title>{{comercio?.title}}</ion-title>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"> </ion-icon>
+    </button>
+    <ion-title>
+     Info Cuenta
+    </ion-title>
+    <ion-buttons end>
+         <button ion-button tappable (click)="configuaraciones($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
- 
 </ion-header>
  
-<ion-content padding>
+<ion-content padding class="checkout-trip common-bg"> 
  
-  <ion-item>
-    <ion-label>Nombre</ion-label>
-    <ion-input [(ngModel)]="comercio.nombre">{{comercio?.nombre}}</ion-input>
-  </ion-item>
+   <div class="card round">
+    <div padding>
+      <ion-item no-padding >
+        <ion-label color="dark" >Nombre:</ion-label>
+        <ion-input type="text"  [(ngModel)]="comercio.nombre" style="color: #999999;"> {{comercio?.nombre}} </ion-input>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label color="dark">Ciudad:</ion-label>
+        <ion-input type="text" [(ngModel)]="comercio.ciudad" style="color: #999999"> {{comercio?.ciudad}}</ion-input>
+      </ion-item>
+    </div>
+  </div>
+  <BR>
+     <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button icon-start block  (click)="actualizarComercio(comercio)">
+             Actualizar
+            </button>
+          </ion-col>   
+          <ion-col col-6>
+            <button ion-button icon-start block color="danger"  (click)="eliminarComercio(comercio)">
+             Eliminar
+            </button>
+          </ion-col>       
+        </ion-row>
+     </ion-grid>
  
-  <ion-item>
-    <ion-label>Ciudad</ion-label>
-    <ion-textarea [(ngModel)]="comercio.ciudad" >{{comercio?.ciudad}}</ion-textarea>
-  </ion-item>
- 
-  <button ion-button block clear (click)="actualizarComercio(comercio)">Actualizar</button>
-  <button ion-button block clear (click)="eliminarComercio(comercio)">Eliminar</button>
+
 </ion-content>

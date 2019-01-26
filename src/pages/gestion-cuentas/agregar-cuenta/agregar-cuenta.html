@@ -1,22 +1,48 @@
+
+<!-- -->
 <ion-header>
- 
-  <ion-navbar>
-    <ion-title>Agregar cuenta</ion-title>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+     Agregar Cuenta
+    </ion-title>
+    <ion-buttons end>
+         <button ion-button tappable (click)="configuaraciones($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
- 
 </ion-header>
+
+<ion-content padding class="checkout-trip common-bg"> 
+
+
+  <div class="card round" margin-top>
+    <div padding>
+      <ion-item no-padding>
+        <ion-label color="dark" floating>Nombre:</ion-label>
+        <ion-input type="text"  [(ngModel)]="comercio.nombre" style="color: #999999"></ion-input>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label color="dark" floating>Ciudad:</ion-label>
+        <ion-input type="text" [(ngModel)]="comercio.ciudad" style="color: #999999"></ion-input>
+      </ion-item>
+    </div>
+  </div>
+
+    
+    <br>
+
+     <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <button ion-button icon-start block  (click)="agregarComercio(comercio)">
+             Agregar
+            </button>
+          </ion-col>     
+        </ion-row>
+      </ion-grid>
  
-<ion-content padding>
- 
-  <ion-item>
-    <ion-label>Nombre</ion-label>
-    <ion-input [(ngModel)]="comercio.nombre"></ion-input>
-  </ion-item>
- 
-  <ion-item>
-    <ion-label>Ciudad</ion-label>
-    <ion-textarea [(ngModel)]="comercio.ciudad"></ion-textarea>
-  </ion-item>
- 
-  <button ion-button block clear (click)="agregarComercio(comercio)">Add</button>
 </ion-content>
