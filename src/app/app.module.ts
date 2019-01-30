@@ -57,6 +57,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AuthService } from '../services/auth.service';
 import { ComercioService } from '../services/comercio.service';
+import { ProductoService } from '../services/producto.service';
+
+
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD8Wj--z7_Xt05oaqZ6PMF29Gh_m4z77Lk",
@@ -151,7 +154,8 @@ export const firebaseConfig = {
     TripService,
     AngularFireAuth,
     AuthService,
-    ComercioService
+    ComercioService,
+    ProductoService
   ]
 })
 

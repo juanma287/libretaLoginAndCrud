@@ -61,11 +61,10 @@ export class CuentaPage {
 
    editarComercio(comercio: Comercio)
   {
-
   	 this.navCtrl.push(EditarCuentaPage, {comercio: comercio});
   }
 
-    configuaraciones(myEvent) {
+   configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);
     popover.present({
       ev: myEvent

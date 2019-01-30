@@ -1,31 +1,46 @@
-
+<!-- -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
-      JSA Note
+      Productos
     </ion-title>
- 
     <ion-buttons end>
-      <button navPush="AgregarComercioPage" ion-button>
+      <button  ion-button tappable (click)="agregarComercio()">
         <ion-icon name="add"></ion-icon>
+      </button>
+         <button ion-button tappable (click)="configuaraciones($event)">
+        <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
  
-<ion-content padding>
+<ion-content padding class="animated fadeIn common-bg ">
+  <ion-card no-margin margin-bottom class="full-width">
   <ion-list>
     <ion-list-header>
-      Productos
+     {{cantidad}}
     </ion-list-header>
- 
-    <ion-item *ngFor="let comercio of listaComercios$ | async" 
-    (click)="editarComercio(comercio)">
-      {{comercio.nombre}}
-    </ion-item>
+    <hr>
+    <ion-item *ngFor="let producto of listaProductos$ | async" 
+    (click)="editarComercio(producto)">
+      {{producto.nombre}}
+     <hr style="margin-top: 0px;  margin-bottom: 0px;">
+    </ion-item> 
+    
   </ion-list>
-     <button (click)="agregarComercio()" ion-button>
-        <ion-icon name="add"></ion-icon>
-      </button>
+</ion-card>
+   <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <button ion-button icon-start block  (click)="agregarComercio()">
+             Agregar
+            </button>
+          </ion-col>     
+        </ion-row>
+      </ion-grid>
 
 </ion-content>

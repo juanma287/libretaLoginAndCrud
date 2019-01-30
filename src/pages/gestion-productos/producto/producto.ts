@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController} from 'ionic-angular';;
-import { Comercio } from '../../../model/comercio/comercio.model';
-import { ComercioService } from '../../../services/comercio.service';
+import { NavController, LoadingController, PopoverController} from 'ionic-angular';;
+import { Producto } from '../../../model/producto/producto.model';
+import { ProductoService } from '../../../services/producto.service';
 import { AgregarProductoPage } from "../agregar-producto/agregar-producto";
 import { EditarProductoPage } from "../editar-producto/editar-producto";
 import {Observable } from 'rxjs/Observable';
-
+import { HomeComercioPage } from "../../home-comercio/home-comercio";
+import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 
 @Component({
   selector: 'page-producto',
@@ -13,12 +14,14 @@ import {Observable } from 'rxjs/Observable';
 })
 export class ProductoPage {
 
-  listaComercios$: Observable<Comercio[]>
+  listaProductos$: Observable<Producto[]>
+  cantidad: string 
 
   constructor(
    	 public navCtrl: NavController,
-  	 private comercioService: ComercioService,
+  	 private productoService: ProductoService,
   	 public loading: LoadingController,
+     public popoverCtrl: PopoverController
   	 ) 
 	  {
 	  }
@@ -27,16 +30,26 @@ export class ProductoPage {
    let loader = this.loading.create({  content: 'Pocesando…',  });
    loader.present().then(() => {
 
-    this.listaComercios$ = this.comercioService.getListaComercios()
+    this.listaProductos$ = this.productoService.getLista()
 	     .snapshotChanges().map(changes => {
          return changes.map (c => ({
          key: c.payload.key, ...c.payload.val()
       }));
     });
+
+          // calculamos la cantidad de productos
+    this.listaProductos$.subscribe(result => {     
+            this.cantidad = "Cantidad de productos registrados: "+ result.length +"";      
+      });
 	
 	   // finalizo loader
     loader.dismiss()                     
     });
+  }
+
+  volverHome()
+  {
+     this.navCtrl.push(HomeComercioPage);
   }
 
   agregarComercio()
@@ -44,9 +57,16 @@ export class ProductoPage {
   	 this.navCtrl.push(AgregarProductoPage);
   }
 
-   editarComercio(comercio: Comercio)
+   editarComercio(producto: Producto)
   {
+  	 this.navCtrl.push(EditarProductoPage, {producto: producto});
+  }
 
-  	 this.navCtrl.push(EditarProductoPage, {comercio: comercio});
+
+  configuaraciones(myEvent) {
+    let popover = this.popoverCtrl.create(ConfiguaracionesPage);
+    popover.present({
+      ev: myEvent
+    });
   }
 }

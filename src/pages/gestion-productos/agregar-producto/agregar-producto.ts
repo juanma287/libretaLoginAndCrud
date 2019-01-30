@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,AlertController} from 'ionic-angular';
-import { Comercio } from '../../../model/comercio/comercio.model';
-import { ComercioService } from '../../../services/comercio.service';
+import { NavController, NavParams,AlertController, PopoverController} from 'ionic-angular';
+import { Producto } from '../../../model/producto/producto.model';
+import { ProductoService } from '../../../services/producto.service';
 import { ProductoPage} from "../producto/producto";
+import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 
 @Component({
   selector: 'page-agregar-producto',
@@ -10,30 +11,32 @@ import { ProductoPage} from "../producto/producto";
 })
 export class AgregarProductoPage {
 
-  comercio: Comercio = {
-    id_duenio:'',
-    calle:'',
+  producto: Producto = {
+    key:'',
     nombre: '',
-    ciudad: '',
-    clientes: '',
-    productos: ''
+    descripcion: '',
+    precio: -1,
+    unidad: '',
+    cantidad: -1
    };
 
 
   constructor(
   	public navCtrl: NavController,
   	public navParams: NavParams,
-  	private comercioService: ComercioService,
-    public alertCtrl: AlertController
+  	private productoService: ProductoService,
+    public alertCtrl: AlertController,
+    public popoverCtrl: PopoverController
+
   	) {
   }
 
 
-  agregarComercio(comercio: Comercio) {
-     var estadoConexion = this.comercioService.estadoConex;
+  agregarComercio(producto: Producto) {
+     var estadoConexion = this.productoService.estadoConex;
      if(estadoConexion)
      {
-          this.comercioService.agregarComercio(comercio).then(ref => { 
+          this.productoService.agregar(producto).then(ref => { 
                   this.navCtrl.setRoot(ProductoPage);
                 })           
 
@@ -49,6 +52,13 @@ export class AgregarProductoPage {
      }  
   }
 
+ 
+  configuaraciones(myEvent) {
+    let popover = this.popoverCtrl.create(ConfiguaracionesPage);
+    popover.present({
+      ev: myEvent
+    });
+  }
 
 
 }

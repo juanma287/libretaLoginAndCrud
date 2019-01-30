@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { Comercio } from '../../../model/comercio/comercio.model';
-import { ComercioService } from '../../../services/comercio.service';
+import { NavController, NavParams, PopoverController} from 'ionic-angular';
+import { Producto } from '../../../model/producto/producto.model';
+import { ProductoService } from '../../../services/producto.service';
 import { ProductoPage } from "../producto/producto";
-
+import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 
 
 @Component({
@@ -12,37 +12,46 @@ import { ProductoPage } from "../producto/producto";
 })
 export class EditarProductoPage {
 
- comercio: Comercio = {
+  producto: Producto = {
     key:'',
-    id_duenio:'',
-    calle:'',
     nombre: '',
-    ciudad: '',
-    clientes: '',
-    productos: ''
+    descripcion: '',
+    precio: -1,
+    unidad: '',
+    cantidad: -1
    };
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private comercioService: ComercioService) 
+    private productoService: ProductoService,
+    public popoverCtrl: PopoverController
+    ) 
   {   
   }
 
   ionViewWillLoad() {
-   this.comercio = this.navParams.get('comercio');
+   this.producto = this.navParams.get('producto');
   }
  
  
-  actualizarComercio(comercio: Comercio) {
-    this.comercioService.actualizarComercio(comercio).then(() => {
+  actualizarComercio(producto: Producto) {
+    this.productoService.actualizar(producto).then(() => {
       this.navCtrl.setRoot(ProductoPage);
     })
   }
  
-  eliminarComercio(comercio: Comercio) {
-    this.comercioService.eliminarComercio(comercio).then(() => {
+  eliminarComercio(producto: Producto) {
+    this.productoService.eliminar(producto).then(() => {
       this.navCtrl.setRoot(ProductoPage);
     })
+  }
+
+  
+  configuaraciones(myEvent) {
+    let popover = this.popoverCtrl.create(ConfiguaracionesPage);
+    popover.present({
+      ev: myEvent
+    });
   }
 }
