@@ -12,12 +12,10 @@ import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 export class AgregarProductoPage {
 
   producto: Producto = {
-    key:'',
     nombre: '',
     descripcion: '',
-    precio: -1,
-    unidad: '',
-    cantidad: -1
+    precio: '',
+    unidad: ''
    };
 
 
@@ -32,7 +30,7 @@ export class AgregarProductoPage {
   }
 
 
-  agregarComercio(producto: Producto) {
+  agregar(producto: Producto) {
      var estadoConexion = this.productoService.estadoConex;
      if(estadoConexion)
      {
@@ -50,6 +48,13 @@ export class AgregarProductoPage {
         });
         alert.present();
      }  
+  }
+
+  onChange(value) {
+  console.log(value);
+    if (value === 'kg') {
+      alert("sad");
+    }
   }
 
  

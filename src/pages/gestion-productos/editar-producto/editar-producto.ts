@@ -16,9 +16,8 @@ export class EditarProductoPage {
     key:'',
     nombre: '',
     descripcion: '',
-    precio: -1,
-    unidad: '',
-    cantidad: -1
+    precio: '',
+    unidad: ''
    };
 
   constructor(
@@ -35,18 +34,25 @@ export class EditarProductoPage {
   }
  
  
-  actualizarComercio(producto: Producto) {
+  actualizar(producto: Producto) {
     this.productoService.actualizar(producto).then(() => {
       this.navCtrl.setRoot(ProductoPage);
     })
   }
  
-  eliminarComercio(producto: Producto) {
+  eliminar(producto: Producto) {
     this.productoService.eliminar(producto).then(() => {
       this.navCtrl.setRoot(ProductoPage);
     })
   }
 
+
+  onChange(value) {
+  console.log(value);
+    if (value === 'kg') {
+      alert("sad");
+    }
+  }
   
   configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);

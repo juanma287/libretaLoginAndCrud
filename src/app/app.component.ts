@@ -15,15 +15,9 @@ import { ClientePage } from "../pages/gestion-clientes/cliente/cliente";
 import { ProductoPage } from "../pages/gestion-productos/producto/producto";
 
 import { AuthService } from '../services/auth.service';
+import { Usuario } from '../model/usuario/usuario.model';
 
 
-
-
-export interface Usuario {
-    cuentas?: any;
-    email?: string;
-    id_comercio?: string;
-}
 export interface MenuItem {
     title: string;
     component: any;
@@ -39,12 +33,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = LoginPage;
   appMenuItems: Array<MenuItem>;
-
-  usuario: Usuario = {
-    id_comercio: '',
-    email: '',
-    cuentas: '',
-  };
+  usuario: Usuario = {id_comercio: '', email: '', cuentas: ''};
 
   constructor(
     public platform: Platform,

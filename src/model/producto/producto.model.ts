@@ -2,8 +2,7 @@ export interface Producto {
 	key?: string;
     nombre: string;
     descripcion: string;
-    precio: number;
+    precio: any;
     unidad:string;
-    cantidad:number;
 
 }

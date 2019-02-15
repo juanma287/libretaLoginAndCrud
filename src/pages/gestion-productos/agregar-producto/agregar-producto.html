@@ -22,25 +22,28 @@
   <div class="card round" margin-top>
     <div padding>
       <ion-item no-padding>
-        <ion-label color="dark" floating>Nombre:*</ion-label>
+        <ion-label color="dark" floating>Nombre:</ion-label>
         <ion-input type="text"  [(ngModel)]="producto.nombre" style="color: #999999"></ion-input>
       </ion-item>
       <ion-item no-padding>
         <ion-label color="dark" floating>Descripcion:</ion-label>
         <ion-input type="text" [(ngModel)]="producto.descripcion" style="color: #999999"></ion-input>
       </ion-item>
-         <ion-item no-padding>
-        <ion-label color="dark" floating>Unidad:</ion-label>
-        <ion-input type="text" [(ngModel)]="producto.unidad" style="color: #999999"></ion-input>
+      <br>
+     <ion-item no-padding>
+        <ion-label color="dark">Unidad:</ion-label>
+        <ion-select  style="color: #999999" [(ngModel)]="producto.unidad"  #MySelect (ionChange)="onChange(MySelect.value)"  okText="Ok" cancelText="Cancelar">
+          <ion-option value="kg" selected="true">Kilogramo</ion-option>
+          <ion-option value="gr">Gramo</ion-option>
+          <ion-option value="unidad" >Unidad</ion-option>
+        </ion-select>
       </ion-item>
-        <ion-item no-padding>
-        <ion-label color="dark" floating>Precio:</ion-label>
+      <ion-item no-padding>
+        <ion-label color="dark" floating *ngIf="producto?.unidad == ''">Precio:</ion-label>
+        <ion-label color="dark" floating *ngIf="producto?.unidad != ''">Precio/{{producto?.unidad}}:</ion-label> 
         <ion-input type="text" [(ngModel)]="producto.precio" style="color: #999999"></ion-input>
       </ion-item>
-        <ion-item no-padding>
-        <ion-label color="dark" floating>Cantidad:</ion-label>
-        <ion-input type="text" [(ngModel)]="producto.cantidad" style="color: #999999"></ion-input>
-      </ion-item>
+    
     </div>
   </div>
 
@@ -50,7 +53,7 @@
      <ion-grid>
         <ion-row>
           <ion-col col-12>
-            <button ion-button icon-start block  (click)="agregarComercio(producto)">
+            <button ion-button icon-start block  (click)="agregar(producto)">
              Agregar
             </button>
           </ion-col>     

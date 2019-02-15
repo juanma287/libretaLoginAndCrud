@@ -27,18 +27,30 @@
         <ion-label color="dark">Descripcion:</ion-label>
         <ion-input type="text" [(ngModel)]="producto.descripcion" style="color: #999999"> {{producto?.descripcion}}</ion-input>
       </ion-item>
+       <ion-item no-padding>
+        <ion-label color="dark">Unidad:</ion-label>
+        <ion-select  style="color: #999999" [(ngModel)]="producto.unidad"  #MySelect (ionChange)="onChange(MySelect.value)" okText="Ok" cancelText="Cancelar">
+          <ion-option value="kg">Kilogramo</ion-option>
+          <ion-option value="gr">Gramo</ion-option>
+          <ion-option value="unidad" >Unidad</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label color="dark">Precio/{{producto?.unidad}}:</ion-label>
+        <ion-input type="text" [(ngModel)]="producto.precio" style="color: #999999">{{producto?.precio}}</ion-input>
+      </ion-item>
     </div>
   </div>
   <BR>
      <ion-grid>
         <ion-row>
           <ion-col col-6>
-            <button ion-button icon-start block  (click)="actualizarComercio(producto)">
+            <button ion-button icon-start block  (click)="actualizar(producto)">
              Actualizar
             </button>
           </ion-col>   
           <ion-col col-6>
-            <button ion-button icon-start block color="danger"  (click)="eliminarComercio(producto)">
+            <button ion-button icon-start block color="danger"  (click)="eliminar(producto)">
              Eliminar
             </button>
           </ion-col>       
