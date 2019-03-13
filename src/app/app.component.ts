@@ -33,7 +33,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = LoginPage;
   appMenuItems: Array<MenuItem>;
-  usuario: Usuario = {id_comercio: '', email: '', cuentas: ''};
+  usuario: Usuario;
 
   constructor(
     public platform: Platform,

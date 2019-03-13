@@ -58,6 +58,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
 import { ComercioService } from '../services/comercio.service';
 import { ProductoService } from '../services/producto.service';
+import { CuentaService } from '../services/cuenta.service';
+
 
 
 
@@ -155,7 +157,8 @@ export const firebaseConfig = {
     AngularFireAuth,
     AuthService,
     ComercioService,
-    ProductoService
+    ProductoService,
+    CuentaService 
   ]
 })
 

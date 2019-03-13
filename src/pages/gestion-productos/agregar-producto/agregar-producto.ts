@@ -52,9 +52,7 @@ export class AgregarProductoPage {
 
   onChange(value) {
   console.log(value);
-    if (value === 'kg') {
-      alert("sad");
-    }
+
   }
 
  

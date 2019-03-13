@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Producto } from '../model/producto/producto.model';
+import { Cuenta } from '../model/cuenta/cuenta.model';
 import { Storage } from '@ionic/storage';
 import { Usuario } from '../model/usuario/usuario.model';
  
 @Injectable()
-export class ProductoService {
+export class CuentaService {
  
     public estadoConex: any;
     usuario: Usuario;
     public url: string;
-    public listaPorductos: any;
+    public listaCuentas: any;
 
     constructor(
         private db: AngularFireDatabase,  
@@ -27,29 +27,29 @@ export class ProductoService {
           // nos fijamos que usuario se encuentra conectado y obtenemos el ID de su comercio
           this.storage.get('usuario').then((val) => {
                this.usuario = val;
-               this.url ='lista-comercio/'+ this.usuario.id_comercio +'/productos';
-               this.listaPorductos = this.db.list<Producto>(this.url); 
+               this.url ='lista-comercio/'+ this.usuario.id_comercio +'/cuentas';
+               this.listaCuentas = this.db.list<Producto>(this.url); 
                });
     }
  
     getLista() {
-        return this.listaPorductos;
+        return this.listaCuentas;
     }
  
-    agregar(producto: Producto) {   
+    agregar(cuenta: Cuenta) {   
 
-            return this.listaPorductos.push(producto);  
+            return this.listaCuentas.push(producto);  
        
     }
  
-    actualizar(producto: Producto) {
+    actualizar(cuenta: Cuenta) {
      
-        return this.listaPorductos.update(producto.key, producto).then(error => console.log(error));
+        return this.listaCuentas.update(cuenta.key, cuenta).then(error => console.log(error));
     }
  
-    eliminar(producto: Producto) {
+    eliminar(cuenta: Cuenta) {
       
-        return this.listaPorductos.remove(producto.key);
+        return this.listaCuentas.remove(cuenta.key);
     }
 
 

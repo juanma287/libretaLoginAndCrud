@@ -12,14 +12,8 @@ import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 })
 export class EditarProductoPage {
 
-  producto: Producto = {
-    key:'',
-    nombre: '',
-    descripcion: '',
-    precio: '',
-    unidad: ''
-   };
-
+  producto: Producto 
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -49,9 +43,7 @@ export class EditarProductoPage {
 
   onChange(value) {
   console.log(value);
-    if (value === 'kg') {
-      alert("sad");
-    }
+
   }
   
   configuaraciones(myEvent) {

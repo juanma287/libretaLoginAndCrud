@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { NavController, LoadingController, PopoverController} from 'ionic-angular';;
-import { Comercio } from '../../../model/comercio/comercio.model';
+import { Cuenta } from '../../../model/cuenta/cuenta.model';
+import { CuentaService } from '../../../services/cuenta.service'
 import { ComercioService } from '../../../services/comercio.service';
 import { AgregarCuentaPage } from "../agregar-cuenta/agregar-cuenta";
 import { EditarCuentaPage } from "../editar-cuenta/editar-cuenta";
@@ -16,12 +17,12 @@ import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 })
 export class CuentaPage {
 
-  listaComercios$: Observable<Comercio[]>
+  listaCuentas$: Observable<Cuenta[]>
   cantidad: string 
 
   constructor(
    	 public navCtrl: NavController,
-  	 private comercioService: ComercioService,
+  	 private cuentaService: CuentaService,
   	 public loading: LoadingController,
      public popoverCtrl: PopoverController
   	 ) 
@@ -32,7 +33,7 @@ export class CuentaPage {
    let loader = this.loading.create({  content: 'Pocesando…',  });
    loader.present().then(() => {
 
-    this.listaComercios$ = this.comercioService.getListaComercios()
+    this.listaCuentas$ = this.cuentaService.getLista()
 	     .snapshotChanges().map(changes => {
          return changes.map (c => ({
          key: c.payload.key, ...c.payload.val()
@@ -40,7 +41,7 @@ export class CuentaPage {
     });
 	
     // calculamos la cantidad de cuentas
-    this.listaComercios$.subscribe(result => {     
+    this.listaCuentas$.subscribe(result => {     
             this.cantidad = "Cantidad de cuentas registradas: "+ result.length +"";      
       });
 
@@ -54,14 +55,14 @@ export class CuentaPage {
      this.navCtrl.push(HomeComercioPage);
   }
 
-  agregarComercio()
+  agregar()
   {
   	 this.navCtrl.push(AgregarCuentaPage);
   }
 
-   editarComercio(comercio: Comercio)
+   editar(cuenta: Cuenta)
   {
-  	 this.navCtrl.push(EditarCuentaPage, {comercio: comercio});
+  	 this.navCtrl.push(EditarCuentaPage, {cuenta: cuenta});
   }
 
    configuaraciones(myEvent) {

@@ -25,11 +25,21 @@
      {{cantidad}}
     </ion-list-header>
     <hr>
+    
     <ion-item *ngFor="let producto of listaProductos$ | async" 
     (click)="editar(producto)">
-      {{producto.nombre}}
+      <ion-grid no-padding >
+        <ion-row >
+          <ion-col col-6>
+             {{producto.nombre}} 
+          </ion-col> 
+          <ion-col col-6 text-right>
+            ${{producto.precio}}/{{producto.unidad}} 
+          </ion-col>     
+        </ion-row>
+     </ion-grid>
      <hr style="margin-top: 0px;  margin-bottom: 0px;">
-    </ion-item> 
+    </ion-item>
     
   </ion-list>
 </ion-card>

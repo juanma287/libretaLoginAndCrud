@@ -12,32 +12,27 @@ import {CuentaPage} from "../gestion-cuentas/cuenta/cuenta";
 import {ClientePage} from "../gestion-clientes/cliente/cliente";
 import {ProductoPage} from "../gestion-productos/producto/producto";
 
+import { Usuario } from '../../model/usuario/usuario.model';
+
+
 @Component({
   selector: 'page-home-comercio',
   templateUrl: 'home-comercio.html',
 })
 
 export class HomeComercioPage {
-  // search condition
-  public search = {
-    name: "Rio de Janeiro, Brazil",
-    date: new Date().toISOString()
-  }
+  
+  usuario: Usuario;
 
   constructor(private storage: Storage, public nav: NavController, public popoverCtrl: PopoverController) {
+     this.storage.get('usuario').then((val) => {
+        this.usuario = val;
+     });
   }
 
   // Se ejecuta cuando entras en una página, antes de cargarla. Utilízalo para tareas que se deben realizar siempre que entras
   ionViewWillEnter() {
-    // this.search.pickup = "Rio de Janeiro, Brazil";
-    // this.search.dropOff = "Same as pickup";
-    this.storage.get('pickup').then((val) => {
-      if (val === null) {
-        this.search.name = "Rio de Janeiro, Brazil"
-      } else {
-        this.search.name = val;
-      }
-    });
+
   }
 
   gestionMenuComercio(home)
@@ -62,28 +57,15 @@ export class HomeComercioPage {
       }
   }
 
-  
-  // go to result page
-  doSearch() {
-    this.nav.push(TripsPage);
-  }
-
-  // choose place
-  choosePlace(from) {
-    this.nav.push(SearchLocationPage, from);
-  }
-
-  // to go account page
-  goToAccount() {
-    this.nav.push(SettingsPage);
-  }
-
   configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);
     popover.present({
       ev: myEvent
     });
   }
+
+
+
 
 }
 
