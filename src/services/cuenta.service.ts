@@ -12,24 +12,22 @@ export class CuentaService {
     public url: string;
     public listaCuentas: any;
 
-    constructor(
-        private db: AngularFireDatabase,  
-        private storage: Storage,
-        ) 
-    {
-         // chequeamos el estado de la conexion 
-         var connectedRef = this.db.object(".info/connected").valueChanges();
-         connectedRef.subscribe(estadoConexion => 
-                                {
-                                    this.estadoConex = estadoConexion;                    
-                                });
+    constructor(private db: AngularFireDatabase, private storage: Storage) 
+     {
+             // chequeamos el estado de la conexion 
+             var connectedRef = this.db.object(".info/connected").valueChanges();
+             connectedRef.subscribe(estadoConexion => 
+                                    {
+                                        this.estadoConex = estadoConexion;                    
+                                    });
 
-          // nos fijamos que usuario se encuentra conectado y obtenemos el ID de su comercio
-          this.storage.get('usuario').then((val) => {
-               this.usuario = val;
-               this.url ='lista-comercio/'+ this.usuario.id_comercio +'/cuentas';
-               this.listaCuentas = this.db.list<Producto>(this.url); 
-               });
+              // nos fijamos que usuario se encuentra conectado y obtenemos el ID de su comercio
+              // luego traemos todas las cuentas que se encuentan creadas en el comercio donde trabaja el usuario
+              this.storage.get('usuario').then((val) => {
+                   this.usuario = val;
+                   this.url ='lista-comercio/'+ this.usuario.id_comercio +'/cuentas';
+                   this.listaCuentas = this.db.list<Cuenta>(this.url); 
+                   });
     }
  
     getLista() {
@@ -37,8 +35,8 @@ export class CuentaService {
     }
  
     agregar(cuenta: Cuenta) {   
-
-            return this.listaCuentas.push(producto);  
+            console.log(cuenta);
+            return this.listaCuentas.push(cuenta);  
        
     }
  

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
-import { Comercio } from '../../../model/comercio/comercio.model';
-import { ComercioService } from '../../../services/comercio.service';
+import { Cuenta } from '../../../model/cuenta/cuenta.model';
+import { CuentaService } from '../../../services/cuenta.service';
 import { CuentaPage} from "../cuenta/cuenta";
 import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 
@@ -12,41 +12,34 @@ import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 })
 export class EditarCuentaPage {
 
- comercio: Comercio = {
-    key:'',
-    id_duenio:'',
-    calle:'',
-    nombre: '',
-    ciudad: '',
-    clientes: '',
-    productos: ''
-   };
+  cuenta: Cuenta 
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private comercioService: ComercioService,
+    private cuentaService: CuentaService,
     public popoverCtrl: PopoverController
     ) 
   {   
   }
 
   ionViewWillLoad() {
-   this.comercio = this.navParams.get('comercio');
+   this.cuenta = this.navParams.get('cuenta');
   }
  
- 
-  actualizarComercio(comercio: Comercio) {
-    this.comercioService.actualizarComercio(comercio).then(() => {
+
+  actualizar(cuenta: Cuenta) {
+    this.cuentaService.actualizar(cuenta).then(() => {
       this.navCtrl.setRoot(CuentaPage);
     })
   }
  
-  eliminarComercio(comercio: Comercio) {
-    this.comercioService.eliminarComercio(comercio).then(() => {
+  eliminar(cuenta: Cuenta) {
+    this.cuentaService.eliminar(cuenta).then(() => {
       this.navCtrl.setRoot(CuentaPage);
     })
   }
+
 
   configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);

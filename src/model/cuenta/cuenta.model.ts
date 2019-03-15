@@ -1,10 +1,10 @@
 export interface Cuenta {
 	key?: string;
     id_cliente: string;
-    nombre_cliente: string;
-    celular: string;
-    total_deuda: any;
-    ultimo_pago:Date;
-    fehca_alta: Date;
+    nombre: string;
+    observacion: string;
+    total_deuda: number;
+    fecha_ultimo_pago:string;
+    fehca_alta: string;
 
 }

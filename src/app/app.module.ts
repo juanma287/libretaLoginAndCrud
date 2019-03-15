@@ -61,6 +61,7 @@ import { ProductoService } from '../services/producto.service';
 import { CuentaService } from '../services/cuenta.service';
 
 
+import { DatePipe } from '@angular/common';
 
 
 export const firebaseConfig = {
@@ -158,7 +159,8 @@ export const firebaseConfig = {
     AuthService,
     ComercioService,
     ProductoService,
-    CuentaService 
+    CuentaService,
+    DatePipe
   ]
 })
 

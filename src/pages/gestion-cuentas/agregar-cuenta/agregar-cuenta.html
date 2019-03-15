@@ -22,13 +22,13 @@
   <div class="card round" margin-top>
     <div padding>
       <ion-item no-padding>
-        <ion-label color="dark" floating>Nombre:</ion-label>
-        <ion-input type="text"  [(ngModel)]="comercio.nombre" style="color: #999999"></ion-input>
+        <ion-label color="dark" floating>Nombre:*</ion-label>
+        <ion-input type="text"  [(ngModel)]="cuenta.nombre" style="color: #999999"></ion-input>
       </ion-item>
       <ion-item no-padding>
-        <ion-label color="dark" floating>Ciudad:</ion-label>
-        <ion-input type="text" [(ngModel)]="comercio.ciudad" style="color: #999999"></ion-input>
-      </ion-item>
+        <ion-label color="dark" floating>Observacion:</ion-label>
+        <ion-textarea type="text" [(ngModel)]="cuenta.observacion" style="color: #999999"></ion-textarea>
+      </ion-item> 
     </div>
   </div>
 
@@ -38,7 +38,7 @@
      <ion-grid>
         <ion-row>
           <ion-col col-12>
-            <button ion-button icon-start block  (click)="agregarComercio(comercio)">
+            <button ion-button icon-start block  (click)="agregar(cuenta)">
              Agregar
             </button>
           </ion-col>     

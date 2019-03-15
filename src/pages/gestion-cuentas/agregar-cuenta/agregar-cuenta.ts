@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,AlertController, PopoverController} from 'ionic-angular';
-import { Comercio } from '../../../model/comercio/comercio.model';
-import { ComercioService } from '../../../services/comercio.service';
+import { Cuenta } from '../../../model/cuenta/cuenta.model';
+import { CuentaService } from '../../../services/cuenta.service';
 import { CuentaPage} from "../cuenta/cuenta";
 import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'page-agregar-cuenta',
@@ -11,31 +13,39 @@ import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 })
 export class AgregarCuentaPage {
 
-  comercio: Comercio = {
-    id_duenio:'',
-    calle:'',
-    nombre: '',
-    ciudad: '',
-    clientes: '',
-    productos: ''
-   };
 
+ public cuenta: Cuenta = {
+    id_cliente:'',
+    nombre:'',
+    observacion:'',
+    total_deuda: 0,  
+    fecha_ultimo_pago: '',
+    fehca_alta: ''
+    };
+ 
+    pipe = new DatePipe('es'); 
+    hoy = Date.now();
 
   constructor(
   	public navCtrl: NavController,
   	public navParams: NavParams,
-  	private comercioService: ComercioService,
+  	private cuentaService: CuentaService,
     public alertCtrl: AlertController,
     public popoverCtrl: PopoverController
   	) {
+
+     // de esa forma guardamos la hora
+     //this.cuenta.fehca_alta = this.pipe.transform(this.hoy, 'dd/MM/yyyy, h:mm a');
+
+     this.cuenta.fehca_alta = this.pipe.transform(this.hoy, 'dd/MM/yyyy');
   }
 
 
-  agregarComercio(comercio: Comercio) {
-     var estadoConexion = this.comercioService.estadoConex;
+  agregar(cuenta: Cuenta) {
+     var estadoConexion = this.cuentaService.estadoConex;
      if(estadoConexion)
      {
-          this.comercioService.agregarComercio(comercio).then(ref => { 
+          this.cuentaService.agregar(cuenta).then(ref => { 
                   this.navCtrl.setRoot(CuentaPage);
                 })           
 
@@ -51,13 +61,18 @@ export class AgregarCuentaPage {
      }  
   }
 
-   configuaraciones(myEvent) {
+  onChange(value) {
+  console.log(value);
+
+  }
+
+ 
+  configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);
     popover.present({
       ev: myEvent
     });
   }
-
 
 
 }

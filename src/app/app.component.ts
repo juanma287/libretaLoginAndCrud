@@ -49,7 +49,7 @@ export class MyApp {
       {title: 'Home', component: HomePage, icon: 'home'},
       {title: 'Home-comercio', component: HomeComercioPage, icon: 'home'},
       {title: 'Cuentas', component: CuentaPage, icon: 'logo-buffer'},
-      {title: 'Clientes', component: ClientePage, icon: 'contacts'},
+      {title: 'Clientes vinculados', component: ClientePage, icon: 'contacts'},
       {title: 'Productos', component: ProductoPage, icon: 'cart'}  
     ];
   }
