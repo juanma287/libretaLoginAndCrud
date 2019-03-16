@@ -30,13 +30,16 @@ export class EditarCuentaPage {
 
   actualizar(cuenta: Cuenta) {
     this.cuentaService.actualizar(cuenta).then(() => {
+      // acutalizamos tambien la info en cuenta-general
+      this.cuentaService.actualizarCuentaGeneral(cuenta.key, cuenta.nombre);
       this.navCtrl.setRoot(CuentaPage);
     })
   }
  
   eliminar(cuenta: Cuenta) {
-    this.cuentaService.eliminar(cuenta).then(() => {
-      this.navCtrl.setRoot(CuentaPage);
+     this.cuentaService.eliminar(cuenta).then(() => {
+       this.cuentaService.eliminarCuentaGeneral(cuenta.key);
+       this.navCtrl.setRoot(CuentaPage);
     })
   }
 

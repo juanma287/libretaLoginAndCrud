@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,AlertController, PopoverController} from 'ionic-angular';
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
+import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.model';
 import { CuentaService } from '../../../services/cuenta.service';
 import { CuentaPage} from "../cuenta/cuenta";
-import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
+import { ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 import { DatePipe } from '@angular/common';
 
 
@@ -23,6 +24,15 @@ export class AgregarCuentaPage {
     fehca_alta: ''
     };
  
+  public cuenta_general: CuentaGeneral = {
+    id_cliente:'',
+    id_comercio:'',
+    nombre:'',
+    total_deuda: 0,  
+    fecha_ultimo_pago: '',
+    fehca_alta: ''
+    };
+
     pipe = new DatePipe('es'); 
     hoy = Date.now();
 
@@ -38,6 +48,8 @@ export class AgregarCuentaPage {
      //this.cuenta.fehca_alta = this.pipe.transform(this.hoy, 'dd/MM/yyyy, h:mm a');
 
      this.cuenta.fehca_alta = this.pipe.transform(this.hoy, 'dd/MM/yyyy');
+     this.cuenta_general.fehca_alta = this.cuenta.fehca_alta;
+     this.cuenta_general.id_comercio = this.cuentaService.usuario.id_comercio;
   }
 
 
@@ -46,8 +58,13 @@ export class AgregarCuentaPage {
      if(estadoConexion)
      {
           this.cuentaService.agregar(cuenta).then(ref => { 
-                  this.navCtrl.setRoot(CuentaPage);
-                })           
+
+                 // luego de que el comercio crea una cuenta, la misma se replica en la lista de cuentas generales
+                 this.cuenta_general.nombre = cuenta.nombre;
+
+                 this.cuentaService.agregarCuentaGeneral(ref.key,this.cuenta_general)
+                 this.navCtrl.setRoot(CuentaPage);
+            })           
 
      }
      else
