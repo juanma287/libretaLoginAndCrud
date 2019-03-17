@@ -11,6 +11,7 @@ import {SearchLocationPage} from "../search-location/search-location";
 import {CuentaPage} from "../gestion-cuentas/cuenta/cuenta";
 import {ClientePage} from "../gestion-clientes/cliente/cliente";
 import {ProductoPage} from "../gestion-productos/producto/producto";
+import {BuscarCuentaPage} from "../gestion-anotaciones/buscar-cuenta/buscar-cuenta";
 
 import { Usuario } from '../../model/usuario/usuario.model';
 
@@ -38,11 +39,16 @@ export class HomeComercioPage {
   gestionMenuComercio(home)
   {
       switch(home) { 
-       case 'cuenta': { 
+       case 'anotar': { 
           // mostramos el home de cuenta
-          this.nav.push(CuentaPage); 
+          this.nav.push(BuscarCuentaPage); 
           break; 
           
+       } 
+      case 'cuenta': { 
+          // mostramos el home de clientes
+          this.nav.push(CuentaPage); 
+          break; 
        } 
        case 'cliente': { 
           // mostramos el home de clientes

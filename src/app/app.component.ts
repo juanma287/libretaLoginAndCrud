@@ -14,6 +14,8 @@ import { CuentaPage } from "../pages/gestion-cuentas/cuenta/cuenta";
 import { ClientePage } from "../pages/gestion-clientes/cliente/cliente";
 import { ProductoPage } from "../pages/gestion-productos/producto/producto";
 
+import { BuscarCuentaPage } from "../pages/gestion-anotaciones/buscar-cuenta/buscar-cuenta";
+
 import { AuthService } from '../services/auth.service';
 import { Usuario } from '../model/usuario/usuario.model';
 
@@ -48,9 +50,10 @@ export class MyApp {
     this.appMenuItems = [
       {title: 'Home', component: HomePage, icon: 'home'},
       {title: 'Home-comercio', component: HomeComercioPage, icon: 'home'},
-      {title: 'Cuentas', component: CuentaPage, icon: 'logo-buffer'},
-      {title: 'Clientes vinculados', component: ClientePage, icon: 'contacts'},
-      {title: 'Productos', component: ProductoPage, icon: 'cart'}  
+      {title: 'Anotar', component: BuscarCuentaPage, icon: 'create'},
+      {title: 'Gestionar cuentas', component: CuentaPage, icon: 'logo-buffer'},
+      {title: 'Gestionar clientes vinculados', component: ClientePage, icon: 'contacts'},
+      {title: 'Gestionar productos', component: ProductoPage, icon: 'cart'}  
     ];
   }
 

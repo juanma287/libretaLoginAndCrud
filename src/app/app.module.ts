@@ -40,9 +40,10 @@ import {AgregarClientePage} from "../pages/gestion-clientes/agregar-cliente/agre
 import {EditarClientePage} from "../pages/gestion-clientes/editar-cliente/editar-cliente";
 
 import {HomeComercioPage} from "../pages/home-comercio/home-comercio";
-import {AnotadorPage} from "../pages/anotador/anotador";
+import {AnotadorPage} from "../pages/gestion-anotaciones/anotador";
 
-
+// buscador de cuentas del ANOTADOR
+import { BuscarCuentaPage } from "../pages/gestion-anotaciones/buscar-cuenta/buscar-cuenta";
 
 import {ConfiguaracionesPage} from "../pages/configuaraciones/configuaraciones";
 import {RegisterPage} from "../pages/register/register";
@@ -98,6 +99,8 @@ export const firebaseConfig = {
     AgregarClientePage,
     EditarClientePage,
 
+    BuscarCuentaPage,
+
     ConfiguaracionesPage,
     RegisterPage,
     SearchLocationPage,
@@ -144,6 +147,8 @@ export const firebaseConfig = {
     ClientePage,
     AgregarClientePage,
     EditarClientePage,
+
+    BuscarCuentaPage,
     
     ProductoPage,
     AgregarProductoPage,

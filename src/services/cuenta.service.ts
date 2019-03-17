@@ -43,16 +43,29 @@ export class CuentaService {
                    });
     }
  
+    // MÉTODOS PARA LAS CUENTAS QUE TIENE ALMACENADA EL COMERCIO
     getLista() {
+        
         return this.listaCuentasComercio;
     }
  
-    agregar(cuenta: Cuenta) {   
+    agregar(cuenta: Cuenta) {  
 
-           return this.listaCuentasComercio.push(cuenta);  
-       
+           return this.listaCuentasComercio.push(cuenta);   
     }
  
+    actualizar(cuenta: Cuenta) {
+
+        return this.listaCuentasComercio.update(cuenta.key, cuenta).then(error => console.log(error));
+    }
+
+    eliminar(cuenta: Cuenta) {
+      
+        return this.listaCuentasComercio.remove(cuenta.key);
+    }
+
+
+    // MÉTODOS PARA CUENTA GENERAL
     agregarCuentaGeneral(key_cuenta, cuenta_general: CuentaGeneral) {   
             
             let path = 'lista-cuenta/'+ key_cuenta;
@@ -60,15 +73,8 @@ export class CuentaService {
        
     }
 
-    actualizar(cuenta: Cuenta) {
-     
-        return this.listaCuentasComercio.update(cuenta.key, cuenta).then(error => console.log(error));
-    }
-
-
     actualizarCuentaGeneral(key_cuenta, nombre) {   
-            
-             
+                      
       let path =  'lista-cuenta/'+ key_cuenta;
       let data = {
                   nombre: nombre
@@ -77,12 +83,6 @@ export class CuentaService {
       return this.db.object(path).update(data);
        
     } 
-
- 
-    eliminar(cuenta: Cuenta) {
-      
-        return this.listaCuentasComercio.remove(cuenta.key);
-    }
 
 
     // solo cargamos una fecha de baja
