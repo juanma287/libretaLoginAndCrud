@@ -6,7 +6,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      Cuentas
+      Seleccione una cuenta
     </ion-title>
     <ion-buttons end>
       <button  ion-button tappable (click)="agregar()">
@@ -23,18 +23,18 @@
   <ion-card no-margin margin-bottom class="full-width">
   <ion-list>
     <ion-list-header>
-     {{cantidad}}
+ 
+     <ion-searchbar placeholder="Buscar.."  (ionInput)="getItems($event)"> </ion-searchbar>
+
     </ion-list-header>
+
     <hr>
-    <ion-item *ngFor="let cuenta of listaCuentas$ | async" 
-    (click)="editar(cuenta)">
-            <ion-grid no-padding >
+    <ion-item *ngFor="let cuenta of items$ | async" 
+    (click)="seleccinar(cuenta)">
+      <ion-grid no-padding >
         <ion-row >
-          <ion-col col-6>
+          <ion-col col-12>
              {{cuenta.nombre}} 
-          </ion-col> 
-          <ion-col col-6 text-right>
-            ${{cuenta.total_deuda}} 
           </ion-col>     
         </ion-row>
      </ion-grid>
@@ -43,14 +43,6 @@
     
   </ion-list>
 </ion-card>
-   <ion-grid>
-        <ion-row>
-          <ion-col col-12>
-            <button ion-button icon-start block  (click)="agregar()">
-             Agregar
-            </button>
-          </ion-col>     
-        </ion-row>
-      </ion-grid>
+
 
 </ion-content>

@@ -7,7 +7,6 @@ import { CuentaPage} from "../cuenta/cuenta";
 import { ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 import { DatePipe } from '@angular/common';
 
-
 @Component({
   selector: 'page-agregar-cuenta',
   templateUrl: 'agregar-cuenta.html',
@@ -21,7 +20,9 @@ export class AgregarCuentaPage {
     observacion:'',
     total_deuda: 0,  
     fecha_ultimo_pago: '',
-    fehca_alta: ''
+    fecha_ultimo_pago_number: 0,
+    fecha_alta: '',
+    fecha_alta_number: 0 
     };
  
   public cuenta_general: CuentaGeneral = {
@@ -30,11 +31,13 @@ export class AgregarCuentaPage {
     nombre:'',
     total_deuda: 0,  
     fecha_ultimo_pago: '',
-    fehca_alta: ''
-    };
+    fecha_ultimo_pago_number: 0,
+    fecha_alta: '',
+    fecha_alta_number: 0,
+   };
 
     pipe = new DatePipe('es'); 
-    hoy = Date.now();
+    hoy = new Date().getTime();
 
   constructor(
   	public navCtrl: NavController,
@@ -44,11 +47,14 @@ export class AgregarCuentaPage {
     public popoverCtrl: PopoverController
   	) {
 
-     // de esa forma guardamos la hora
-     //this.cuenta.fehca_alta = this.pipe.transform(this.hoy, 'dd/MM/yyyy, h:mm a');
+     this.cuenta.fecha_alta = this.pipe.transform(this.hoy ,'dd/MM/yyyy');
 
-     this.cuenta.fehca_alta = this.pipe.transform(this.hoy, 'dd/MM/yyyy');
-     this.cuenta_general.fehca_alta = this.cuenta.fehca_alta;
+     // a la fecha tambien la guardamos como número para luego poder manipularla en los filtrados
+     // se pone negativa para poder ordenar desendente con firebase
+     this.cuenta.fecha_alta_number = this.hoy * -1;
+
+     this.cuenta_general.fecha_alta = this.cuenta.fecha_alta;
+     this.cuenta_general.fecha_alta_number = this.cuenta.fecha_alta_number;
      this.cuenta_general.id_comercio = this.cuentaService.usuario.id_comercio;
   }
 
@@ -61,11 +67,9 @@ export class AgregarCuentaPage {
 
                  // luego de que el comercio crea una cuenta, la misma se replica en la lista de cuentas generales
                  this.cuenta_general.nombre = cuenta.nombre;
-
                  this.cuentaService.agregarCuentaGeneral(ref.key,this.cuenta_general)
                  this.navCtrl.setRoot(CuentaPage);
             })           
-
      }
      else
      {

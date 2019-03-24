@@ -5,6 +5,8 @@ export interface Cuenta {
     observacion: string;
     total_deuda: number;
     fecha_ultimo_pago:string;
-    fehca_alta: string;
+    fecha_ultimo_pago_number: number;
+    fecha_alta: string;
+    fecha_alta_number:number;
 
 }

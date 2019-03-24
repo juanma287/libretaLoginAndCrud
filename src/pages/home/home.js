@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from "@angular/core";
 import { NavController, PopoverController } from "ionic-angular";
 import { Storage } from '@ionic/storage';
-import { NotificationsPage } from "../notifications/notifications";
+import { ConfiguaracionesPage } from "../configuaraciones/configuaraciones";
 import { SettingsPage } from "../settings/settings";
 import { TripsPage } from "../trips/trips";
 import { SearchLocationPage } from "../search-location/search-location";
@@ -37,8 +37,6 @@ var HomePage = /** @class */ (function () {
             else {
                 _this.search.name = val;
             }
-        }).catch(function (err) {
-            console.log(err);
         });
     };
     // go to result page
@@ -55,7 +53,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage.prototype.presentNotifications = function (myEvent) {
         console.log(myEvent);
-        var popover = this.popoverCtrl.create(NotificationsPage);
+        var popover = this.popoverCtrl.create(ConfiguaracionesPage);
         popover.present({
             ev: myEvent
         });

@@ -1,9 +1,10 @@
 import { Component} from '@angular/core';
 import { NavController, LoadingController, PopoverController} from 'ionic-angular';;
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
+import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.model';
 import { CuentaService } from '../../../services/cuenta.service'
 import { ComercioService } from '../../../services/comercio.service';
-//import { AgregarCuentaPage } from "../agregar-cuenta/agregar-cuenta";
+import { AgregarCuentaPage } from "../../gestion-cuentas/agregar-cuenta/agregar-cuenta";
 //import { EditarCuentaPage } from "../editar-cuenta/editar-cuenta";
 import { Observable } from 'rxjs/Observable';
 import { HomeComercioPage } from "../../home-comercio/home-comercio";
@@ -17,8 +18,10 @@ import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 })
 export class BuscarCuentaPage {
 
+  listaCuentasGenerales$: Observable<CuentaGeneral[]>
   listaCuentas$: Observable<Cuenta[]>
   cantidad: string 
+  items$: Observable<Cuenta[]>
 
   constructor(
    	 public navCtrl: NavController,
@@ -27,28 +30,60 @@ export class BuscarCuentaPage {
      public popoverCtrl: PopoverController
   	 ) 
 	  {
+      
 	  }
 
   ionViewDidLoad() {
+
    let loader = this.loading.create({  content: 'Pocesando…',  });
    loader.present().then(() => {
 
-    this.listaCuentas$ = this.cuentaService.getLista()
+    this.listaCuentas$ = this.cuentaService.getListaOrderByName()
 	     .snapshotChanges().map(changes => {
          return changes.map (c => ({
          key: c.payload.key, ...c.payload.val()
       }));
     });
-	
-    // calculamos la cantidad de cuentas
-    this.listaCuentas$.subscribe(result => {     
-            this.cantidad = "Cantidad de cuentas registradas: "+ result.length +"";      
-      });
-
-	   // finalizo loader
+     
+     this.inicializarItems();
+    
+       /**
+       this.listaCuentas$.subscribe(result => {     
+              this.cantidad = "Cantidad de cuentas registradas: "+ result.length +"";      
+        });
+       */
+   
+	  // finalizo loader
     loader.dismiss()                     
     });
+
   }
+
+  inicializarItems()
+  {
+   this.items$ = this.listaCuentas$;
+  }
+  
+  getItems(ev: any)
+  {
+    // primero inicializamos los items por si hubo algun cambio
+    this.inicializarItems();
+
+    // capturamos el evento
+    let val = ev.target.value;
+ 
+    if(val && val.trim != '')
+    {
+     this.items$ = this.items$
+     .map( arr =>
+           arr.filter( r => r.nombre.toLowerCase().includes(val.toLowerCase()))
+      )
+     
+     }
+  
+   }
+
+  
 
   volverHome()
   {
@@ -57,7 +92,7 @@ export class BuscarCuentaPage {
 
   agregar()
   {
-  //	 this.navCtrl.push(AgregarCuentaPage);
+  	 this.navCtrl.push(AgregarCuentaPage);
   }
 
    editar(cuenta: Cuenta)

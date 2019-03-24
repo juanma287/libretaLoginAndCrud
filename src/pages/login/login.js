@@ -52,7 +52,8 @@ var LoginPage = /** @class */ (function () {
         loader.present().then(function () {
             // AUTENTICACION
             _this.auth.signInWithEmail(credentials)
-                .then(function () { return _this.nav.setRoot(HomePage); }, function (error) { return _this.loginError = "Datos de ingreso incorrectos"; });
+                .then(function () { return _this.nav.setRoot(HomePage); })
+                .catch(function (error) { return _this.loginError = "Datos de ingreso incorrectos"; });
             // finalizo loader
             loader.dismiss();
         });
@@ -61,13 +62,15 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.loginWithGoogle = function () {
         var _this = this;
         this.auth.signInWithGoogle()
-            .then(function () { return _this.nav.setRoot(HomePage); }, function (error) { return console.log(error.message); });
+            .then(function () { return _this.nav.setRoot(HomePage); })
+            .catch(function (error) { return console.log(error.message); });
     };
     // Ingresar con Facebook
     LoginPage.prototype.loginWithFacebook = function () {
         var _this = this;
         this.auth.signInWithFacebook()
-            .then(function () { return _this.nav.setRoot(HomePage); }, function (error) { return console.log(error.message); });
+            .then(function () { return _this.nav.setRoot(HomePage); })
+            .catch(function (error) { return console.log(error.message); });
     };
     // Ingresar con Twitter
     LoginPage.prototype.loginWithTwitter = function () {

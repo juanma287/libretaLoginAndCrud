@@ -33,36 +33,18 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.getEmail = function () {
         return this.user && this.user.email;
     };
-    Object.defineProperty(AuthService.prototype, "currentUser", {
-        // Retorna cuenta de usuario
-        get: function () {
-            return this.authenticated ? this.user : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(AuthService.prototype, "currentUserId", {
-        // Retorna user UID
-        get: function () {
-            return this.authenticated ? this.user.uid : '';
-        },
-        enumerable: true,
-        configurable: true
-    });
     // REDES SOCIALES
     // Ingresar con Google
     AuthService.prototype.signInWithGoogle = function () {
         var _this = this;
         return this.socialSignIn(new firebase.auth.GoogleAuthProvider())
-            .then(function () { return _this.updateUserData(); })
-            .catch(function (error) { return console.log(error); });
+            .then(function () { return _this.updateUserData(); });
     };
     // Ingresar con Facebook
     AuthService.prototype.signInWithFacebook = function () {
         var _this = this;
         return this.socialSignIn(new firebase.auth.FacebookAuthProvider())
-            .then(function () { return _this.updateUserData(); })
-            .catch(function (error) { return console.log(error); });
+            .then(function () { return _this.updateUserData(); });
     };
     AuthService.prototype.socialSignIn = function (provider) {
         var _this = this;
@@ -80,29 +62,36 @@ var AuthService = /** @class */ (function () {
             });
         }
     };
-    // autenticamos al usuario con e-mail y pass
+    // Ingreso con e-mail y pass
     AuthService.prototype.signInWithEmail = function (credentials) {
         var _this = this;
         return this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
-            .then(function () { return _this.updateUserData(); })
-            .catch(function (error) { return console.log(error); });
+            .then(function () { return _this.updateUserData(); });
     };
     // crear un nuevo usuaruio con e-mail y pass
     AuthService.prototype.signUp = function (credentials) {
         var _this = this;
         return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password)
-            .then(function () { return _this.updateUserData(); })
-            .catch(function (error) { return console.log(error); });
+            .then(function () { return _this.updateUserData(); });
     };
     // Actualizamos la info del usuario en la BD 
     AuthService.prototype.updateUserData = function () {
-        console.log(this.user);
-        var path = "usuarios/" + this.user.uid;
+        var path = "lista-usuario/" + this.afAuth.auth.currentUser.uid;
         var data = {
-            email: "this.user.email"
+            email: this.afAuth.auth.currentUser.email
         };
         this.db.object(path).update(data)
             .catch(function (error) { return console.log(error); });
+    };
+    // Retorna los datos del usuario almacenado en la base
+    AuthService.prototype.infoUsuarioBD = function () {
+        var path = "lista-usuario/" + this.afAuth.auth.currentUser.uid;
+        return this.db.object(path).valueChanges();
+    };
+    // Retorna los datos del comercio almacenado en la base
+    AuthService.prototype.infoComercioBD = function (id_comercio) {
+        var path = "lista-comercio/" + id_comercio;
+        return this.db.object(path).valueChanges();
     };
     // Resetear pass
     AuthService.prototype.resetPassword = function (email) {

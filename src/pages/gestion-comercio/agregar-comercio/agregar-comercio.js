@@ -8,24 +8,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ComercioService } from '../../../services/comercio.service';
 import { ComercioPage } from "../comercio/comercio";
 var AgregarComercioPage = /** @class */ (function () {
-    function AgregarComercioPage(navCtrl, navParams, comercioService) {
+    function AgregarComercioPage(navCtrl, navParams, comercioService, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.comercioService = comercioService;
+        this.alertCtrl = alertCtrl;
         this.comercio = {
-            title: '',
-            content: ''
+            id_duenio: '',
+            calle: '',
+            nombre: '',
+            ciudad: '',
+            clientes: '',
+            productos: ''
         };
     }
     AgregarComercioPage.prototype.agregarComercio = function (comercio) {
         var _this = this;
-        this.comercioService.agregarComercio(comercio).then(function (ref) {
-            _this.navCtrl.setRoot(ComercioPage);
-        });
+        var estadoConexion = this.comercioService.estadoConex;
+        if (estadoConexion) {
+            this.comercioService.agregarComercio(comercio).then(function (ref) {
+                _this.navCtrl.push(ComercioPage);
+            });
+        }
+        else {
+            var alert_1 = this.alertCtrl.create({
+                title: 'Error: sin conexión',
+                subTitle: 'Para realizar la operación conéctese y vuelva a intentarlo',
+                buttons: ['OK']
+            });
+            alert_1.present();
+        }
     };
     AgregarComercioPage = __decorate([
         Component({
@@ -34,7 +50,8 @@ var AgregarComercioPage = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [NavController,
             NavParams,
-            ComercioService])
+            ComercioService,
+            AlertController])
     ], AgregarComercioPage);
     return AgregarComercioPage;
 }());

@@ -12,22 +12,32 @@ import { Platform, Nav } from "ionic-angular";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
+import { Storage } from '@ionic/storage';
 import { HomePage } from "../pages/home/home";
+import { HomeComercioPage } from "../pages/home-comercio/home-comercio";
 import { LoginPage } from "../pages/login/login";
-import { LocalWeatherPage } from "../pages/local-weather/local-weather";
+import { CuentaPage } from "../pages/gestion-cuentas/cuenta/cuenta";
+import { ClientePage } from "../pages/gestion-clientes/cliente/cliente";
+import { ProductoPage } from "../pages/gestion-productos/producto/producto";
+import { BuscarCuentaPage } from "../pages/gestion-anotaciones/buscar-cuenta/buscar-cuenta";
 import { AuthService } from '../services/auth.service';
 var MyApp = /** @class */ (function () {
-    function MyApp(platform, statusBar, splashScreen, keyboard, auth) {
+    function MyApp(platform, statusBar, splashScreen, keyboard, auth, storage) {
         this.platform = platform;
         this.statusBar = statusBar;
         this.splashScreen = splashScreen;
         this.keyboard = keyboard;
         this.auth = auth;
+        this.storage = storage;
         this.rootPage = LoginPage;
         this.initializeApp();
         this.appMenuItems = [
             { title: 'Home', component: HomePage, icon: 'home' },
-            { title: 'Local Weather', component: LocalWeatherPage, icon: 'partly-sunny' }
+            { title: 'Home-comercio', component: HomeComercioPage, icon: 'home' },
+            { title: 'Anotar', component: BuscarCuentaPage, icon: 'create' },
+            { title: 'Gestionar cuentas', component: CuentaPage, icon: 'logo-buffer' },
+            { title: 'Gestionar clientes vinculados', component: ClientePage, icon: 'contacts' },
+            { title: 'Gestionar productos', component: ProductoPage, icon: 'cart' }
         ];
     }
     MyApp.prototype.initializeApp = function () {
@@ -46,7 +56,22 @@ var MyApp = /** @class */ (function () {
         this.auth.afAuth.authState
             .subscribe(function (user) {
             if (user) {
-                _this.rootPage = HomePage;
+                // Traemos el usuario almacenado en al base de datos 
+                _this.auth.infoUsuarioBD()
+                    .subscribe(function (usuarioBD) {
+                    _this.usuario = usuarioBD;
+                    _this.storage.set('usuario', _this.usuario); // alamecenamos info del usuario en localstorage
+                    // verificamos si es cliente o trabaja en un comercio
+                    if (_this.usuario.id_comercio != "") {
+                        _this.rootPage = HomeComercioPage;
+                        // this.auth.infoComercioBD(this.usuario.id_comercio)
+                        // .subscribe(comercioBD => console.log(comercioBD))
+                    }
+                    else {
+                        alert("cliente");
+                        _this.rootPage = HomePage;
+                    }
+                });
             }
             else {
                 _this.rootPage = LoginPage;
@@ -74,7 +99,8 @@ var MyApp = /** @class */ (function () {
             StatusBar,
             SplashScreen,
             Keyboard,
-            AuthService])
+            AuthService,
+            Storage])
     ], MyApp);
     return MyApp;
 }());

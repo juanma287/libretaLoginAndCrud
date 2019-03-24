@@ -18,6 +18,12 @@ var SettingsPage = /** @class */ (function () {
     SettingsPage.prototype.logout = function () {
         this.nav.setRoot(LoginPage);
     };
+    SettingsPage.prototype.onChange = function (value) {
+        console.log(value);
+        if (value === 'es-AR') {
+            alert("sad");
+        }
+    };
     SettingsPage = __decorate([
         Component({
             selector: 'page-settings',

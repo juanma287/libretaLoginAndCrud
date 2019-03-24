@@ -14,26 +14,44 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ActivityService } from "../services/activity-service";
 import { TripService } from "../services/trip-service";
-import { WeatherProvider } from "../services/weather";
 import { MyApp } from "./app.component";
 import { SettingsPage } from "../pages/settings/settings";
 import { CheckoutTripPage } from "../pages/checkout-trip/checkout-trip";
 import { HomePage } from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
+// gestion de comercios
 import { ComercioPage } from "../pages/gestion-comercio/comercio/comercio";
 import { AgregarComercioPage } from "../pages/gestion-comercio/agregar-comercio/agregar-comercio";
 import { EditarComercioPage } from "../pages/gestion-comercio/editar-comercio/editar-comercio";
-import { NotificationsPage } from "../pages/notifications/notifications";
+// gestion de productos
+import { ProductoPage } from "../pages/gestion-productos/producto/producto";
+import { AgregarProductoPage } from "../pages/gestion-productos/agregar-producto/agregar-producto";
+import { EditarProductoPage } from "../pages/gestion-productos/editar-producto/editar-producto";
+// gestion de cuentas
+import { CuentaPage } from "../pages/gestion-cuentas/cuenta/cuenta";
+import { AgregarCuentaPage } from "../pages/gestion-cuentas/agregar-cuenta/agregar-cuenta";
+import { EditarCuentaPage } from "../pages/gestion-cuentas/editar-cuenta/editar-cuenta";
+// gestion de clientes
+import { ClientePage } from "../pages/gestion-clientes/cliente/cliente";
+import { AgregarClientePage } from "../pages/gestion-clientes/agregar-cliente/agregar-cliente";
+import { EditarClientePage } from "../pages/gestion-clientes/editar-cliente/editar-cliente";
+import { HomeComercioPage } from "../pages/home-comercio/home-comercio";
+import { AnotadorPage } from "../pages/gestion-anotaciones/anotador";
+// buscador de cuentas del ANOTADOR
+import { BuscarCuentaPage } from "../pages/gestion-anotaciones/buscar-cuenta/buscar-cuenta";
+import { ConfiguaracionesPage } from "../pages/configuaraciones/configuaraciones";
 import { RegisterPage } from "../pages/register/register";
 import { SearchLocationPage } from "../pages/search-location/search-location";
 import { TripDetailPage } from "../pages/trip-detail/trip-detail";
 import { TripsPage } from "../pages/trips/trips";
-import { LocalWeatherPage } from "../pages/local-weather/local-weather";
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
 import { ComercioService } from '../services/comercio.service';
+import { ProductoService } from '../services/producto.service';
+import { CuentaService } from '../services/cuenta.service';
+import { DatePipe } from '@angular/common';
 export var firebaseConfig = {
     apiKey: "AIzaSyD8Wj--z7_Xt05oaqZ6PMF29Gh_m4z77Lk",
     authDomain: "libreta-electronica-4736d.firebaseapp.com",
@@ -52,12 +70,23 @@ var AppModule = /** @class */ (function () {
                 SettingsPage,
                 CheckoutTripPage,
                 HomePage,
+                HomeComercioPage,
+                AnotadorPage,
                 LoginPage,
                 ComercioPage,
                 AgregarComercioPage,
                 EditarComercioPage,
-                LocalWeatherPage,
-                NotificationsPage,
+                ProductoPage,
+                AgregarProductoPage,
+                EditarProductoPage,
+                CuentaPage,
+                AgregarCuentaPage,
+                EditarCuentaPage,
+                ClientePage,
+                AgregarClientePage,
+                EditarClientePage,
+                BuscarCuentaPage,
+                ConfiguaracionesPage,
                 RegisterPage,
                 SearchLocationPage,
                 TripDetailPage,
@@ -84,16 +113,27 @@ var AppModule = /** @class */ (function () {
                 SettingsPage,
                 CheckoutTripPage,
                 HomePage,
+                HomeComercioPage,
+                AnotadorPage,
                 LoginPage,
-                LocalWeatherPage,
-                NotificationsPage,
+                ConfiguaracionesPage,
                 RegisterPage,
                 SearchLocationPage,
                 TripDetailPage,
                 TripsPage,
                 ComercioPage,
                 AgregarComercioPage,
-                EditarComercioPage
+                EditarComercioPage,
+                CuentaPage,
+                AgregarCuentaPage,
+                EditarCuentaPage,
+                ClientePage,
+                AgregarClientePage,
+                EditarClientePage,
+                BuscarCuentaPage,
+                ProductoPage,
+                AgregarProductoPage,
+                EditarProductoPage
             ],
             providers: [
                 StatusBar,
@@ -101,10 +141,12 @@ var AppModule = /** @class */ (function () {
                 Keyboard,
                 ActivityService,
                 TripService,
-                WeatherProvider,
                 AngularFireAuth,
                 AuthService,
-                ComercioService
+                ComercioService,
+                ProductoService,
+                CuentaService,
+                DatePipe
             ]
         })
     ], AppModule);

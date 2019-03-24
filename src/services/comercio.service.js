@@ -11,8 +11,14 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 var ComercioService = /** @class */ (function () {
     function ComercioService(db) {
+        var _this = this;
         this.db = db;
-        this.listaComercios = this.db.list('comercio-list');
+        this.listaComercios = this.db.list('lista-comercio');
+        // chequeamos el estado de la conexion 
+        var connectedRef = this.db.object(".info/connected").valueChanges();
+        connectedRef.subscribe(function (estadoConexion) {
+            _this.estadoConex = estadoConexion;
+        });
     }
     ComercioService.prototype.getListaComercios = function () {
         return this.listaComercios;
@@ -21,7 +27,7 @@ var ComercioService = /** @class */ (function () {
         return this.listaComercios.push(comercio);
     };
     ComercioService.prototype.actualizarComercio = function (comercio) {
-        return this.listaComercios.update(comercio.key, comercio);
+        return this.listaComercios.update(comercio.key, comercio).then(function (error) { return console.log(error); });
     };
     ComercioService.prototype.eliminarComercio = function (comercio) {
         return this.listaComercios.remove(comercio.key);

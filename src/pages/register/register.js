@@ -35,7 +35,9 @@ var RegisterPage = /** @class */ (function () {
         var loader = this.loading.create({ content: 'Pocesando, espere por favor…', });
         loader.present().then(function () {
             // REGISTRO
-            _this.auth.signUp(credentials).then(function () { return _this.navCtrl.setRoot(HomePage); }, function (error) { return _this.erroresRegistro = "Datos incorrectos"; });
+            _this.auth.signUp(credentials)
+                .then(function () { return _this.navCtrl.setRoot(HomePage); })
+                .catch(function (error) { return _this.erroresRegistro = "Datos de ingreso incorrectos"; });
             // finalizo loader
             loader.dismiss();
         });
@@ -44,13 +46,15 @@ var RegisterPage = /** @class */ (function () {
     RegisterPage.prototype.registerWithGoogle = function () {
         var _this = this;
         this.auth.signInWithGoogle()
-            .then(function () { return _this.navCtrl.setRoot(HomePage); }, function (error) { return console.log(error.message); });
+            .then(function () { return _this.navCtrl.setRoot(HomePage); })
+            .catch(function (error) { return console.log(error.message); });
     };
     // Ingresar con Facebook
     RegisterPage.prototype.registerWithFacebook = function () {
         var _this = this;
         this.auth.signInWithFacebook()
-            .then(function () { return _this.navCtrl.setRoot(HomePage); }, function (error) { return console.log(error.message); });
+            .then(function () { return _this.navCtrl.setRoot(HomePage); })
+            .catch(function (error) { return console.log(error.message); });
     };
     // Ingresar con Twitter
     RegisterPage.prototype.registerWithTwitter = function () {

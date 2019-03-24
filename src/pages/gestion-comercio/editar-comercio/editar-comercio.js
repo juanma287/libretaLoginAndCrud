@@ -17,8 +17,13 @@ var EditarComercioPage = /** @class */ (function () {
         this.navParams = navParams;
         this.comercioService = comercioService;
         this.comercio = {
-            title: '',
-            content: ''
+            key: '',
+            id_duenio: '',
+            calle: '',
+            nombre: '',
+            ciudad: '',
+            clientes: '',
+            productos: ''
         };
     }
     EditarComercioPage.prototype.ionViewWillLoad = function () {
@@ -27,13 +32,13 @@ var EditarComercioPage = /** @class */ (function () {
     EditarComercioPage.prototype.actualizarComercio = function (comercio) {
         var _this = this;
         this.comercioService.actualizarComercio(comercio).then(function () {
-            _this.navCtrl.setRoot(ComercioPage);
+            _this.navCtrl.push(ComercioPage);
         });
     };
     EditarComercioPage.prototype.eliminarComercio = function (comercio) {
         var _this = this;
         this.comercioService.eliminarComercio(comercio).then(function () {
-            _this.navCtrl.setRoot(ComercioPage);
+            _this.navCtrl.push(ComercioPage);
         });
     };
     EditarComercioPage = __decorate([

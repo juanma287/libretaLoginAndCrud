@@ -8,22 +8,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from "@angular/core";
-import { ViewController } from "ionic-angular";
-var NotificationsPage = /** @class */ (function () {
-    function NotificationsPage(viewCtrl) {
+import { ViewController, NavController } from "ionic-angular";
+import { AuthService } from '../../services/auth.service';
+import { LoginPage } from "../../pages/login/login";
+var ConfiguaracionesPage = /** @class */ (function () {
+    function ConfiguaracionesPage(viewCtrl, auth, nav) {
         this.viewCtrl = viewCtrl;
+        this.auth = auth;
+        this.nav = nav;
     }
-    NotificationsPage.prototype.close = function () {
+    ConfiguaracionesPage.prototype.close = function () {
         this.viewCtrl.dismiss();
     };
-    NotificationsPage = __decorate([
+    ConfiguaracionesPage.prototype.cerrarSesion = function () {
+        this.auth.signOut();
+        this.nav.setRoot(LoginPage);
+    };
+    ConfiguaracionesPage.prototype.configuracion = function () {
+    };
+    ConfiguaracionesPage.prototype.politicaPrivacidad = function () { };
+    ConfiguaracionesPage = __decorate([
         Component({
-            selector: 'page-notifications',
-            templateUrl: 'notifications.html'
+            selector: 'page-configuaraciones',
+            templateUrl: 'configuaraciones.html'
         }),
-        __metadata("design:paramtypes", [ViewController])
-    ], NotificationsPage);
-    return NotificationsPage;
+        __metadata("design:paramtypes", [ViewController, AuthService, NavController])
+    ], ConfiguaracionesPage);
+    return ConfiguaracionesPage;
 }());
-export { NotificationsPage };
-//# sourceMappingURL=notifications.js.map
+export { ConfiguaracionesPage };
+//# sourceMappingURL=configuaraciones.js.map
