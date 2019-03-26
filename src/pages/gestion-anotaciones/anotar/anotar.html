@@ -29,6 +29,31 @@
    </ion-item>
   </ion-card>
 
+  <ion-card no-margin margin-bottom class="full-width">
+   <ion-grid>
+        <ion-row>
+          <ion-col col-4 style="padding-left: 0px;">
+              <ion-item> 
+              <!-- ion-label color="dark">Unidad:*</ion-label -->
+               <ion-select style="max-width: 100%; padding-left: 0px;padding-right: 2px;"  placeholder="Producto" #MySelect (ionChange)="onChange(MySelect.value)"  okText="Ok" cancelText="Cancelar">
+                    <ion-option *ngFor="let producto of listaProductos$ | async"  value="{{producto.nombre}}" selected="false">{{producto.nombre}}</ion-option>
+              </ion-select>
+              </ion-item>
+          </ion-col> 
+            <ion-col col-4>
+              <ion-item>   
+                <ion-input type="text" value="aaaa">sadas</ion-input>
+                <ion-label>Kg</ion-label>
+
+              </ion-item>
+          </ion-col>
+             
+           
+        </ion-row>
+   </ion-grid>
+ 
+  </ion-card>
+
   <ion-grid>
         <ion-row>
           <ion-col col-6>

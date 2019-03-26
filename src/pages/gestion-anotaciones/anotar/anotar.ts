@@ -1,14 +1,13 @@
 import { Component} from '@angular/core';
 import { NavController, LoadingController, PopoverController, NavParams} from 'ionic-angular';;
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
+import { Producto } from '../../../model/producto/producto.model';
 //import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.model';
-import { CuentaService } from '../../../services/cuenta.service'
+import { ProductoService } from '../../../services/producto.service'
 //import { ComercioService } from '../../../services/comercio.service';
-//import { AgregarCuentaPage } from "../../gestion-cuentas/agregar-cuenta/agregar-cuenta";
-//import { EditarCuentaPage } from "../editar-cuenta/editar-cuenta";
-//import { Observable } from 'rxjs/Observable';
 import { HomeComercioPage } from "../../home-comercio/home-comercio";
 import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
+import { Observable } from 'rxjs/Observable';
 import { DatePipe } from '@angular/common';
 
 
@@ -19,18 +18,19 @@ import { DatePipe } from '@angular/common';
 })
 export class Anotar {
 
+   listaProductos$: Observable<Producto[]>
+   cantidad: string 
    cuenta: Cuenta;
    valoresCuenta:any;
+
    fechaParaHTML = new Date().toISOString();
- 
    pipe = new DatePipe('es'); 
    fecha_compra_number : any;
    fecha_compra:any;
-  
 
   constructor(
    	 public navCtrl: NavController,
-  	 //private cuentaService: CuentaService,
+  	 private productoService: ProductoService,
   	 public loading: LoadingController,
      public popoverCtrl: PopoverController,
      public navParams: NavParams
@@ -44,13 +44,23 @@ export class Anotar {
      this.fecha_compra = this.pipe.transform(this.fechaParaHTML ,'dd/MM/yyyy');
      this.fecha_compra_number = new Date(this.fechaParaHTML).getTime();
 
-             console.log(this.fechaParaHTML);
-      console.log(this.fecha_compra);
-       console.log(this.fecha_compra_number);
+ 
 	  }
 
   ionViewDidLoad() {
+    // traemos los productos del comercio
+       let loader = this.loading.create({  content: 'Pocesando…',  });
+       loader.present().then(() => {
 
+      this.listaProductos$ = this.productoService.getLista()
+         .snapshotChanges().map(changes => {
+           return changes.map (c => ({
+           key: c.payload.key, ...c.payload.val()
+        }));
+      });    
+       // finalizo loader
+       loader.dismiss()                     
+       });
   }
 
   cambiarFecha()
@@ -64,9 +74,9 @@ export class Anotar {
      this.navCtrl.push(HomeComercioPage);
   }
 
-  agregar()
-  {
-  	// this.navCtrl.push(AgregarCuentaPage);
+  onChange(value) {
+  console.log(value);
+
   }
 
 
