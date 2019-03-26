@@ -23,18 +23,20 @@
   <ion-card no-margin margin-bottom class="full-width">
   <ion-list>
     <ion-list-header>
+      <div style="text-align: center;">
      {{cantidad}}
+     </div>
     </ion-list-header>
     <hr>
     <ion-item *ngFor="let cuenta of listaCuentas$ | async" 
     (click)="editar(cuenta)">
-            <ion-grid no-padding >
+       <ion-grid no-padding >
         <ion-row >
           <ion-col col-6>
              {{cuenta.nombre}} 
           </ion-col> 
           <ion-col col-6 text-right>
-            ${{cuenta.total_deuda}} 
+            {{cuenta.fecha_alta}} 
           </ion-col>     
         </ion-row>
      </ion-grid>

@@ -40,7 +40,7 @@ export class ProductoPage {
 
       // calculamos la cantidad de productos
       this.listaProductos$.subscribe(result => {     
-              this.cantidad = "Cantidad de productos registrados: "+ result.length +"";      
+              this.cantidad = "CANTIDAD DE PRODUCTOS: "+ result.length +"";      
         });
   	
 	  // finalizo loader

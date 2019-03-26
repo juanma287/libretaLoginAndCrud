@@ -33,9 +33,12 @@
     (click)="seleccinar(cuenta)">
       <ion-grid no-padding >
         <ion-row >
-          <ion-col col-12>
+          <ion-col col-6>
              {{cuenta.nombre}} 
           </ion-col>     
+          <ion-col col-6 text-right>
+             ${{cuenta.total_deuda}} 
+          </ion-col>  
         </ion-row>
      </ion-grid>
      <hr style="margin-top: 0px;  margin-bottom: 0px;">

@@ -33,7 +33,7 @@ export class CuentaPage {
    let loader = this.loading.create({  content: 'Pocesando…',  });
    loader.present().then(() => {
 
-    this.listaCuentas$ = this.cuentaService.getLista()
+    this.listaCuentas$ = this.cuentaService.getListaOrderBy('fecha')
 	     .snapshotChanges().map(changes => {
          return changes.map (c => ({
          key: c.payload.key, ...c.payload.val()
@@ -42,7 +42,7 @@ export class CuentaPage {
 	
     // calculamos la cantidad de cuentas
     this.listaCuentas$.subscribe(result => {     
-            this.cantidad = "Cantidad de cuentas registradas: "+ result.length +"";      
+            this.cantidad = "CANTIDAD DE CUENTAS: "+ result.length +"";      
       });
 
 	   // finalizo loader

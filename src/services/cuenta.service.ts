@@ -55,14 +55,21 @@ export class CuentaService {
 
     }
 
-    // Retornamos las cuentas del comercio ordenadas alfabeticamente
-    getListaOrderByName()
+    // Retornamos las cuentas del comercio ordenadas de acurdo al parametro tipoOrden
+    getListaOrderBy(tipoOrden)
     {
        let path =  'lista-comercio/'+ this.usuario.id_comercio +'/cuentas';
-       
-       return this.db.list<Cuenta>(path,
-       ref => ref.orderByChild('nombre'));  
-      
+              
+       switch(tipoOrden) { 
+           case 'nombre': { 
+              return this.db.list<Cuenta>(path,
+              ref => ref.orderByChild('nombre'));               
+           } 
+          case 'fecha': { 
+              return this.db.list<Cuenta>(path,
+              ref => ref.orderByChild('fecha_alta_number'));          
+           } 
+          }
     }
  
     agregar(cuenta: Cuenta) {  

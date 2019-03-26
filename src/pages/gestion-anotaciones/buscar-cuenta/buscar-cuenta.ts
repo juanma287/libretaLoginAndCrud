@@ -5,6 +5,7 @@ import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.mode
 import { CuentaService } from '../../../services/cuenta.service'
 import { ComercioService } from '../../../services/comercio.service';
 import { AgregarCuentaPage } from "../../gestion-cuentas/agregar-cuenta/agregar-cuenta";
+import { Anotar } from "../../gestion-anotaciones/anotar/anotar";
 //import { EditarCuentaPage } from "../editar-cuenta/editar-cuenta";
 import { Observable } from 'rxjs/Observable';
 import { HomeComercioPage } from "../../home-comercio/home-comercio";
@@ -38,7 +39,7 @@ export class BuscarCuentaPage {
    let loader = this.loading.create({  content: 'Pocesando…',  });
    loader.present().then(() => {
 
-    this.listaCuentas$ = this.cuentaService.getListaOrderByName()
+    this.listaCuentas$ = this.cuentaService.getListaOrderBy('nombre')
 	     .snapshotChanges().map(changes => {
          return changes.map (c => ({
          key: c.payload.key, ...c.payload.val()
@@ -83,24 +84,24 @@ export class BuscarCuentaPage {
   
    }
 
-  
+  agregar()
+  {
+  	 this.navCtrl.push(AgregarCuentaPage);
+  }
+
+  // al seleccinar una cuenta para anotar abrimos la ventana para anotaciones
+  seleccinar(cuenta: Cuenta)
+  {
+  	 this.navCtrl.push(Anotar, {cuenta: cuenta});
+  }
+
 
   volverHome()
   {
      this.navCtrl.push(HomeComercioPage);
   }
 
-  agregar()
-  {
-  	 this.navCtrl.push(AgregarCuentaPage);
-  }
-
-   editar(cuenta: Cuenta)
-  {
-  //	 this.navCtrl.push(EditarCuentaPage, {cuenta: cuenta});
-  }
-
-   configuaraciones(myEvent) {
+  configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);
     popover.present({
       ev: myEvent
