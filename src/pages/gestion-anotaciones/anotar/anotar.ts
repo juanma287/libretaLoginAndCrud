@@ -27,6 +27,9 @@ export class Anotar {
    pipe = new DatePipe('es'); 
    fecha_compra_number : any;
    fecha_compra:any;
+   unidad: string = '';
+   monto: any = '';
+
 
   constructor(
    	 public navCtrl: NavController,
@@ -71,11 +74,12 @@ export class Anotar {
 
   volverHome()
   {
-     this.navCtrl.push(HomeComercioPage);
+     //this.navCtrl.push(HomeComercioPage);
   }
 
   onChange(value) {
   console.log(value);
+  this.unidad = "Kilogramos..";
 
   }
 
