@@ -5,7 +5,7 @@ import { Producto } from '../../../model/producto/producto.model';
 //import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.model';
 import { ProductoService } from '../../../services/producto.service'
 //import { ComercioService } from '../../../services/comercio.service';
-import { HomeComercioPage } from "../../home-comercio/home-comercio";
+import { BuscarCuentaPage } from "../../gestion-anotaciones/buscar-cuenta/buscar-cuenta";
 import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 import { Observable } from 'rxjs/Observable';
 import { DatePipe } from '@angular/common';
@@ -19,7 +19,7 @@ import { DatePipe } from '@angular/common';
 export class Anotar {
 
    listaProductos$: Observable<Producto[]>
-   cantidad: string 
+   productoDetalle$:Observable<Producto[]>
    cuenta: Cuenta;
    valoresCuenta:any;
 
@@ -27,9 +27,18 @@ export class Anotar {
    pipe = new DatePipe('es'); 
    fecha_compra_number : any;
    fecha_compra:any;
-   unidad: string = '';
-   monto: any = '';
+   monto_compra: number = 0;
 
+   listaDetalle: Array<any> = [
+   {
+        id_producto:0,
+        nombre_producto:'',
+        cantidad:'',
+        unidad:'',
+        precio: 0,
+        total_detalle:0
+    }
+  ];
 
   constructor(
    	 public navCtrl: NavController,
@@ -46,12 +55,11 @@ export class Anotar {
 
      this.fecha_compra = this.pipe.transform(this.fechaParaHTML ,'dd/MM/yyyy');
      this.fecha_compra_number = new Date(this.fechaParaHTML).getTime();
-
  
 	  }
 
   ionViewDidLoad() {
-    // traemos los productos del comercio
+       // traemos los productos del comercio
        let loader = this.loading.create({  content: 'Pocesando…',  });
        loader.present().then(() => {
 
@@ -74,12 +82,66 @@ export class Anotar {
 
   volverHome()
   {
-     //this.navCtrl.push(HomeComercioPage);
+     this.navCtrl.push(BuscarCuentaPage);
   }
 
-  onChange(value) {
-  console.log(value);
-  this.unidad = "Kilogramos..";
+  agregarDetalle()
+  {
+    let detalle = {
+        id_producto:0,
+        nombre_producto:'',
+        cantidad:'',
+        unidad:'',
+        precio: 0,
+        total_detalle:0
+        }
+  
+    this.listaDetalle.push(detalle);    
+  }
+
+  // por defecto eleiminamos el ultimo item
+  eliminarDetalle()
+  {
+    this.listaDetalle.pop();
+    // this.listaDetalle(0, 1) de esta forma eliminamos el elemtno de la posicion 0
+    this.calcularTotalCompra();
+  }
+
+ // se ejecuta cuando cargamos la cantidad de un producto
+ onChangeCantidad(indice)
+ {
+  this.listaDetalle[indice].total_detalle = this.listaDetalle[indice].cantidad * this.listaDetalle[indice].precio;
+  this.calcularTotalCompra();
+ 
+ }
+
+ calcularTotalCompra()
+ {
+    let length = this.listaDetalle.length;
+    let aux = 0;
+    for (var i = 0; i < length; ++i) 
+    {
+      aux= aux + this.listaDetalle[i].total_detalle;
+    }
+    this.monto_compra = aux;
+ }
+  // se ejecuta cuando elegimos el producto
+ onChangeProducto(key,indice) 
+  {
+    this.productoDetalle$ = this.listaProductos$
+    .map( productos =>
+           productos.filter( prod => prod.key === key)
+      );
+     
+    this.productoDetalle$.subscribe(val => 
+      {
+        this.listaDetalle[indice].nombre_producto = val[0].nombre;
+        this.listaDetalle[indice].id_producto = val[0].key;
+        this.listaDetalle[indice].unidad = val[0].unidad;
+        this.listaDetalle[indice].precio = val[0].precio;
+        console.log(this.listaDetalle)
+      }
+    );
 
   }
 
