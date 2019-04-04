@@ -4,6 +4,7 @@ import { Cuenta } from '../../../model/cuenta/cuenta.model';
 import { Producto } from '../../../model/producto/producto.model';
 //import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.model';
 import { ProductoService } from '../../../services/producto.service'
+import { AnotarService } from '../../../services/anotar.service'
 //import { ComercioService } from '../../../services/comercio.service';
 import { BuscarCuentaPage } from "../../gestion-anotaciones/buscar-cuenta/buscar-cuenta";
 import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
@@ -42,6 +43,7 @@ export class Anotar {
 
   constructor(
    	 public navCtrl: NavController,
+     private anotarService: AnotarService,
   	 private productoService: ProductoService,
   	 public loading: LoadingController,
      public popoverCtrl: PopoverController,
@@ -74,19 +76,12 @@ export class Anotar {
        });
   }
 
-  cambiarFecha()
-  {
+  cambiarFecha()  {
     this.fecha_compra = this.pipe.transform(this.fechaParaHTML ,'dd/MM/yyyy');
     this.fecha_compra_number = new Date(this.fechaParaHTML).getTime();
   }
 
-  volverHome()
-  {
-     this.navCtrl.push(BuscarCuentaPage);
-  }
-
-  agregarDetalle()
-  {
+  agregarDetalle() {
     let detalle = {
         id_producto:0,
         nombre_producto:'',
@@ -100,34 +95,21 @@ export class Anotar {
   }
 
   // por defecto eleiminamos el ultimo item
-  eliminarDetalle()
-  {
+  eliminarDetalle() {
     this.listaDetalle.pop();
     // this.listaDetalle(0, 1) de esta forma eliminamos el elemtno de la posicion 0
     this.calcularTotalCompra();
   }
 
  // se ejecuta cuando cargamos la cantidad de un producto
- onChangeCantidad(indice)
- {
+ onChangeCantidad(indice){
   this.listaDetalle[indice].total_detalle = this.listaDetalle[indice].cantidad * this.listaDetalle[indice].precio;
   this.calcularTotalCompra();
  
  }
 
- calcularTotalCompra()
- {
-    let length = this.listaDetalle.length;
-    let aux = 0;
-    for (var i = 0; i < length; ++i) 
-    {
-      aux= aux + this.listaDetalle[i].total_detalle;
-    }
-    this.monto_compra = aux;
- }
   // se ejecuta cuando elegimos el producto
- onChangeProducto(key,indice) 
-  {
+ onChangeProducto(key,indice) {
     this.productoDetalle$ = this.listaProductos$
     .map( productos =>
            productos.filter( prod => prod.key === key)
@@ -145,6 +127,19 @@ export class Anotar {
 
   }
 
+ calcularTotalCompra(){
+    let length = this.listaDetalle.length;
+    let aux = 0;
+    for (var i = 0; i < length; ++i) 
+    {
+      aux= aux + this.listaDetalle[i].total_detalle;
+    }
+    this.monto_compra = aux;
+ }
+
+  volverHome() {
+     this.navCtrl.push(BuscarCuentaPage);
+  }
 
    configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);
