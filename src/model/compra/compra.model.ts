@@ -3,5 +3,6 @@ export interface Compra {
     total_compra: number;
     fecha_compra:string;
     fecha_compra_number: number;
+    estado: string;
     lista_detalle: any;
 }

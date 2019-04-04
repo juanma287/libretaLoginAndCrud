@@ -1,10 +1,11 @@
 import { Component} from '@angular/core';
-import { NavController, LoadingController, PopoverController, NavParams} from 'ionic-angular';;
+import { NavController, AlertController, LoadingController, PopoverController, NavParams} from 'ionic-angular';;
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
+import { Compra } from '../../../model/compra/compra.model';
 import { Producto } from '../../../model/producto/producto.model';
 //import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.model';
 import { ProductoService } from '../../../services/producto.service'
-import { AnotarService } from '../../../services/anotar.service'
+import { AnotacionesService } from '../../../services/anotaciones.service'
 //import { ComercioService } from '../../../services/comercio.service';
 import { BuscarCuentaPage } from "../../gestion-anotaciones/buscar-cuenta/buscar-cuenta";
 import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
@@ -18,18 +19,32 @@ import { DatePipe } from '@angular/common';
   templateUrl: 'anotar.html',
 })
 export class Anotar {
+ 
+   public compra: Compra = {
+      total_compra: 0,
+      fecha_compra:'',
+      fecha_compra_number: 0,
+      estado: 'intacta',
+      lista_detalle: '',
+    };
 
+   // lista de productos que tiene el comercio y el producto elegido en un detalle
    listaProductos$: Observable<Producto[]>
    productoDetalle$:Observable<Producto[]>
+
+   // cuenta en la que anotaremos 
    cuenta: Cuenta;
    valoresCuenta:any;
-
+   key_cuenta:any;
+    
+   // fecha y monto de la compra 
    fechaParaHTML = new Date().toISOString();
    pipe = new DatePipe('es'); 
    fecha_compra_number : any;
    fecha_compra:any;
    monto_compra: number = 0;
 
+   // Lista de detalles que forman parte de la compra 
    listaDetalle: Array<any> = [
    {
         id_producto:0,
@@ -38,14 +53,14 @@ export class Anotar {
         unidad:'',
         precio: 0,
         total_detalle:0
-    }
-  ];
+    }];
 
   constructor(
    	 public navCtrl: NavController,
-     private anotarService: AnotarService,
+     private anotacionesService: AnotacionesService,
   	 private productoService: ProductoService,
   	 public loading: LoadingController,
+     public alertCtrl: AlertController,
      public popoverCtrl: PopoverController,
      public navParams: NavParams
   	 ) 
@@ -54,6 +69,7 @@ export class Anotar {
      this.cuenta = this.navParams.data;
      this.valoresCuenta = (<any>Object).values(this.cuenta);
      this.valoresCuenta = this.valoresCuenta['0'];
+     this.key_cuenta = this.valoresCuenta.key
 
      this.fecha_compra = this.pipe.transform(this.fechaParaHTML ,'dd/MM/yyyy');
      this.fecha_compra_number = new Date(this.fechaParaHTML).getTime();
@@ -65,15 +81,41 @@ export class Anotar {
        let loader = this.loading.create({  content: 'Pocesando…',  });
        loader.present().then(() => {
 
-      this.listaProductos$ = this.productoService.getLista()
+       this.listaProductos$ = this.productoService.getLista()
          .snapshotChanges().map(changes => {
            return changes.map (c => ({
            key: c.payload.key, ...c.payload.val()
-        }));
-      });    
+         }));
+       });    
        // finalizo loader
        loader.dismiss()                     
        });
+  }
+
+  anotar()
+  {
+     // completamos los datos de la cuenta
+     this.compra.total_compra = this.monto_compra;
+     this.compra.fecha_compra = this.fecha_compra;
+     // se pone negativa para poder ordenar desendente con firebase
+     this.compra.fecha_compra_number = this.fecha_compra_number * -1;
+
+     var estadoConexion = this.anotacionesService.estadoConex;
+     if(estadoConexion)
+     {
+          this.anotacionesService.agregar(this.key_cuenta,this.compra).then(ref => { 
+                 this.navCtrl.setRoot(BuscarCuentaPage);
+            })           
+     }
+     else
+     {
+         const alert = this.alertCtrl.create({
+          title: 'Error: sin conexión',
+          subTitle: 'Para realizar la operación conéctese y vuelva a intentarlo',
+          buttons: ['OK']
+        });
+        alert.present();
+     }  
   }
 
   cambiarFecha()  {
@@ -90,7 +132,6 @@ export class Anotar {
         precio: 0,
         total_detalle:0
         }
-  
     this.listaDetalle.push(detalle);    
   }
 
@@ -104,6 +145,8 @@ export class Anotar {
  // se ejecuta cuando cargamos la cantidad de un producto
  onChangeCantidad(indice){
   this.listaDetalle[indice].total_detalle = this.listaDetalle[indice].cantidad * this.listaDetalle[indice].precio;
+  this.listaDetalle[indice].total_detalle = this.truncateDecimals(this.listaDetalle[indice].total_detalle,2);
+
   this.calcularTotalCompra();
  
  }
@@ -121,7 +164,6 @@ export class Anotar {
         this.listaDetalle[indice].id_producto = val[0].key;
         this.listaDetalle[indice].unidad = val[0].unidad;
         this.listaDetalle[indice].precio = val[0].precio;
-        console.log(this.listaDetalle)
       }
     );
 
@@ -134,8 +176,18 @@ export class Anotar {
     {
       aux= aux + this.listaDetalle[i].total_detalle;
     }
-    this.monto_compra = aux;
+    this.monto_compra = this.truncateDecimals(aux, 2);
  }
+  
+  truncateDecimals (number, digits) {
+    var multiplier = Math.pow(10, digits),
+        adjustedNum = number * multiplier,
+        truncatedNum = Math[adjustedNum < 0 ? 'ceil' : 'floor'](adjustedNum);
+
+    return truncatedNum / multiplier;
+  };
+
+
 
   volverHome() {
      this.navCtrl.push(BuscarCuentaPage);

@@ -61,7 +61,7 @@ import { AuthService } from '../services/auth.service';
 import { ComercioService } from '../services/comercio.service';
 import { ProductoService } from '../services/producto.service';
 import { CuentaService } from '../services/cuenta.service';
-import { AnotarService } from '../services/anotar.service';
+import { AnotacionesService } from '../services/anotaciones.service';
 
 
 import { DatePipe } from '@angular/common';
@@ -167,7 +167,7 @@ export const firebaseConfig = {
     ComercioService,
     ProductoService,
     CuentaService,
-    AnotarService,
+    AnotacionesService,
     DatePipe
   ]
 })
