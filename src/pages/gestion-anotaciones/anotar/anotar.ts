@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { NavController, AlertController, LoadingController, PopoverController, NavParams} from 'ionic-angular';;
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
 import { Compra } from '../../../model/compra/compra.model';
+import { Detalle } from '../../../model/detalle/detalle.model';
 import { Producto } from '../../../model/producto/producto.model';
 //import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.model';
 import { ProductoService } from '../../../services/producto.service'
@@ -28,6 +29,17 @@ export class Anotar {
       lista_detalle: '',
     };
 
+   // Lista de detalles que forman parte de la compra 
+   public listaDetalle: Array<Detalle> = [
+   {
+      id_producto: 0,
+      nombre_producto:'',
+      unidad: '',
+      precio: 0,
+      cantidad: '',
+      total_detalle: '',
+   }];
+
    // lista de productos que tiene el comercio y el producto elegido en un detalle
    listaProductos$: Observable<Producto[]>
    productoDetalle$:Observable<Producto[]>
@@ -44,16 +56,6 @@ export class Anotar {
    fecha_compra:any;
    monto_compra: number = 0;
 
-   // Lista de detalles que forman parte de la compra 
-   listaDetalle: Array<any> = [
-   {
-        id_producto:0,
-        nombre_producto:'',
-        cantidad:'',
-        unidad:'',
-        precio: 0,
-        total_detalle:0
-    }];
 
   constructor(
    	 public navCtrl: NavController,
@@ -94,18 +96,20 @@ export class Anotar {
 
   anotar()
   {
-     // completamos los datos de la cuenta
-     this.compra.total_compra = this.monto_compra;
-     this.compra.fecha_compra = this.fecha_compra;
-     // se pone negativa para poder ordenar desendente con firebase
-     this.compra.fecha_compra_number = this.fecha_compra_number * -1;
 
      var estadoConexion = this.anotacionesService.estadoConex;
      if(estadoConexion)
      {
-          this.anotacionesService.agregar(this.key_cuenta,this.compra).then(ref => { 
-                 this.navCtrl.setRoot(BuscarCuentaPage);
-            })           
+          this.inicializarCompra();
+          this.anotacionesService.agregarCompra(this.key_cuenta,this.compra).then(ref => {
+               let key_compra = ref.key;
+               let length = this.listaDetalle.length;
+               for (var i = 0; i < length; ++i) 
+               {
+                this.anotacionesService.agregarDetalle(this.key_cuenta, key_compra,this.listaDetalle[i]);
+               }
+          this.navCtrl.setRoot(BuscarCuentaPage);
+          })           
      }
      else
      {
@@ -117,6 +121,15 @@ export class Anotar {
         alert.present();
      }  
   }
+
+  inicializarCompra(){
+     // completamos los datos de la compra
+     this.compra.total_compra = this.monto_compra;
+     this.compra.fecha_compra = this.fecha_compra;
+     // se pone negativa para poder ordenar desendente con firebase
+     this.compra.fecha_compra_number = this.fecha_compra_number * -1;
+  }
+
 
   cambiarFecha()  {
     this.fecha_compra = this.pipe.transform(this.fechaParaHTML ,'dd/MM/yyyy');
@@ -188,12 +201,11 @@ export class Anotar {
   };
 
 
-
   volverHome() {
      this.navCtrl.push(BuscarCuentaPage);
   }
 
-   configuaraciones(myEvent) {
+  configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);
     popover.present({
       ev: myEvent

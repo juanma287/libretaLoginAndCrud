@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase} from 'angularfire2/database';
 
 import { Compra } from '../model/compra/compra.model';
+import { Detalle } from '../model/detalle/detalle.model';
 
 import { Cuenta } from '../model/cuenta/cuenta.model';
 import { CuentaGeneral } from '../model/cuenta-general/cuenta-general.model';
@@ -46,12 +47,21 @@ export class AnotacionesService {
     }
 
  
-    agregar(key_cuenta, compra: Compra) {  
+    agregarCompra(key_cuenta, compra: Compra) {  
 
            let path =  'lista-compra/'+ this.key_comercio +'/'+ key_cuenta;
            let listaCuentasComercio = this.db.list<Compra>(path); 
            
            return listaCuentasComercio.push(compra);           
+    }
+
+    agregarDetalle(key_cuenta, key_compra, detalle: Detalle)
+    {
+       let path =  'lista-compra/'+ this.key_comercio +'/'+ key_cuenta +'/'+ key_compra + '/detalle';
+       let listaCompra = this.db.list<Detalle>(path); 
+           
+       return listaCompra.push(detalle);  
+
     }
 
 
