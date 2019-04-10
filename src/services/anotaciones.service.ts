@@ -4,7 +4,6 @@ import { AngularFireDatabase} from 'angularfire2/database';
 import { Compra } from '../model/compra/compra.model';
 import { Detalle } from '../model/detalle/detalle.model';
 
-import { Cuenta } from '../model/cuenta/cuenta.model';
 import { CuentaGeneral } from '../model/cuenta-general/cuenta-general.model';
 
 import { Storage } from '@ionic/storage';
@@ -17,6 +16,7 @@ export class AnotacionesService {
     public estadoConex: any;
     usuario: Usuario;
     public key_comercio: any;
+    public total_deuda:any;
 
     /*
     INFO:
@@ -64,17 +64,27 @@ export class AnotacionesService {
 
     }
 
-
- 
-    actualizar(cuenta: Cuenta) {
-
-        //return this.listaCuentasComercio.update(cuenta.key, cuenta).then(error => console.log(error));
-    }
-
-    eliminar(cuenta: Cuenta) {
+    // actualizamos el total de la deuda en la cuenta que tiene alamcenada el comercio
+    actualizarCuentaComercio(key_cuenta, total_deuda_cuenta,  monto_compra) {   
       
-     //   return this.listaCuentasComercio.remove(cuenta.key);
-    }
+      let path =  'lista-comercio/'+ this.key_comercio+'/cuentas/'+ key_cuenta;
+      let data = {
+                  total_deuda: total_deuda_cuenta + monto_compra
+                 }
+      return this.db.object(path).update(data); 
+    } 
+
+    // actualizamos el total de la deuda en la cuenta general
+    actualizarCuentaGeneral(key_cuenta, total_deuda_cuenta, monto_compra) {   
+                      
+      let path =  'lista-cuenta/'+ this.key_comercio+'/'+ key_cuenta;
+      let data = {
+                  total_deuda: total_deuda_cuenta + monto_compra
+                 }
+      return this.db.object(path).update(data); 
+
+    } 
+
 
 
     

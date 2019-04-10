@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import {Storage} from '@ionic/storage';
 
-import { HomePage } from "../pages/home/home";
 import { HomeComercioPage } from "../pages/home-comercio/home-comercio";
 import { LoginPage } from "../pages/login/login";
 
@@ -48,7 +47,6 @@ export class MyApp {
     this.initializeApp();
 
     this.appMenuItems = [
-      {title: 'Home', component: HomePage, icon: 'home'},
       {title: 'Home-comercio', component: HomeComercioPage, icon: 'home'},
       {title: 'Anotar', component: BuscarCuentaPage, icon: 'create'},
       {title: 'Gestionar cuentas', component: CuentaPage, icon: 'logo-buffer'},
@@ -98,7 +96,7 @@ export class MyApp {
                           else
                            {
                               alert("cliente");
-                              this.rootPage = HomePage;
+                              this.rootPage = HomeComercioPage;
 
                            }
                           

@@ -5,8 +5,7 @@ import {Storage} from '@ionic/storage';
 
 import {ConfiguaracionesPage} from "../configuaraciones/configuaraciones";
 import {SettingsPage} from "../settings/settings";
-import {TripsPage} from "../trips/trips";
-import {SearchLocationPage} from "../search-location/search-location";
+
 
 import {CuentaPage} from "../gestion-cuentas/cuenta/cuenta";
 import {ClientePage} from "../gestion-clientes/cliente/cliente";

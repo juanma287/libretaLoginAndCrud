@@ -8,14 +8,11 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {Keyboard} from '@ionic-native/keyboard';
 
-import {ActivityService} from "../services/activity-service";
-import {TripService} from "../services/trip-service";
+
 
 import {MyApp} from "./app.component";
 
 import {SettingsPage} from "../pages/settings/settings";
-import {CheckoutTripPage} from "../pages/checkout-trip/checkout-trip";
-import {HomePage} from "../pages/home/home";
 import {LoginPage} from "../pages/login/login";
 
 // gestion de comercios
@@ -48,9 +45,6 @@ import { Anotar } from "../pages/gestion-anotaciones/anotar/anotar";
 
 import {ConfiguaracionesPage} from "../pages/configuaraciones/configuaraciones";
 import {RegisterPage} from "../pages/register/register";
-import {SearchLocationPage} from "../pages/search-location/search-location";
-import {TripDetailPage} from "../pages/trip-detail/trip-detail";
-import {TripsPage} from "../pages/trips/trips";
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -80,8 +74,6 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     SettingsPage,
-    CheckoutTripPage,
-    HomePage,
     HomeComercioPage,
     LoginPage,
     ComercioPage,
@@ -105,9 +97,6 @@ export const firebaseConfig = {
 
     ConfiguaracionesPage,
     RegisterPage,
-    SearchLocationPage,
-    TripDetailPage,
-    TripsPage
   ],
   imports: [
     BrowserModule,
@@ -128,15 +117,10 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     SettingsPage,
-    CheckoutTripPage,
-    HomePage,
     HomeComercioPage,
     LoginPage,
     ConfiguaracionesPage,
     RegisterPage,
-    SearchLocationPage,
-    TripDetailPage,
-    TripsPage,
     ComercioPage,
     AgregarComercioPage,
     EditarComercioPage,
@@ -160,8 +144,6 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     Keyboard,
-    ActivityService,
-    TripService,
     AngularFireAuth,
     AuthService,
     ComercioService,

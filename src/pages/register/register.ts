@@ -4,7 +4,7 @@ import {NavController, AlertController, LoadingController} from "ionic-angular";
 import { AuthService } from '../../services/auth.service';
 
 import {LoginPage} from "../login/login";
-import {HomePage} from "../home/home";
+import {ComercioPage} from "../gestion-comercio/comercio/comercio";
 
 
 
@@ -46,7 +46,7 @@ export class RegisterPage {
          
            // REGISTRO
           this.auth.signUp(credentials)  
-           .then(() => this.navCtrl.setRoot(HomePage))
+           .then(() => this.navCtrl.setRoot(ComercioPage))
            .catch(error => this.erroresRegistro = "Datos de ingreso incorrectos");
             
           // finalizo loader
@@ -59,7 +59,7 @@ export class RegisterPage {
   // Ingresar con Google
  registerWithGoogle() {
   this.auth.signInWithGoogle()
-    .then(() => this.navCtrl.setRoot(HomePage))
+    .then(() => this.navCtrl.setRoot(ComercioPage))
     .catch(error => console.log(error.message));  
     
   }
@@ -67,7 +67,7 @@ export class RegisterPage {
   // Ingresar con Facebook
  registerWithFacebook() {
   this.auth.signInWithFacebook()
-    .then(() => this.navCtrl.setRoot(HomePage))
+    .then(() => this.navCtrl.setRoot(ComercioPage))
     .catch(error => console.log(error.message));  
   }
 

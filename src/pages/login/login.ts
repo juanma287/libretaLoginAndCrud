@@ -5,9 +5,8 @@ import { AuthService } from '../../services/auth.service';
 import {Storage} from '@ionic/storage';
 
 
-import {HomePage} from "../home/home";
+import {HomeComercioPage} from "../home-comercio/home-comercio";
 import {RegisterPage} from "../register/register";
-import {ComercioPage} from "../gestion-comercio/comercio/comercio";
 
 
 
@@ -52,10 +51,6 @@ export class LoginPage {
     this.nav.setRoot(RegisterPage);
   }
 
- // luego lo borramos, lo tengo solo para probar  
-  crud() {
-    this.nav.setRoot(ComercioPage);
-  }
 
   // login 
   login() {
@@ -71,7 +66,7 @@ export class LoginPage {
          
        // AUTENTICACION
        this.auth.signInWithEmail(credentials)
-      .then(() => this.nav.setRoot(HomePage))
+      .then(() => this.nav.setRoot(HomeComercioPage))
       .catch(error => this.loginError = "Datos de ingreso incorrectos");
       
      // finalizo loader
@@ -83,14 +78,14 @@ export class LoginPage {
   // Ingresar con Google
   loginWithGoogle() {
   this.auth.signInWithGoogle()
-    .then(() => this.nav.setRoot(HomePage))
+    .then(() => this.nav.setRoot(HomeComercioPage))
     .catch(error => console.log(error.message));      
   }
 
   // Ingresar con Facebook
   loginWithFacebook() {
   this.auth.signInWithFacebook()
-    .then(() => this.nav.setRoot(HomePage))
+    .then(() => this.nav.setRoot(HomeComercioPage))
     .catch(error => console.log(error.message));
     
   }

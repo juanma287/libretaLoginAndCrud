@@ -48,6 +48,7 @@ export class Anotar {
    cuenta: Cuenta;
    valoresCuenta:any;
    key_cuenta:any;
+   total_deuda: any;
     
    // fecha y monto de la compra 
    fechaParaHTML = new Date().toISOString();
@@ -72,7 +73,8 @@ export class Anotar {
      this.valoresCuenta = (<any>Object).values(this.cuenta);
      this.valoresCuenta = this.valoresCuenta['0'];
      this.key_cuenta = this.valoresCuenta.key
-
+     this.total_deuda = this.valoresCuenta.total_deuda;
+     
      this.fecha_compra = this.pipe.transform(this.fechaParaHTML ,'dd/MM/yyyy');
      this.fecha_compra_number = new Date(this.fechaParaHTML).getTime();
  
@@ -108,6 +110,9 @@ export class Anotar {
                {
                 this.anotacionesService.agregarDetalle(this.key_cuenta, key_compra,this.listaDetalle[i]);
                }
+               // actualizamos la cuenta del comercio y la cuenta general
+               this.anotacionesService.actualizarCuentaComercio(this.key_cuenta, this.total_deuda, this.compra.total_compra);
+               this.anotacionesService.actualizarCuentaGeneral(this.key_cuenta, this.total_deuda,this.compra.total_compra);
           this.navCtrl.setRoot(BuscarCuentaPage);
           })           
      }
@@ -122,8 +127,8 @@ export class Anotar {
      }  
   }
 
+  // completamos los datos de la compra
   inicializarCompra(){
-     // completamos los datos de la compra
      this.compra.total_compra = this.monto_compra;
      this.compra.fecha_compra = this.fecha_compra;
      // se pone negativa para poder ordenar desendente con firebase
