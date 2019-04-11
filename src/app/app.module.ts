@@ -41,6 +41,8 @@ import {HomeComercioPage} from "../pages/home-comercio/home-comercio";
 // buscador de cuentas del ANOTADOR
 import { BuscarCuentaPage } from "../pages/gestion-anotaciones/buscar-cuenta/buscar-cuenta";
 import { Anotar } from "../pages/gestion-anotaciones/anotar/anotar";
+import { VerAnotacionesPage } from "../pages/gestion-anotaciones/ver-anotaciones/ver-anotaciones";
+import { VerAnotacionesCuentaPage } from "../pages/gestion-anotaciones/ver-anotaciones-cuenta/ver-anotaciones-cuenta";
 
 
 import {ConfiguaracionesPage} from "../pages/configuaraciones/configuaraciones";
@@ -94,6 +96,9 @@ export const firebaseConfig = {
 
     BuscarCuentaPage,
     Anotar,
+    VerAnotacionesPage,
+    VerAnotacionesCuentaPage,
+
 
     ConfiguaracionesPage,
     RegisterPage,
@@ -135,6 +140,8 @@ export const firebaseConfig = {
 
     BuscarCuentaPage,
     Anotar,
+    VerAnotacionesPage,
+    VerAnotacionesCuentaPage,
     
     ProductoPage,
     AgregarProductoPage,

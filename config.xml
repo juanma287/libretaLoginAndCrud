@@ -53,7 +53,6 @@
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
-    <!-- dicho comando lo agregue para  que compile en mi cel, ver como funciona con el resto -->
     <preference name="loadUrlTimeoutValue" value="60000" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreenDelay" value="4000" />

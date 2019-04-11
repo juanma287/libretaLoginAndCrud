@@ -22,12 +22,8 @@
   <div class="card round" margin-top>
     <div padding>
       <ion-item no-padding>
-        <ion-label color="dark" floating>Nombre:*</ion-label>
+        <ion-label color="dark" floating>Producto:*</ion-label>
         <ion-input type="text"  [(ngModel)]="producto.nombre" style="color: #999999"></ion-input>
-      </ion-item>
-      <ion-item no-padding>
-        <ion-label color="dark" floating>Descripcion:</ion-label>
-        <ion-textarea type="text" [(ngModel)]="producto.descripcion" style="color: #999999"></ion-textarea>
       </ion-item>
       <br>
      <ion-item no-padding>
@@ -42,11 +38,6 @@
         <ion-label color="dark" floating *ngIf="producto?.unidad == ''">Precio:*</ion-label>
         <ion-label color="dark" floating *ngIf="producto?.unidad != ''">Precio/{{producto?.unidad}}:</ion-label> 
         <ion-input type="number" [(ngModel)]="producto.precio"  style="color: #999999"></ion-input>
-      </ion-item>
-       <ion-item no-padding>
-        <ion-label color="dark" floating *ngIf="producto?.unidad == ''">Costo:</ion-label>
-        <ion-label color="dark" floating *ngIf="producto?.unidad != ''">Costo/{{producto?.unidad}}:</ion-label>
-        <ion-input type="number" [(ngModel)]="producto.costo"  style="color: #999999"></ion-input>
       </ion-item>
     </div>
   </div>

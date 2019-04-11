@@ -23,10 +23,6 @@
         <ion-label color="dark" >Nombre:</ion-label>
         <ion-input type="text"  [(ngModel)]="producto.nombre" style="color: #999999;"> {{producto?.nombre}} </ion-input>
       </ion-item>
-      <ion-item no-padding>
-        <ion-label color="dark">Descripcion:</ion-label>
-        <ion-textarea type="text" [(ngModel)]="producto.descripcion" style="color: #999999"> {{producto?.descripcion}}</ion-textarea>
-      </ion-item>
        <ion-item no-padding>
         <ion-label color="dark">Unidad:</ion-label>
         <ion-select  style="color: #999999" [(ngModel)]="producto.unidad"  #MySelect (ionChange)="onChange(MySelect.value)" okText="Ok" cancelText="Cancelar">
@@ -38,10 +34,6 @@
       <ion-item no-padding>
         <ion-label color="dark">Precio/{{producto?.unidad}}:</ion-label>
         <ion-input type="number" [(ngModel)]="producto.precio" style="color: #999999">{{producto?.precio}}</ion-input>
-      </ion-item>
-      <ion-item no-padding>
-        <ion-label color="dark">Costo/{{producto?.unidad}}:</ion-label>
-        <ion-input type="number" [(ngModel)]="producto.costo" style="color: #999999">{{producto?.costo}}</ion-input>
       </ion-item>
     </div>
   </div>

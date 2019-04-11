@@ -46,6 +46,13 @@ export class AnotacionesService {
         //return this.listaCuentasComercio;
     }
 
+    getCompras(key_cuenta)
+    {
+      let path =  'lista-compra/'+ this.key_comercio +'/'+ key_cuenta;
+      let listaCompras = this.db.list<Compra>(path,
+              ref => ref.orderByChild('fecha_compra_number')); 
+      return listaCompras;
+    }
  
     agregarCompra(key_cuenta, compra: Compra) {  
 

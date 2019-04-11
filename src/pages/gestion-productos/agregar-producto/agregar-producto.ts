@@ -13,9 +13,7 @@ export class AgregarProductoPage {
 
   producto: Producto = {
     nombre: '',
-    descripcion: '',
     precio: 0,
-    costo:0,
     unidad: ''
    };
 
