@@ -2,16 +2,10 @@ import { Component} from '@angular/core';
 import { NavController, AlertController, LoadingController, PopoverController, NavParams} from 'ionic-angular';;
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
 import { Compra } from '../../../model/compra/compra.model';
-import { Detalle } from '../../../model/detalle/detalle.model';
-import { Producto } from '../../../model/producto/producto.model';
-//import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.model';
-import { ProductoService } from '../../../services/producto.service'
 import { AnotacionesService } from '../../../services/anotaciones.service'
-//import { ComercioService } from '../../../services/comercio.service';
-import { BuscarCuentaPage } from "../../gestion-anotaciones/buscar-cuenta/buscar-cuenta";
 import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
+import { VerDetallePage } from "../../gestion-anotaciones/ver-detalle/ver-detalle";
 import { Observable } from 'rxjs/Observable';
-import { DatePipe } from '@angular/common';
 
 
 
@@ -36,7 +30,6 @@ export class VerAnotacionesCuentaPage {
   constructor(
    	 public navCtrl: NavController,
      private anotacionesService: AnotacionesService,
-  	 private productoService: ProductoService,
   	 public loading: LoadingController,
      public alertCtrl: AlertController,
      public popoverCtrl: PopoverController,
@@ -63,7 +56,7 @@ export class VerAnotacionesCuentaPage {
            key: c.payload.key, ...c.payload.val()
          }));
        });    
-       // calculamos la cantidad de productos
+       // calculamos la cantidad de compras
         this.listaCompras$.subscribe(result => {     
               this.cantidad = "CANTIDAD DE COMPRAS: "+ result.length +"";      
         });
@@ -73,15 +66,12 @@ export class VerAnotacionesCuentaPage {
        });
   }
 
-  verDetalle()
+  // al seleccinar una comora mostramos el detalle de la misma
+  verDetalle(compra: Compra)
   {
-
+     this.navCtrl.push(VerDetallePage, {compra: compra});
   }
-
-
-  volverHome() {
-     this.navCtrl.push(BuscarCuentaPage);
-  }
+ 
 
   configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);

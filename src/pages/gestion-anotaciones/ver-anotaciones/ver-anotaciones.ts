@@ -2,12 +2,11 @@ import { Component} from '@angular/core';
 import { NavController, LoadingController, PopoverController} from 'ionic-angular';;
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
 import { CuentaService } from '../../../services/cuenta.service'
-import { ComercioService } from '../../../services/comercio.service';
 import { Anotar } from "../../gestion-anotaciones/anotar/anotar";
 //import { EditarCuentaPage } from "../editar-cuenta/editar-cuenta";
 import { Observable } from 'rxjs/Observable';
 import { HomeComercioPage } from "../../home-comercio/home-comercio";
-import {ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
+import { ConfiguaracionesPage} from "../../configuaraciones/configuaraciones";
 import { VerAnotacionesCuentaPage } from "../../gestion-anotaciones/ver-anotaciones-cuenta/ver-anotaciones-cuenta";
 
 
@@ -19,7 +18,6 @@ import { VerAnotacionesCuentaPage } from "../../gestion-anotaciones/ver-anotacio
 export class VerAnotacionesPage {
 
   listaCuentas$: Observable<Cuenta[]>
-  cantidad: string 
   items$: Observable<Cuenta[]>
   total: number=0
 
@@ -47,8 +45,8 @@ export class VerAnotacionesPage {
      
      this.inicializarItems();
     
-       // calculamos el total de las deudas
-       this.listaCuentas$.subscribe(result => {     
+     // calculamos el total de las deudas
+     this.listaCuentas$.subscribe(result => {     
               let length = result.length;
               let aux = 0;
               for (var i = 0; i < length; ++i) {
@@ -88,7 +86,7 @@ export class VerAnotacionesPage {
   
    }
 
-  // al seleccinar una cuenta para anotar abrimos la ventana para anotaciones
+  // al seleccinar una cuenta para ver su saldo abrimos el detalle de la cuenta
   seleccinar(cuenta: Cuenta)
   {
   	 this.navCtrl.push(VerAnotacionesCuentaPage, {cuenta: cuenta});

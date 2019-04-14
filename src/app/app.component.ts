@@ -53,7 +53,7 @@ export class MyApp {
       {title: 'Anotador', component: BuscarCuentaPage, icon: 'create'},
       {title: 'Saldos', component: VerAnotacionesPage, icon: 'logo-usd'},
       {title: 'Gestionar cuentas', component: CuentaPage, icon: 'logo-buffer'},
-      {title: 'Gestionar clientes vinculados', component: ClientePage, icon: 'contacts'},
+      {title: 'Clientes Vinculados', component: ClientePage, icon: 'contacts'},
       {title: 'Gestionar productos', component: ProductoPage, icon: 'cart'}  
     ];
   }

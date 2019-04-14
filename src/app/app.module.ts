@@ -43,6 +43,7 @@ import { BuscarCuentaPage } from "../pages/gestion-anotaciones/buscar-cuenta/bus
 import { Anotar } from "../pages/gestion-anotaciones/anotar/anotar";
 import { VerAnotacionesPage } from "../pages/gestion-anotaciones/ver-anotaciones/ver-anotaciones";
 import { VerAnotacionesCuentaPage } from "../pages/gestion-anotaciones/ver-anotaciones-cuenta/ver-anotaciones-cuenta";
+import { VerDetallePage } from "../pages/gestion-anotaciones/ver-detalle/ver-detalle";
 
 
 import {ConfiguaracionesPage} from "../pages/configuaraciones/configuaraciones";
@@ -98,6 +99,7 @@ export const firebaseConfig = {
     Anotar,
     VerAnotacionesPage,
     VerAnotacionesCuentaPage,
+    VerDetallePage,
 
 
     ConfiguaracionesPage,
@@ -142,6 +144,7 @@ export const firebaseConfig = {
     Anotar,
     VerAnotacionesPage,
     VerAnotacionesCuentaPage,
+    VerDetallePage,
     
     ProductoPage,
     AgregarProductoPage,
