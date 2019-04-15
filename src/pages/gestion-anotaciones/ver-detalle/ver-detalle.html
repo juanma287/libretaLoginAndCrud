@@ -38,15 +38,16 @@
     </ion-list-header>
     <hr>
     
-    <ion-item *ngFor="let detalles of detalle | async" 
+
+    <ion-item *ngFor="let item of items" 
     (click)="verDetalle()">
       <ion-grid no-padding >
         <ion-row >
           <ion-col col-6>
-             {{detalles.nombre_producto}} 
+             {{item.nombre_producto}} 
           </ion-col> 
           <ion-col col-6 text-right>
-            ${{detalles.total_detalle}} 
+            ${{item.total_detalle}} 
           </ion-col>     
         </ion-row>
      </ion-grid>

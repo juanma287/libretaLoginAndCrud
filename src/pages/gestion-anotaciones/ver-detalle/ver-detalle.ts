@@ -18,11 +18,10 @@ export class VerDetallePage {
 
    // Compra  con su detalle
    compra: Compra;
-   detalle: any;
+   detalle: any=[];
    valoresCompra:any;
-   cantidad: any;
-   
-
+   items: Array<any[]>;
+ 
   constructor(
    	 public navCtrl: NavController,
      public popoverCtrl: PopoverController,
@@ -31,10 +30,8 @@ export class VerDetallePage {
 	  {
      this.valoresCompra = (<any>Object).values(this.navParams.data);
      this.compra = this.valoresCompra['0'];
-     this.detalle = this.valoresCompra['0'].detalle.valueOf(); 
-     console.log(this.valoresCompra);
-     console.log(this.valoresCompra.keys);
-     console.log(this.detalle);
+     this.detalle = this.valoresCompra['0'].detalle; 
+     this.items = Object.keys(this.detalle).map(i => this.detalle[i])
 
 	  }
 
