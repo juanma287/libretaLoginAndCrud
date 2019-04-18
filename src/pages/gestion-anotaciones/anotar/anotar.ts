@@ -26,7 +26,7 @@ export class Anotar {
       fecha_compra:'',
       fecha_compra_number: 0,
       estado: 'intacta',
-      lista_detalle: '',
+      tipo: '',
     };
 
    // Lista de detalles que forman parte de la compra 
@@ -49,6 +49,8 @@ export class Anotar {
    valoresCuenta:any;
    key_cuenta:any;
    total_deuda: any;
+   total_items : number;
+   entrega: boolean; // si entrega o no entrega dinero
     
    // fecha y monto de la compra 
    fechaParaHTML = new Date().toISOString();
@@ -77,20 +79,24 @@ export class Anotar {
      
      this.fecha_compra = this.pipe.transform(this.fechaParaHTML ,'dd/MM/yyyy');
      this.fecha_compra_number = new Date(this.fechaParaHTML).getTime();
- 
+
+     // por defecto no entrega dinero
+     this.entrega = false;
+     this.total_items = 1;
 	  }
 
   ionViewDidLoad() {
        // traemos los productos del comercio
        let loader = this.loading.create({  content: 'Pocesando…',  });
        loader.present().then(() => {
+          
+           this.listaProductos$ = this.productoService.getListaCompleta()
+           .snapshotChanges().map(changes => {
+             return changes.map (c => ({
+             key: c.payload.key, ...c.payload.val()
+            }));
+          });   
 
-       this.listaProductos$ = this.productoService.getLista()
-         .snapshotChanges().map(changes => {
-           return changes.map (c => ({
-           key: c.payload.key, ...c.payload.val()
-         }));
-       });    
        // finalizo loader
        loader.dismiss()                     
        });
@@ -111,8 +117,8 @@ export class Anotar {
                 this.anotacionesService.agregarDetalle(this.key_cuenta, key_compra,this.listaDetalle[i]);
                }
                // actualizamos la cuenta del comercio y la cuenta general
-               this.anotacionesService.actualizarCuentaComercio(this.key_cuenta, this.total_deuda, this.compra.total_compra);
-               this.anotacionesService.actualizarCuentaGeneral(this.key_cuenta, this.total_deuda,this.compra.total_compra);
+               this.anotacionesService.actualizarCuentaComercio(this.key_cuenta, this.total_deuda, this.compra.total_compra, this.entrega );
+               this.anotacionesService.actualizarCuentaGeneral(this.key_cuenta, this.total_deuda,this.compra.total_compra, this.entrega);
           this.navCtrl.setRoot(BuscarCuentaPage);
           })           
      }
@@ -133,6 +139,15 @@ export class Anotar {
      this.compra.fecha_compra = this.fecha_compra;
      // se pone negativa para poder ordenar desendente con firebase
      this.compra.fecha_compra_number = this.fecha_compra_number * -1;
+     if(this.entrega)
+     {
+       this.compra.tipo = "entrega";
+     }
+     else
+     {
+       this.compra.tipo = "anota"
+     }
+
   }
 
 
@@ -150,13 +165,18 @@ export class Anotar {
         precio: 0,
         total_detalle:0
         }
-    this.listaDetalle.push(detalle);    
+    this.listaDetalle.push(detalle);   
+    this.total_items = this.total_items +1; 
+   
   }
 
   // por defecto eleiminamos el ultimo item
   eliminarDetalle() {
     this.listaDetalle.pop();
-    // this.listaDetalle(0, 1) de esta forma eliminamos el elemtno de la posicion 0
+    if(this.listaDetalle.length == 0) // si no hay ningun detalle tampoco hay entrega
+      this.entrega = false;
+    
+    this.total_items = this.total_items - 1;  
     this.calcularTotalCompra();
   }
 
@@ -182,6 +202,21 @@ export class Anotar {
         this.listaDetalle[indice].id_producto = val[0].key;
         this.listaDetalle[indice].unidad = val[0].unidad;
         this.listaDetalle[indice].precio = val[0].precio;
+
+          if(val[0].nombre == "entrega" && this.total_items <= 1)
+          {
+             this.entrega = true;
+          }
+          else if(val[0].nombre == "entrega" && this.total_items > 1)
+          {
+             this.entrega = false;
+                const alert = this.alertCtrl.create({
+                title: 'Advertencia',
+                subTitle: 'Si ingresa productos no puede ingresar entrega.',
+                buttons: ['OK']
+               });
+               alert.present();
+              }       
       }
     );
 

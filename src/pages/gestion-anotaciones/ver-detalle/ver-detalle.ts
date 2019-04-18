@@ -31,7 +31,8 @@ export class VerDetallePage {
      this.valoresCompra = (<any>Object).values(this.navParams.data);
      this.compra = this.valoresCompra['0'];
      this.detalle = this.valoresCompra['0'].detalle; 
-     this.items = Object.keys(this.detalle).map(i => this.detalle[i])
+     this.items = Object.keys(this.detalle).map(i => this.detalle[i]);
+
 
 	  }
 

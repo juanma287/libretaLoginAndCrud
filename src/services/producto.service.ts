@@ -12,10 +12,7 @@ export class ProductoService {
     public url: string;
     public listaPorductos: any;
 
-    constructor(
-        private db: AngularFireDatabase,  
-        private storage: Storage,
-        ) 
+    constructor( private db: AngularFireDatabase,   private storage: Storage ) 
     {
          // chequeamos el estado de la conexion 
          var connectedRef = this.db.object(".info/connected").valueChanges();
@@ -32,8 +29,15 @@ export class ProductoService {
                });
     }
  
-    getLista() {
+    getListaCompleta() {
         return this.listaPorductos;
+    }
+
+    getListaVisible() {
+        let path =  'lista-comercio/'+ this.usuario.id_comercio +'/productos';
+  
+        return this.db.list<Producto>(path,
+              ref => ref.orderByChild('visible').equalTo(true));
     }
  
     agregar(producto: Producto) {   
@@ -44,7 +48,7 @@ export class ProductoService {
  
     actualizar(producto: Producto) {
      
-        return this.listaPorductos.update(producto.key, producto).then(error => console.log(error));
+        return this.listaPorductos.update(producto.key, producto);
     }
  
     eliminar(producto: Producto) {

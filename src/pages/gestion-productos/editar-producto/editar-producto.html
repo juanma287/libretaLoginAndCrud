@@ -26,9 +26,10 @@
        <ion-item no-padding>
         <ion-label color="dark">Unidad:</ion-label>
         <ion-select  style="color: #999999" [(ngModel)]="producto.unidad"  #MySelect (ionChange)="onChange(MySelect.value)" okText="Ok" cancelText="Cancelar">
+          <ion-option value="unidad" >Unidad</ion-option>
           <ion-option value="kg">Kilogramo</ion-option>
           <ion-option value="gr">Gramo</ion-option>
-          <ion-option value="unidad" >Unidad</ion-option>
+          <ion-option value="hora" >Hora</ion-option>
         </ion-select>
       </ion-item>
       <ion-item no-padding>

@@ -16,12 +16,26 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="animated fadeIn common-bg	">
+<ion-content padding class="trips detail-bg">
 
+  <div class="trip card" tappable margin-bottom>
+    <div class="background border-bottom" [ngStyle]="{'background-image': 'url(' + urlImagen + ')'}">
+      <div class="background-filter rlt">
+        <div class="align-bottom" padding-left padding-right>
+          <h6 class="pull-left text-white" ion-text style="font-size: 2.1rem;">  {{usuario?.nombre_comercio}}</h6>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="padding-sm primary-bg">
+      <ion-icon name="calendar" class="text-white"></ion-icon>
+      <span ion-text class="text-white">{{ fecha_formateda }}  </span>
+      <span class="pull-right" ion-text color="light"><strong>Comercio: </strong>  <span ion-text  class="text-green bold">Activo</span></span>
+    </div>
+  </div>
 
 <ion-card no-margin margin-bottom class="full-width">
   <ion-card-header style="font-size: 1.9rem;">
-   {{usuario?.nombre_comercio}}
   </ion-card-header> 
   <hr>
   <ion-list  class="border-bottom">
@@ -31,7 +45,7 @@
 	    </ion-item>
       <ion-item  tappable (click)="gestionMenuComercio('ver_anotaciones')" class="border-bottom">
          <ion-icon name="logo-usd" item-start></ion-icon>
-          Ver saldos
+          Saldos
       </ion-item>
       
 	    <ion-item tappable (click)="gestionMenuComercio('cuenta')" class="border-bottom">

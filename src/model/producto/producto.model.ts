@@ -3,5 +3,6 @@ export interface Producto {
     nombre: string;
     precio: number;
     unidad:string;
+    visible: boolean;
 
 }

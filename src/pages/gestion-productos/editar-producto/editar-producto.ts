@@ -42,7 +42,7 @@ export class EditarProductoPage {
 
 
   onChange(value) {
-  console.log(value);
+ // console.log(value);
 
   }
   

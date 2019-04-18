@@ -14,6 +14,7 @@ import {BuscarCuentaPage} from "../gestion-anotaciones/buscar-cuenta/buscar-cuen
 import { VerAnotacionesPage } from "../gestion-anotaciones/ver-anotaciones/ver-anotaciones";
 
 import { Usuario } from '../../model/usuario/usuario.model';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -24,11 +25,21 @@ import { Usuario } from '../../model/usuario/usuario.model';
 export class HomeComercioPage {
   
   usuario: Usuario;
+  pipe = new DatePipe('es'); 
+  urlImagen: string;
+  fecha: string;
+  fecha_formateda: string;
 
   constructor(private storage: Storage, public nav: NavController, public popoverCtrl: PopoverController) {
      this.storage.get('usuario').then((val) => {
         this.usuario = val;
      });
+
+    this.urlImagen = "assets/img/comercios/panaderia.jpg";
+    this.fecha = new Date().toISOString();
+    this.fecha_formateda = this.pipe.transform(this.fecha ,'dd/MM/yyyy');
+    console.log(this.fecha_formateda);
+ 
   }
 
   // Se ejecuta cuando entras en una página, antes de cargarla. Utilízalo para tareas que se deben realizar siempre que entras

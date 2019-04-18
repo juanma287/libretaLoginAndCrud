@@ -4,5 +4,5 @@ export interface Compra {
     fecha_compra:string;
     fecha_compra_number: number;
     estado: string;
-    lista_detalle: any;
+    tipo: string;
 }

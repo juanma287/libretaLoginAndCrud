@@ -30,7 +30,7 @@
     
     <ion-item *ngFor="let producto of listaProductos$ | async" 
     (click)="editar(producto)">
-      <ion-grid no-padding >
+      <ion-grid no-padding>
         <ion-row >
           <ion-col col-6>
              {{producto.nombre}} 

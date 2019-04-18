@@ -83,23 +83,40 @@ export class AnotacionesService {
     }
 
     // actualizamos el total de la deuda en la cuenta que tiene alamcenada el comercio
-    actualizarCuentaComercio(key_cuenta, total_deuda_cuenta,  monto_compra) {   
+    actualizarCuentaComercio(key_cuenta, total_deuda_cuenta,  monto_compra, tipo) {   
       
       let path =  'lista-comercio/'+ this.key_comercio+'/cuentas/'+ key_cuenta;
-      let data = {
-                  total_deuda: total_deuda_cuenta + monto_compra
-                 }
-      return this.db.object(path).update(data); 
+      if(tipo) // si es entrega
+      {
+        let data = { total_deuda: total_deuda_cuenta - monto_compra }
+        return this.db.object(path).update(data); 
+
+      }
+      else  // si anota 
+      {
+        let data = { total_deuda: total_deuda_cuenta + monto_compra }
+        return this.db.object(path).update(data); 
+      }
+
+
     } 
 
     // actualizamos el total de la deuda en la cuenta general
-    actualizarCuentaGeneral(key_cuenta, total_deuda_cuenta, monto_compra) {   
+    actualizarCuentaGeneral(key_cuenta, total_deuda_cuenta, monto_compra, tipo) {   
                       
       let path =  'lista-cuenta/'+ this.key_comercio+'/'+ key_cuenta;
-      let data = {
-                  total_deuda: total_deuda_cuenta + monto_compra
-                 }
-      return this.db.object(path).update(data); 
+      if(tipo) // si es entrega
+      {
+        let data = { total_deuda: total_deuda_cuenta - monto_compra }
+        return this.db.object(path).update(data); 
+
+      }
+      else  // si anota 
+      {
+        let data = { total_deuda: total_deuda_cuenta + monto_compra }
+        return this.db.object(path).update(data); 
+      }
+
 
     } 
 

@@ -31,7 +31,7 @@ export class ProductoPage {
    let loader = this.loading.create({  content: 'Pocesando…',  });
    loader.present().then(() => {
 
-      this.listaProductos$ = this.productoService.getLista()
+      this.listaProductos$ = this.productoService.getListaVisible()
   	     .snapshotChanges().map(changes => {
            return changes.map (c => ({
            key: c.payload.key, ...c.payload.val()
