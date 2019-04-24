@@ -39,7 +39,7 @@ export class BuscarCuentaPage {
    let loader = this.loading.create({  content: 'Pocesando…',  });
    loader.present().then(() => {
 
-    this.listaCuentas$ = this.cuentaService.getListaOrderBy('nombre')
+    this.listaCuentas$ = this.cuentaService.getListaOrderBy('fecha_ultima_compra_number')
 	     .snapshotChanges().map(changes => {
          return changes.map (c => ({
          key: c.payload.key, ...c.payload.val()

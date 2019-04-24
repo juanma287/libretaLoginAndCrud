@@ -83,18 +83,28 @@ export class AnotacionesService {
     }
 
     // actualizamos el total de la deuda en la cuenta que tiene alamcenada el comercio
-    actualizarCuentaComercio(key_cuenta, total_deuda_cuenta,  monto_compra, tipo) {   
+    actualizarCuentaComercio(key_cuenta, total_deuda_cuenta,  monto_compra, tipo, fecha_compra, fecha_compra_number) {   
       
       let path =  'lista-comercio/'+ this.key_comercio+'/cuentas/'+ key_cuenta;
       if(tipo) // si es entrega
       {
-        let data = { total_deuda: total_deuda_cuenta - monto_compra }
+        let data =
+         { 
+           total_deuda: total_deuda_cuenta - monto_compra,
+           fecha_ultimo_pago: fecha_compra,
+           fecha_ultimo_pago_number: fecha_compra_number
+         }
         return this.db.object(path).update(data); 
 
       }
       else  // si anota 
       {
-        let data = { total_deuda: total_deuda_cuenta + monto_compra }
+        let data = 
+         { 
+           total_deuda: total_deuda_cuenta + monto_compra,
+           fecha_ultima_compra: fecha_compra,
+           fecha_ultima_compra_number: fecha_compra_number
+         }
         return this.db.object(path).update(data); 
       }
 
@@ -102,18 +112,28 @@ export class AnotacionesService {
     } 
 
     // actualizamos el total de la deuda en la cuenta general
-    actualizarCuentaGeneral(key_cuenta, total_deuda_cuenta, monto_compra, tipo) {   
+    actualizarCuentaGeneral(key_cuenta, total_deuda_cuenta, monto_compra, tipo,  fecha_compra, fecha_compra_number) {   
                       
       let path =  'lista-cuenta/'+ this.key_comercio+'/'+ key_cuenta;
       if(tipo) // si es entrega
       {
-        let data = { total_deuda: total_deuda_cuenta - monto_compra }
+        let data =
+         { 
+           total_deuda: total_deuda_cuenta - monto_compra,
+           fecha_ultimo_pago: fecha_compra,
+           fecha_ultimo_pago_number: fecha_compra_number
+         }
         return this.db.object(path).update(data); 
 
       }
       else  // si anota 
       {
-        let data = { total_deuda: total_deuda_cuenta + monto_compra }
+        let data = 
+         { 
+           total_deuda: total_deuda_cuenta + monto_compra,
+           fecha_ultima_compra: fecha_compra,
+           fecha_ultima_compra_number: fecha_compra_number
+         }
         return this.db.object(path).update(data); 
       }
 

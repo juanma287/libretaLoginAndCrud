@@ -65,9 +65,13 @@ export class CuentaService {
               return this.db.list<Cuenta>(path,
               ref => ref.orderByChild('nombre'));               
            } 
-          case 'fecha': { 
+          case 'fecha_alta_number': { 
               return this.db.list<Cuenta>(path,
               ref => ref.orderByChild('fecha_alta_number'));          
+           } 
+          case 'fecha_ultima_compra_number': { 
+              return this.db.list<Cuenta>(path,
+              ref => ref.orderByChild('fecha_ultima_compra_number'));          
            } 
           }
     }

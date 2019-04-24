@@ -21,6 +21,8 @@ export class AgregarCuentaPage {
     total_deuda: 0,  
     fecha_ultimo_pago: '',
     fecha_ultimo_pago_number: 0,
+    fecha_ultima_compra: '',
+    fecha_ultima_compra_number:0,
     fecha_alta: '',
     fecha_alta_number: 0 
     };
@@ -32,6 +34,8 @@ export class AgregarCuentaPage {
     total_deuda: 0,  
     fecha_ultimo_pago: '',
     fecha_ultimo_pago_number: 0,
+    fecha_ultima_compra: '',
+    fecha_ultima_compra_number:0,
     fecha_alta: '',
     fecha_alta_number: 0,
    };

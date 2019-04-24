@@ -33,7 +33,7 @@ export class CuentaPage {
    let loader = this.loading.create({  content: 'Pocesando…',  });
    loader.present().then(() => {
 
-    this.listaCuentas$ = this.cuentaService.getListaOrderBy('fecha')
+    this.listaCuentas$ = this.cuentaService.getListaOrderBy('fecha_alta_number')
 	     .snapshotChanges().map(changes => {
          return changes.map (c => ({
          key: c.payload.key, ...c.payload.val()

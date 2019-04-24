@@ -12,8 +12,10 @@ import {Keyboard} from '@ionic-native/keyboard';
 
 import {MyApp} from "./app.component";
 
-import {SettingsPage} from "../pages/settings/settings";
 import {LoginPage} from "../pages/login/login";
+
+import {ManualDeUsuarioPage} from "../pages/manual-de-usuario/manual-de-usuario";
+import {PoliticaDePrivacidadPage} from "../pages/politica-de-privacidad/politica-de-privacidad";
 
 // gestion de comercios
 import {ComercioPage} from "../pages/gestion-comercio/comercio/comercio";
@@ -76,12 +78,14 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    SettingsPage,
     HomeComercioPage,
     LoginPage,
     ComercioPage,
     AgregarComercioPage,
     EditarComercioPage,
+
+    ManualDeUsuarioPage,
+    PoliticaDePrivacidadPage,
 
     ProductoPage,
     AgregarProductoPage,
@@ -123,7 +127,6 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    SettingsPage,
     HomeComercioPage,
     LoginPage,
     ConfiguaracionesPage,
@@ -132,6 +135,9 @@ export const firebaseConfig = {
     AgregarComercioPage,
     EditarComercioPage,
 
+    ManualDeUsuarioPage,
+    PoliticaDePrivacidadPage,
+    
     CuentaPage, 
     AgregarCuentaPage,
     EditarCuentaPage,

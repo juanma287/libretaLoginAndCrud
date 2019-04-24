@@ -117,8 +117,8 @@ export class Anotar {
                 this.anotacionesService.agregarDetalle(this.key_cuenta, key_compra,this.listaDetalle[i]);
                }
                // actualizamos la cuenta del comercio y la cuenta general
-               this.anotacionesService.actualizarCuentaComercio(this.key_cuenta, this.total_deuda, this.compra.total_compra, this.entrega );
-               this.anotacionesService.actualizarCuentaGeneral(this.key_cuenta, this.total_deuda,this.compra.total_compra, this.entrega);
+               this.anotacionesService.actualizarCuentaComercio(this.key_cuenta, this.total_deuda, this.compra.total_compra, this.entrega, this.compra.fecha_compra,  this.compra.fecha_compra_number );
+               this.anotacionesService.actualizarCuentaGeneral(this.key_cuenta, this.total_deuda,this.compra.total_compra, this.entrega, this.compra.fecha_compra, this.compra.fecha_compra_number);
           this.navCtrl.setRoot(BuscarCuentaPage);
           })           
      }
@@ -195,7 +195,7 @@ export class Anotar {
     .map( productos =>
            productos.filter( prod => prod.key === key)
       );
-     
+    
     this.productoDetalle$.subscribe(val => 
       {
         this.listaDetalle[indice].nombre_producto = val[0].nombre;
@@ -203,11 +203,15 @@ export class Anotar {
         this.listaDetalle[indice].unidad = val[0].unidad;
         this.listaDetalle[indice].precio = val[0].precio;
 
-          if(val[0].nombre == "entrega" && this.total_items <= 1)
+        // LLamaos a este metodo por si cambia el producto luego de ingresar la cantidad
+        this.onChangeCantidad(indice);
+
+
+          if(val[0].unidad == "entrega" && this.total_items <= 1)
           {
              this.entrega = true;
           }
-          else if(val[0].nombre == "entrega" && this.total_items > 1)
+          else if(val[0].unidad == "entrega" && this.total_items > 1)
           {
              this.entrega = false;
                 const alert = this.alertCtrl.create({
@@ -219,6 +223,7 @@ export class Anotar {
               }       
       }
     );
+    
 
   }
 
