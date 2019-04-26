@@ -105,7 +105,6 @@ export const firebaseConfig = {
     VerAnotacionesCuentaPage,
     VerDetallePage,
 
-
     ConfiguaracionesPage,
     RegisterPage,
   ],

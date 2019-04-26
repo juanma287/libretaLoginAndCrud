@@ -73,6 +73,19 @@ export class AnotacionesService {
            return listaCuentasComercio.push(compra);           
     }
 
+    anularCompra(key_cuenta,key_compra)
+    {
+      let path =  'lista-compra/'+ this.key_comercio +'/'+ key_cuenta +'/'+ key_compra;
+      let data =
+         { 
+           estado: "anulada",
+           fecha_anula: new Date()
+         }
+        return this.db.object(path).update(data); 
+
+    }
+
+
     agregarDetalle(key_cuenta, key_compra, detalle: Detalle)
     {
        let path =  'lista-compra/'+ this.key_comercio +'/'+ key_cuenta +'/'+ key_compra + '/detalle';
@@ -81,6 +94,28 @@ export class AnotacionesService {
        return listaCompra.push(detalle);  
 
     }
+
+    actualizarCuentaCompraAnulada(key_cuenta, total_deuda_nuevo)
+    {
+      let path =  'lista-comercio/'+ this.key_comercio+'/cuentas/'+ key_cuenta;
+      let data =
+         { 
+           total_deuda: total_deuda_nuevo,
+         }
+       return this.db.object(path).update(data); 
+    }
+
+    actualizarCuentaGeneralCompraAnulada(key_cuenta, total_deuda_nuevo)
+    {
+       let path =  'lista-cuenta/'+ this.key_comercio+'/'+ key_cuenta;
+       let data =
+         { 
+           total_deuda: total_deuda_nuevo,
+         }
+       return this.db.object(path).update(data); 
+
+    }
+
 
     // actualizamos el total de la deuda en la cuenta que tiene alamcenada el comercio
     actualizarCuentaComercio(key_cuenta, total_deuda_cuenta,  monto_compra, tipo, fecha_compra, fecha_compra_number) {   

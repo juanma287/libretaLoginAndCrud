@@ -69,7 +69,7 @@ export class VerAnotacionesCuentaPage {
   // al seleccinar una comora mostramos el detalle de la misma
   verDetalle(compra: Compra)
   {
-     this.navCtrl.push(VerDetallePage, {compra: compra});
+     this.navCtrl.push(VerDetallePage, {cuenta:this.cuenta, compra: compra});
   }
  
 

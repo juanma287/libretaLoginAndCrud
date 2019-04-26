@@ -45,7 +45,7 @@ export class BuscarCuentaPage {
          key: c.payload.key, ...c.payload.val()
       }));
     });
-     
+       
      this.inicializarItems();
     
        /**
