@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,AlertController, PopoverController} from 'ionic-angular';
+import { NavController,LoadingController, ToastController, NavParams,AlertController, PopoverController} from 'ionic-angular';
 import { Producto } from '../../../model/producto/producto.model';
 import { ProductoService } from '../../../services/producto.service';
 import { ProductoPage} from "../producto/producto";
@@ -24,19 +24,35 @@ export class AgregarProductoPage {
   	public navParams: NavParams,
   	private productoService: ProductoService,
     public alertCtrl: AlertController,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    public loading: LoadingController,
+    public toastCtrl: ToastController
 
   	) {
   }
 
 
   agregar(producto: Producto) {
+          // show message
+      let toast = this.toastCtrl.create({
+        message: 'Producto agregado!',
+        duration: 1500,
+        position: 'bottom',
+        cssClass: "yourCssClassName",
+      });
+
      var estadoConexion = this.productoService.estadoConex;
      if(estadoConexion)
      {
+        let loader = this.loading.create({  content: 'Pocesando…',  });
+        loader.present().then(() => {
           this.productoService.agregar(producto).then(ref => { 
-                  this.navCtrl.setRoot(ProductoPage);
-                })           
+                   
+                   loader.dismiss();
+                   toast.present();  
+                   this.navCtrl.pop();
+                })        
+             })     
 
      }
      else

@@ -48,11 +48,6 @@ export class ProductoPage {
     });
   }
 
-  volverHome()
-  {
-     this.navCtrl.push(HomeComercioPage);
-  }
-
   agregar()
   {
   	 this.navCtrl.push(AgregarProductoPage);

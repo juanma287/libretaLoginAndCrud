@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, AlertController, LoadingController, PopoverController, NavParams} from 'ionic-angular';;
+import { NavController, ToastController, AlertController, LoadingController, PopoverController, NavParams} from 'ionic-angular';;
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
 import { Compra } from '../../../model/compra/compra.model';
 import { Detalle } from '../../../model/detalle/detalle.model';
@@ -67,7 +67,9 @@ export class Anotar {
   	 public loading: LoadingController,
      public alertCtrl: AlertController,
      public popoverCtrl: PopoverController,
-     public navParams: NavParams
+     public navParams: NavParams,
+     public toastCtrl: ToastController
+
   	 ) 
 	  {
      // leemos el parametro y cargamos los valores en la variable valoresCuenta
@@ -108,18 +110,33 @@ export class Anotar {
      var estadoConexion = this.anotacionesService.estadoConex;
      if(estadoConexion)
      {
-          this.inicializarCompra();
-          this.anotacionesService.agregarCompra(this.key_cuenta,this.compra).then(ref => {
-               let key_compra = ref.key;
-               let length = this.listaDetalle.length;
-               for (var i = 0; i < length; ++i) 
-               {
-                this.anotacionesService.agregarDetalle(this.key_cuenta, key_compra,this.listaDetalle[i]);
-               }
-               // actualizamos la cuenta del comercio y la cuenta general
-               this.anotacionesService.actualizarCuentaComercio(this.key_cuenta, this.total_deuda, this.compra.total_compra, this.entrega, this.compra.fecha_compra,  this.compra.fecha_compra_number );
-               this.anotacionesService.actualizarCuentaGeneral(this.key_cuenta, this.total_deuda,this.compra.total_compra, this.entrega, this.compra.fecha_compra, this.compra.fecha_compra_number);
-          this.navCtrl.setRoot(BuscarCuentaPage);
+          // show message
+          let toast = this.toastCtrl.create({
+            message: 'Guardado con éxito!',
+            duration: 1500,
+            position: 'bottom',
+            cssClass: "yourCssClassName",
+          });
+
+          let loader = this.loading.create({  content: 'Pocesando…',  });
+          loader.present().then(() => {
+
+            this.inicializarCompra();
+            this.anotacionesService.agregarCompra(this.key_cuenta,this.compra).then(ref => {
+                 let key_compra = ref.key;
+                 let length = this.listaDetalle.length;
+                 for (var i = 0; i < length; ++i) 
+                 {
+                  this.anotacionesService.agregarDetalle(this.key_cuenta, key_compra,this.listaDetalle[i]);
+                 }
+                 // actualizamos la cuenta del comercio y la cuenta general
+                 this.anotacionesService.actualizarCuentaComercio(this.key_cuenta, this.total_deuda, this.compra.total_compra, this.entrega, this.compra.fecha_compra,  this.compra.fecha_compra_number );
+                 this.anotacionesService.actualizarCuentaGeneral(this.key_cuenta, this.total_deuda,this.compra.total_compra, this.entrega, this.compra.fecha_compra, this.compra.fecha_compra_number);
+                      // finalizo loader
+               loader.dismiss(); 
+               toast.present();   
+               this.navCtrl.pop();
+            })
           })           
      }
      else
@@ -247,7 +264,7 @@ export class Anotar {
 
 
   volverHome() {
-     this.navCtrl.push(BuscarCuentaPage);
+     this.navCtrl.pop();
   }
 
   configuaraciones(myEvent) {

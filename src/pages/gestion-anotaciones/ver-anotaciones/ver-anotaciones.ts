@@ -93,10 +93,6 @@ export class VerAnotacionesPage {
   }
 
 
-  volverHome()
-  {
-     this.navCtrl.push(HomeComercioPage);
-  }
 
   configuaraciones(myEvent) {
     let popover = this.popoverCtrl.create(ConfiguaracionesPage);

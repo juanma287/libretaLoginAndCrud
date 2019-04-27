@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { NavController,AlertController,LoadingController,ToastController, NavParams, PopoverController } from 'ionic-angular';
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
 import { CuentaService } from '../../../services/cuenta.service';
 import { CuentaPage} from "../cuenta/cuenta";
@@ -18,7 +18,10 @@ export class EditarCuentaPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private cuentaService: CuentaService,
-    public popoverCtrl: PopoverController
+    public loading: LoadingController,
+    public popoverCtrl: PopoverController,
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController
     ) 
   {   
   }
@@ -29,18 +32,71 @@ export class EditarCuentaPage {
  
 
   actualizar(cuenta: Cuenta) {
-    this.cuentaService.actualizar(cuenta).then(() => {
-      // acutalizamos tambien la info en cuenta-general
-      this.cuentaService.actualizarCuentaGeneral(cuenta.key, cuenta.nombre);
-      this.navCtrl.setRoot(CuentaPage);
-    })
+      // show message
+      let toast = this.toastCtrl.create({
+        message: 'Cuenta actualizada!',
+        duration: 1500,
+        position: 'bottom',
+        cssClass: "yourCssClassName",
+      });
+
+    let loader = this.loading.create({  content: 'Pocesando…',  });
+     loader.present().then(() => {
+
+            this.cuentaService.actualizar(cuenta).then(() => {
+            // acutalizamos tambien la info en cuenta-general
+            this.cuentaService.actualizarCuentaGeneral(cuenta.key, cuenta.nombre).then(ref => {
+             // finalizo loader
+             loader.dismiss(); 
+             toast.present();   
+             this.navCtrl.pop();
+            })           
+          })                   
+    });
   }
  
   eliminar(cuenta: Cuenta) {
-     this.cuentaService.eliminar(cuenta).then(() => {
-       this.cuentaService.eliminarCuentaGeneral(cuenta.key);
-       this.navCtrl.setRoot(CuentaPage);
-    })
+
+   let alert = this.alertCtrl.create({
+      title: 'Confirmar',
+      message: '¿Esta seguro que desea elimiar la cuenta?',
+      buttons: [
+        {
+          text: 'cancelar',
+          role: 'cancel',
+          handler: () => {
+            // codigo si presiona cancelar
+          }
+        },
+        {
+          text: 'aceptar',
+          handler: () => {
+                         // show message
+                let toast = this.toastCtrl.create({
+                  message: 'Cuenta eliminada!',
+                  duration: 1500,
+                  position: 'bottom',
+                  cssClass: "yourCssClassName",
+                });
+
+               let loader = this.loading.create({  content: 'Pocesando…',  });
+               loader.present().then(() => {
+
+                   this.cuentaService.eliminar(cuenta).then(() => {
+                   this.cuentaService.eliminarCuentaGeneral(cuenta.key).then(ref => {
+                       // finalizo loader
+                       loader.dismiss();
+                       toast.present();  
+                       this.navCtrl.pop();
+                    })           
+                  })
+               });
+          }
+        }
+      ]
+    });
+    alert.present();    
+    
   }
 
 

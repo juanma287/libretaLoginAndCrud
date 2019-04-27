@@ -25,7 +25,7 @@ export class VerAnotacionesCuentaPage {
    key_cuenta:any;
    total_deuda: any;
    cantidad: any;
-   
+
 
   constructor(
    	 public navCtrl: NavController,
@@ -46,6 +46,7 @@ export class VerAnotacionesCuentaPage {
 	  }
 
   ionViewDidLoad() {
+
        // traemos los productos del comercio
        let loader = this.loading.create({  content: 'Pocesando…',  });
        loader.present().then(() => {
@@ -61,10 +62,12 @@ export class VerAnotacionesCuentaPage {
               this.cantidad = "CANTIDAD DE COMPRAS: "+ result.length +"";      
         });
 
+     
        // finalizo loader
        loader.dismiss()                     
        });
   }
+
 
   // al seleccinar una comora mostramos el detalle de la misma
   verDetalle(compra: Compra)

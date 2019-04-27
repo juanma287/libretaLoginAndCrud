@@ -50,11 +50,6 @@ export class CuentaPage {
     });
   }
 
-  volverHome()
-  {
-     this.navCtrl.push(HomeComercioPage);
-  }
-
   agregar()
   {
   	 this.navCtrl.push(AgregarCuentaPage);

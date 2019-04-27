@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,AlertController, PopoverController} from 'ionic-angular';
+import { NavController,LoadingController,ToastController, NavParams,AlertController, PopoverController} from 'ionic-angular';
 import { Cuenta } from '../../../model/cuenta/cuenta.model';
 import { CuentaGeneral } from '../../../model/cuenta-general/cuenta-general.model';
 import { CuentaService } from '../../../services/cuenta.service';
@@ -48,7 +48,9 @@ export class AgregarCuentaPage {
   	public navParams: NavParams,
   	private cuentaService: CuentaService,
     public alertCtrl: AlertController,
-    public popoverCtrl: PopoverController
+    public loading: LoadingController,
+    public popoverCtrl: PopoverController,
+    public toastCtrl: ToastController
   	) {
 
      this.cuenta.fecha_alta = this.pipe.transform(this.hoy ,'dd/MM/yyyy');
@@ -64,16 +66,32 @@ export class AgregarCuentaPage {
 
 
   agregar(cuenta: Cuenta) {
+      // show message
+      let toast = this.toastCtrl.create({
+        message: 'Cuenta creada!',
+        duration: 1500,
+        position: 'bottom',
+        cssClass: "yourCssClassName",
+      });
+
      var estadoConexion = this.cuentaService.estadoConex;
      if(estadoConexion)
      {
+        let loader = this.loading.create({  content: 'Pocesando…',  });
+        loader.present().then(() => {
           this.cuentaService.agregar(cuenta).then(ref => { 
 
                  // luego de que el comercio crea una cuenta, la misma se replica en la lista de cuentas generales
                  this.cuenta_general.nombre = cuenta.nombre;
-                 this.cuentaService.agregarCuentaGeneral(ref.key,this.cuenta_general)
-                 this.navCtrl.setRoot(CuentaPage);
-            })           
+                 this.cuentaService.agregarCuentaGeneral(ref.key,this.cuenta_general).then(ref => {    
+
+                      loader.dismiss();
+                      toast.present();  
+                      this.navCtrl.pop();
+                               
+                 })                           
+            })  
+        });             
      }
      else
      {
