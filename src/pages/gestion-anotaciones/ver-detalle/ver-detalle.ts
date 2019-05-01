@@ -4,7 +4,7 @@ import { Compra } from '../../../model/compra/compra.model';
 import { Detalle } from '../../../model/detalle/detalle.model';
 import { ConfiguaracionesPage } from "../../configuaraciones/configuaraciones";
 import { AnotacionesService } from '../../../services/anotaciones.service'
-import { VerAnotacionesPage } from "../../gestion-anotaciones/ver-anotaciones/ver-anotaciones";
+import { HomeComercioPage } from "../../home-comercio/home-comercio";
 
 
 
@@ -82,7 +82,7 @@ export class VerDetallePage {
       // show message
      let toast = this.toastCtrl.create({
         message: 'Movimiento anulado!',
-        duration: 1500,
+        duration: 2500,
         position: 'bottom',
         cssClass: "yourCssClassName",
       });
@@ -112,7 +112,7 @@ export class VerDetallePage {
                  loader.dismiss(); 
                  toast.present();   
                  this.navCtrl.pop().then(ref => {
-                       this.navCtrl.setRoot(VerAnotacionesPage);
+                       this.navCtrl.setRoot(HomeComercioPage);
                  })
              
               })
